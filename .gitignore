@@ -1,0 +1,28 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+login-identity-providers.xml
+conf
+data
+jars/*.jar
+.localstack
+.keys
+flow-state
+custom-libs/
+!custom-libs/.gitkeep
+!conf/logback.xml
+spark
+metastore_db/
+utils/lib/
+utils/target/
+**/*.log
+.vscode
+*.env
+!.env.template

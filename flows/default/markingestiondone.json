@@ -1,0 +1,1678 @@
+{
+  "externalControllerServices" : { },
+  "flow" : {
+    "createdTimestamp" : 1757687097781,
+    "description" : "Process Group to Mark Ingestion done by moving s3 object that was used in ingestion",
+    "identifier" : "markingestiondone",
+    "lastModifiedTimestamp" : 1757687097781,
+    "name" : "mark_ingestion_done",
+    "versionCount" : 0
+  },
+  "flowContents" : {
+    "comments" : "",
+    "componentType" : "PROCESS_GROUP",
+    "connections" : [ {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "99a818b7-6cef-38b0-8114-dadc0ebc45e0",
+        "name" : "UpdateAttribute",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "158ca13a-e02a-3298-87f9-9c12b9e0980e",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "" ],
+      "source" : {
+        "groupId" : "flow-contents-group",
+        "id" : "1d1a36c2-f81f-33a5-0000-0000258b1bdd",
+        "name" : "Mark File As Done",
+        "type" : "INPUT_PORT"
+      },
+      "zIndex" : 4
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "ddc9f725-190a-3249-0000-000067e9c225",
+        "name" : "PublishSlack",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "33b0ee53-64fd-3c33-9da1-1318ea292441",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "a5084ece-3db0-3fe3-bc96-21b60187aa62",
+        "name" : "DeleteS3Object",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 6
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "30894c96-e688-36c4-0000-0000258b1bdd",
+        "name" : "PutS3Object",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "5de0b7ea-4134-3f8e-bc86-d83fb83200d5",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "99a818b7-6cef-38b0-8114-dadc0ebc45e0",
+        "name" : "UpdateAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 5
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "a5084ece-3db0-3fe3-bc96-21b60187aa62",
+        "name" : "DeleteS3Object",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "6f3d13f3-18c7-3a5f-b272-94912177a3ff",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "f7a00b2d-4945-3c1f-0000-0000258b1bdd",
+        "name" : "Mark file as Done",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 3
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "f7a00b2d-4945-3c1f-0000-0000258b1bdd",
+        "name" : "Mark file as Done",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "df99be2f-0ec0-330c-0000-0000258b1bdd",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "30894c96-e688-36c4-0000-0000258b1bdd",
+        "name" : "PutS3Object",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 2
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "a76897cd-7282-3ddc-9871-006304830648",
+        "name" : "Funnel",
+        "type" : "FUNNEL"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "ed5f0ba4-9ddb-3ed5-9eb9-f82c060da5a0",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "ddc9f725-190a-3249-0000-000067e9c225",
+        "name" : "PublishSlack",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 7
+    } ],
+    "controllerServices" : [ {
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-aws-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "CONTROLLER_SERVICE",
+      "controllerServiceApis" : [ {
+        "bundle" : {
+          "artifact" : "nifi-aws-service-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2025.9.4.20"
+        },
+        "type" : "org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderService"
+      }, {
+        "bundle" : {
+          "artifact" : "nifi-aws-service-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2025.9.4.20"
+        },
+        "type" : "org.apache.nifi.processors.aws.credentials.provider.AwsCredentialsProviderService"
+      } ],
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "695a3853-8277-3e62-bc02-97ad5bc608eb",
+      "name" : "AWS DevRel Sandbox",
+      "properties" : {
+        "Access Key" : "#{music-flow.aws.access-key-id}",
+        "default-credentials" : "false",
+        "Session Time" : "3600",
+        "assume-role-sts-signer-override" : "Default Signature",
+        "Assume Role ARN" : "#{music-flow.s3.assume-role-arn}",
+        "Assume Role Session Name" : "Kamesh_SPCS_Openflow_MF_Demo",
+        "assume-role-sts-region" : "us-west-2",
+        "Secret Key" : "#{music-flow.aws.secret-access-key}",
+        "assume-role-external-id" : "#{music-flow.s3.ingest-data.assume-role-external-ID}",
+        "anonymous-credentials" : "false"
+      },
+      "propertyDescriptors" : {
+        "profile-name" : {
+          "displayName" : "Profile Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "profile-name",
+          "sensitive" : false
+        },
+        "Access Key" : {
+          "displayName" : "Access Key ID",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Access Key",
+          "sensitive" : true
+        },
+        "assume-role-proxy-configuration-service" : {
+          "displayName" : "Assume Role Proxy Configuration Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "assume-role-proxy-configuration-service",
+          "sensitive" : false
+        },
+        "default-credentials" : {
+          "displayName" : "Use Default Credentials",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "default-credentials",
+          "sensitive" : false
+        },
+        "Session Time" : {
+          "displayName" : "Assume Role Session Time",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Session Time",
+          "sensitive" : false
+        },
+        "assume-role-ssl-context-service" : {
+          "displayName" : "Assume Role SSL Context Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "assume-role-ssl-context-service",
+          "sensitive" : false
+        },
+        "assume-role-sts-signer-override" : {
+          "displayName" : "Assume Role STS Signer Override",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "assume-role-sts-signer-override",
+          "sensitive" : false
+        },
+        "custom-signer-class-name" : {
+          "displayName" : "Custom Signer Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-class-name",
+          "sensitive" : false
+        },
+        "Assume Role ARN" : {
+          "displayName" : "Assume Role ARN",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Assume Role ARN",
+          "sensitive" : false
+        },
+        "custom-signer-module-location" : {
+          "displayName" : "Custom Signer Module Location",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-module-location",
+          "resourceDefinition" : {
+            "cardinality" : "MULTIPLE",
+            "resourceTypes" : [ "DIRECTORY", "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "Assume Role Session Name" : {
+          "displayName" : "Assume Role Session Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Assume Role Session Name",
+          "sensitive" : false
+        },
+        "assume-role-sts-endpoint" : {
+          "displayName" : "Assume Role STS Endpoint Override",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "assume-role-sts-endpoint",
+          "sensitive" : false
+        },
+        "assume-role-sts-region" : {
+          "displayName" : "Assume Role STS Region",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "assume-role-sts-region",
+          "sensitive" : false
+        },
+        "Secret Key" : {
+          "displayName" : "Secret Access Key",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Secret Key",
+          "sensitive" : true
+        },
+        "Credentials File" : {
+          "displayName" : "Credentials File",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Credentials File",
+          "resourceDefinition" : {
+            "cardinality" : "SINGLE",
+            "resourceTypes" : [ "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "assume-role-external-id" : {
+          "displayName" : "Assume Role External ID",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "assume-role-external-id",
+          "sensitive" : false
+        },
+        "anonymous-credentials" : {
+          "displayName" : "Use Anonymous Credentials",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "anonymous-credentials",
+          "sensitive" : false
+        }
+      },
+      "scheduledState" : "DISABLED",
+      "type" : "org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService"
+    } ],
+    "defaultBackPressureDataSizeThreshold" : "1 GB",
+    "defaultBackPressureObjectThreshold" : 10000,
+    "defaultFlowFileExpiration" : "0 sec",
+    "executionEngine" : "INHERITED",
+    "externalControllerServiceReferences" : { },
+    "flowFileConcurrency" : "UNBOUNDED",
+    "flowFileOutboundPolicy" : "STREAM_WHEN_AVAILABLE",
+    "funnels" : [ {
+      "componentType" : "FUNNEL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "a76897cd-7282-3ddc-9871-006304830648",
+      "position" : {
+        "x" : -8.0,
+        "y" : 648.0
+      }
+    } ],
+    "identifier" : "flow-contents-group",
+    "inputPorts" : [ {
+      "allowRemoteAccess" : false,
+      "componentType" : "INPUT_PORT",
+      "concurrentlySchedulableTaskCount" : 1,
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "1d1a36c2-f81f-33a5-0000-0000258b1bdd",
+      "name" : "Mark File As Done",
+      "portFunction" : "STANDARD",
+      "position" : {
+        "x" : -120.0,
+        "y" : -568.0
+      },
+      "scheduledState" : "ENABLED",
+      "type" : "INPUT_PORT"
+    } ],
+    "labels" : [ ],
+    "maxConcurrentTasks" : 1,
+    "name" : "Mark File As Done",
+    "outputPorts" : [ ],
+    "parameterContextName" : "music-flow-spcs",
+    "position" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "processGroups" : [ ],
+    "processors" : [ {
+      "autoTerminatedRelationships" : [ "failure" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-aws-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "30894c96-e688-36c4-0000-0000258b1bdd",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "PutS3Object",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : -176.0,
+        "y" : -216.0
+      },
+      "properties" : {
+        "FullControl User List" : "${s3.permissions.full.users}",
+        "Owner" : "${s3.owner}",
+        "Resource Transfer Source" : "FLOWFILE_CONTENT",
+        "s3-object-remove-tags-prefix" : "false",
+        "Multipart Upload Max Age Threshold" : "7 days",
+        "canned-acl" : "${s3.permissions.cannedacl}",
+        "Signer Override" : "Default Signature",
+        "server-side-encryption" : "None",
+        "Write ACL User List" : "${s3.permissions.writeacl.users}",
+        "Read ACL User List" : "${s3.permissions.readacl.users}",
+        "Storage Class" : "Standard",
+        "Multipart Part Size" : "5 GB",
+        "use-chunked-encoding" : "true",
+        "Object Key" : "${filename}",
+        "AWS Credentials Provider service" : "695a3853-8277-3e62-bc02-97ad5bc608eb",
+        "Multipart Threshold" : "5 GB",
+        "Bucket" : "#{ingestion.s3.bucket}",
+        "Multipart Upload AgeOff Interval" : "60 min",
+        "use-path-style-access" : "false",
+        "Write Permission User List" : "${s3.permissions.write.users}",
+        "Communications Timeout" : "30 secs",
+        "Region" : "#{aws.region}",
+        "Read Permission User List" : "${s3.permissions.read.users}",
+        "s3-temporary-directory-multipart" : "${java.io.tmpdir}"
+      },
+      "propertyDescriptors" : {
+        "FullControl User List" : {
+          "displayName" : "FullControl User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "FullControl User List",
+          "sensitive" : false
+        },
+        "Owner" : {
+          "displayName" : "Owner",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Owner",
+          "sensitive" : false
+        },
+        "proxy-configuration-service" : {
+          "displayName" : "Proxy Configuration Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "proxy-configuration-service",
+          "sensitive" : false
+        },
+        "Resource Transfer Source" : {
+          "displayName" : "Resource Transfer Source",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Resource Transfer Source",
+          "sensitive" : false
+        },
+        "Cache Control" : {
+          "displayName" : "Cache Control",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Cache Control",
+          "sensitive" : false
+        },
+        "s3-object-remove-tags-prefix" : {
+          "displayName" : "Remove Tag Prefix",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "s3-object-remove-tags-prefix",
+          "sensitive" : false
+        },
+        "Endpoint Override URL" : {
+          "displayName" : "Endpoint Override URL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Endpoint Override URL",
+          "sensitive" : false
+        },
+        "File Resource Service" : {
+          "displayName" : "File Resource Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "File Resource Service",
+          "sensitive" : false
+        },
+        "Multipart Upload Max Age Threshold" : {
+          "displayName" : "Multipart Upload Max Age Threshold",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Upload Max Age Threshold",
+          "sensitive" : false
+        },
+        "custom-signer-class-name" : {
+          "displayName" : "Custom Signer Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-class-name",
+          "sensitive" : false
+        },
+        "canned-acl" : {
+          "displayName" : "Canned ACL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "canned-acl",
+          "sensitive" : false
+        },
+        "custom-signer-module-location" : {
+          "displayName" : "Custom Signer Module Location",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-module-location",
+          "resourceDefinition" : {
+            "cardinality" : "MULTIPLE",
+            "resourceTypes" : [ "DIRECTORY", "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "Signer Override" : {
+          "displayName" : "Signer Override",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Signer Override",
+          "sensitive" : false
+        },
+        "Content Type" : {
+          "displayName" : "Content Type",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Content Type",
+          "sensitive" : false
+        },
+        "server-side-encryption" : {
+          "displayName" : "Server Side Encryption",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "server-side-encryption",
+          "sensitive" : false
+        },
+        "Write ACL User List" : {
+          "displayName" : "Write ACL User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write ACL User List",
+          "sensitive" : false
+        },
+        "encryption-service" : {
+          "displayName" : "Encryption Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "encryption-service",
+          "sensitive" : false
+        },
+        "Read ACL User List" : {
+          "displayName" : "Read ACL User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Read ACL User List",
+          "sensitive" : false
+        },
+        "Content Disposition" : {
+          "displayName" : "Content Disposition",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Content Disposition",
+          "sensitive" : false
+        },
+        "Storage Class" : {
+          "displayName" : "Storage Class",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Storage Class",
+          "sensitive" : false
+        },
+        "Multipart Part Size" : {
+          "displayName" : "Multipart Part Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Part Size",
+          "sensitive" : false
+        },
+        "use-chunked-encoding" : {
+          "displayName" : "Use Chunked Encoding",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "use-chunked-encoding",
+          "sensitive" : false
+        },
+        "Object Key" : {
+          "displayName" : "Object Key",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Object Key",
+          "sensitive" : false
+        },
+        "AWS Credentials Provider service" : {
+          "displayName" : "AWS Credentials Provider service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "AWS Credentials Provider service",
+          "sensitive" : false
+        },
+        "Multipart Threshold" : {
+          "displayName" : "Multipart Threshold",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Threshold",
+          "sensitive" : false
+        },
+        "s3-object-tags-prefix" : {
+          "displayName" : "Object Tags Prefix",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "s3-object-tags-prefix",
+          "sensitive" : false
+        },
+        "SSL Context Service" : {
+          "displayName" : "SSL Context Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "SSL Context Service",
+          "sensitive" : false
+        },
+        "Bucket" : {
+          "displayName" : "Bucket",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Bucket",
+          "sensitive" : false
+        },
+        "Multipart Upload AgeOff Interval" : {
+          "displayName" : "Multipart Upload AgeOff Interval",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Upload AgeOff Interval",
+          "sensitive" : false
+        },
+        "use-path-style-access" : {
+          "displayName" : "Use Path Style Access",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "use-path-style-access",
+          "sensitive" : false
+        },
+        "Write Permission User List" : {
+          "displayName" : "Write Permission User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write Permission User List",
+          "sensitive" : false
+        },
+        "Communications Timeout" : {
+          "displayName" : "Communications Timeout",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Communications Timeout",
+          "sensitive" : false
+        },
+        "Region" : {
+          "displayName" : "Region",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Region",
+          "sensitive" : false
+        },
+        "Read Permission User List" : {
+          "displayName" : "Read Permission User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Read Permission User List",
+          "sensitive" : false
+        },
+        "Expiration Time Rule" : {
+          "displayName" : "Expiration Time Rule",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Expiration Time Rule",
+          "sensitive" : false
+        },
+        "s3-temporary-directory-multipart" : {
+          "displayName" : "Temporary Directory Multipart State",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "s3-temporary-directory-multipart",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.aws.s3.PutS3Object",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-update-attribute-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "99a818b7-6cef-38b0-8114-dadc0ebc45e0",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "UpdateAttribute",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : -176.0,
+        "y" : -440.0
+      },
+      "properties" : {
+        "processed.filename" : "${filename}",
+        "Store State" : "Do not store state",
+        "canonical-value-lookup-cache-size" : "100",
+        "processed.file.mime.type" : "${mime.type}"
+      },
+      "propertyDescriptors" : {
+        "processed.filename" : {
+          "displayName" : "processed.filename",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "processed.filename",
+          "sensitive" : false
+        },
+        "Delete Attributes Expression" : {
+          "displayName" : "Delete Attributes Expression",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Delete Attributes Expression",
+          "sensitive" : false
+        },
+        "Store State" : {
+          "displayName" : "Store State",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Store State",
+          "sensitive" : false
+        },
+        "canonical-value-lookup-cache-size" : {
+          "displayName" : "Cache Value Lookup Cache Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "canonical-value-lookup-cache-size",
+          "sensitive" : false
+        },
+        "processed.file.mime.type" : {
+          "displayName" : "processed.file.mime.type",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "processed.file.mime.type",
+          "sensitive" : false
+        },
+        "Stateful Variables Initial Value" : {
+          "displayName" : "Stateful Variables Initial Value",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Stateful Variables Initial Value",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 25,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.attributes.UpdateAttribute",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "failure" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-aws-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "a5084ece-3db0-3fe3-bc96-21b60187aa62",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "DeleteS3Object",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : -168.0,
+        "y" : 232.0
+      },
+      "properties" : {
+        "FullControl User List" : "${s3.permissions.full.users}",
+        "Owner" : "${s3.owner}",
+        "Object Key" : "${processed.filename}",
+        "AWS Credentials Provider service" : "695a3853-8277-3e62-bc02-97ad5bc608eb",
+        "Signer Override" : "Default Signature",
+        "Bucket" : "${s3.bucket}",
+        "Write Permission User List" : "${s3.permissions.write.users}",
+        "Communications Timeout" : "30 secs",
+        "Region" : "#{aws.region}",
+        "Read Permission User List" : "${s3.permissions.read.users}",
+        "Write ACL User List" : "${s3.permissions.writeacl.users}",
+        "Read ACL User List" : "${s3.permissions.readacl.users}"
+      },
+      "propertyDescriptors" : {
+        "FullControl User List" : {
+          "displayName" : "FullControl User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "FullControl User List",
+          "sensitive" : false
+        },
+        "Owner" : {
+          "displayName" : "Owner",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Owner",
+          "sensitive" : false
+        },
+        "proxy-configuration-service" : {
+          "displayName" : "Proxy Configuration Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "proxy-configuration-service",
+          "sensitive" : false
+        },
+        "Endpoint Override URL" : {
+          "displayName" : "Endpoint Override URL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Endpoint Override URL",
+          "sensitive" : false
+        },
+        "custom-signer-class-name" : {
+          "displayName" : "Custom Signer Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-class-name",
+          "sensitive" : false
+        },
+        "Object Key" : {
+          "displayName" : "Object Key",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Object Key",
+          "sensitive" : false
+        },
+        "AWS Credentials Provider service" : {
+          "displayName" : "AWS Credentials Provider service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "AWS Credentials Provider service",
+          "sensitive" : false
+        },
+        "custom-signer-module-location" : {
+          "displayName" : "Custom Signer Module Location",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-module-location",
+          "resourceDefinition" : {
+            "cardinality" : "MULTIPLE",
+            "resourceTypes" : [ "DIRECTORY", "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "SSL Context Service" : {
+          "displayName" : "SSL Context Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "SSL Context Service",
+          "sensitive" : false
+        },
+        "Signer Override" : {
+          "displayName" : "Signer Override",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Signer Override",
+          "sensitive" : false
+        },
+        "Bucket" : {
+          "displayName" : "Bucket",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Bucket",
+          "sensitive" : false
+        },
+        "Version" : {
+          "displayName" : "Version",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Version",
+          "sensitive" : false
+        },
+        "Write Permission User List" : {
+          "displayName" : "Write Permission User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write Permission User List",
+          "sensitive" : false
+        },
+        "Communications Timeout" : {
+          "displayName" : "Communications Timeout",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Communications Timeout",
+          "sensitive" : false
+        },
+        "Region" : {
+          "displayName" : "Region",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Region",
+          "sensitive" : false
+        },
+        "Read Permission User List" : {
+          "displayName" : "Read Permission User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Read Permission User List",
+          "sensitive" : false
+        },
+        "Write ACL User List" : {
+          "displayName" : "Write ACL User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write ACL User List",
+          "sensitive" : false
+        },
+        "Read ACL User List" : {
+          "displayName" : "Read ACL User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Read ACL User List",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.aws.s3.DeleteS3Object",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "failure", "rate limited" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-slack-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "ddc9f725-190a-3249-0000-000067e9c225",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "PublishSlack",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : -160.0,
+        "y" : 440.0
+      },
+      "properties" : {
+        "Max FlowFile Size" : "1 MB",
+        "Publish Strategy" : "Use 'Message Text' Property",
+        "Channel" : "#music-flow",
+        "Access Token" : "#{slack.bot.oauth.token}",
+        "Message Text" : "🎯 *Data Ingestion Successful*\n\n📋 *Ingestion Details:*\n   • Table: `${table.name}`\n   • Namespace: `${table.namespace}`\n   • Source: `${filename}` from s3 bucket `${source.s3.bucket}`\n   • Status: ✅ Complete\n\n💡 *What's Next?*\n   Your data is now available for querying and analytics\n\n---\n🎵 MusicFlow Pipeline | ${now():format('yyyy-MM-dd HH:mm:ss')}",
+        "Character Set" : "UTF-8",
+        "Include FlowFile Content as Attachment" : "true"
+      },
+      "propertyDescriptors" : {
+        "Max FlowFile Size" : {
+          "displayName" : "Max FlowFile Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Max FlowFile Size",
+          "sensitive" : false
+        },
+        "Thread Timestamp" : {
+          "displayName" : "Thread Timestamp",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Thread Timestamp",
+          "sensitive" : false
+        },
+        "Methods Endpoint Url Prefix" : {
+          "displayName" : "Methods Endpoint Url Prefix",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Methods Endpoint Url Prefix",
+          "sensitive" : false
+        },
+        "Publish Strategy" : {
+          "displayName" : "Publish Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Publish Strategy",
+          "sensitive" : false
+        },
+        "Channel" : {
+          "displayName" : "Channel",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Channel",
+          "sensitive" : false
+        },
+        "Access Token" : {
+          "displayName" : "Access Token",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Access Token",
+          "sensitive" : true
+        },
+        "Message Text" : {
+          "displayName" : "Message Text",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Message Text",
+          "sensitive" : false
+        },
+        "Character Set" : {
+          "displayName" : "Character Set",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Character Set",
+          "sensitive" : false
+        },
+        "Include FlowFile Content as Attachment" : {
+          "displayName" : "Include FlowFile Content as Attachment",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Include FlowFile Content as Attachment",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.slack.PublishSlack",
+      "yieldDuration" : "3 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "failure" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-aws-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "f7a00b2d-4945-3c1f-0000-0000258b1bdd",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "Mark file as Done",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : -168.0,
+        "y" : 8.0
+      },
+      "properties" : {
+        "FullControl User List" : "${s3.permissions.full.users}",
+        "Owner" : "${s3.owner}",
+        "Resource Transfer Source" : "FLOWFILE_CONTENT",
+        "s3-object-remove-tags-prefix" : "false",
+        "Multipart Upload Max Age Threshold" : "7 days",
+        "canned-acl" : "${s3.permissions.cannedacl}",
+        "Signer Override" : "Default Signature",
+        "Content Type" : "${processed.file.mime.type}",
+        "server-side-encryption" : "None",
+        "Write ACL User List" : "${s3.permissions.writeacl.users}",
+        "Read ACL User List" : "${s3.permissions.readacl.users}",
+        "Storage Class" : "Standard",
+        "Multipart Part Size" : "5 GB",
+        "use-chunked-encoding" : "true",
+        "Object Key" : "${filename}.done",
+        "AWS Credentials Provider service" : "695a3853-8277-3e62-bc02-97ad5bc608eb",
+        "Multipart Threshold" : "5 GB",
+        "Bucket" : "#{ingestion.s3.bucket}",
+        "Multipart Upload AgeOff Interval" : "60 min",
+        "use-path-style-access" : "false",
+        "Write Permission User List" : "${s3.permissions.write.users}",
+        "Communications Timeout" : "30 secs",
+        "Region" : "us-west-2",
+        "Read Permission User List" : "${s3.permissions.read.users}",
+        "s3-temporary-directory-multipart" : "${java.io.tmpdir}"
+      },
+      "propertyDescriptors" : {
+        "FullControl User List" : {
+          "displayName" : "FullControl User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "FullControl User List",
+          "sensitive" : false
+        },
+        "Owner" : {
+          "displayName" : "Owner",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Owner",
+          "sensitive" : false
+        },
+        "proxy-configuration-service" : {
+          "displayName" : "Proxy Configuration Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "proxy-configuration-service",
+          "sensitive" : false
+        },
+        "Resource Transfer Source" : {
+          "displayName" : "Resource Transfer Source",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Resource Transfer Source",
+          "sensitive" : false
+        },
+        "Cache Control" : {
+          "displayName" : "Cache Control",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Cache Control",
+          "sensitive" : false
+        },
+        "s3-object-remove-tags-prefix" : {
+          "displayName" : "Remove Tag Prefix",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "s3-object-remove-tags-prefix",
+          "sensitive" : false
+        },
+        "Endpoint Override URL" : {
+          "displayName" : "Endpoint Override URL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Endpoint Override URL",
+          "sensitive" : false
+        },
+        "File Resource Service" : {
+          "displayName" : "File Resource Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "File Resource Service",
+          "sensitive" : false
+        },
+        "Multipart Upload Max Age Threshold" : {
+          "displayName" : "Multipart Upload Max Age Threshold",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Upload Max Age Threshold",
+          "sensitive" : false
+        },
+        "custom-signer-class-name" : {
+          "displayName" : "Custom Signer Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-class-name",
+          "sensitive" : false
+        },
+        "canned-acl" : {
+          "displayName" : "Canned ACL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "canned-acl",
+          "sensitive" : false
+        },
+        "custom-signer-module-location" : {
+          "displayName" : "Custom Signer Module Location",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-module-location",
+          "resourceDefinition" : {
+            "cardinality" : "MULTIPLE",
+            "resourceTypes" : [ "DIRECTORY", "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "Signer Override" : {
+          "displayName" : "Signer Override",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Signer Override",
+          "sensitive" : false
+        },
+        "Content Type" : {
+          "displayName" : "Content Type",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Content Type",
+          "sensitive" : false
+        },
+        "server-side-encryption" : {
+          "displayName" : "Server Side Encryption",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "server-side-encryption",
+          "sensitive" : false
+        },
+        "Write ACL User List" : {
+          "displayName" : "Write ACL User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write ACL User List",
+          "sensitive" : false
+        },
+        "encryption-service" : {
+          "displayName" : "Encryption Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "encryption-service",
+          "sensitive" : false
+        },
+        "Read ACL User List" : {
+          "displayName" : "Read ACL User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Read ACL User List",
+          "sensitive" : false
+        },
+        "Content Disposition" : {
+          "displayName" : "Content Disposition",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Content Disposition",
+          "sensitive" : false
+        },
+        "Storage Class" : {
+          "displayName" : "Storage Class",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Storage Class",
+          "sensitive" : false
+        },
+        "Multipart Part Size" : {
+          "displayName" : "Multipart Part Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Part Size",
+          "sensitive" : false
+        },
+        "use-chunked-encoding" : {
+          "displayName" : "Use Chunked Encoding",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "use-chunked-encoding",
+          "sensitive" : false
+        },
+        "Object Key" : {
+          "displayName" : "Object Key",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Object Key",
+          "sensitive" : false
+        },
+        "AWS Credentials Provider service" : {
+          "displayName" : "AWS Credentials Provider service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "AWS Credentials Provider service",
+          "sensitive" : false
+        },
+        "Multipart Threshold" : {
+          "displayName" : "Multipart Threshold",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Threshold",
+          "sensitive" : false
+        },
+        "s3-object-tags-prefix" : {
+          "displayName" : "Object Tags Prefix",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "s3-object-tags-prefix",
+          "sensitive" : false
+        },
+        "SSL Context Service" : {
+          "displayName" : "SSL Context Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "SSL Context Service",
+          "sensitive" : false
+        },
+        "Bucket" : {
+          "displayName" : "Bucket",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Bucket",
+          "sensitive" : false
+        },
+        "Multipart Upload AgeOff Interval" : {
+          "displayName" : "Multipart Upload AgeOff Interval",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Upload AgeOff Interval",
+          "sensitive" : false
+        },
+        "use-path-style-access" : {
+          "displayName" : "Use Path Style Access",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "use-path-style-access",
+          "sensitive" : false
+        },
+        "Write Permission User List" : {
+          "displayName" : "Write Permission User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write Permission User List",
+          "sensitive" : false
+        },
+        "Communications Timeout" : {
+          "displayName" : "Communications Timeout",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Communications Timeout",
+          "sensitive" : false
+        },
+        "Region" : {
+          "displayName" : "Region",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Region",
+          "sensitive" : false
+        },
+        "Read Permission User List" : {
+          "displayName" : "Read Permission User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Read Permission User List",
+          "sensitive" : false
+        },
+        "Expiration Time Rule" : {
+          "displayName" : "Expiration Time Rule",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Expiration Time Rule",
+          "sensitive" : false
+        },
+        "s3-temporary-directory-multipart" : {
+          "displayName" : "Temporary Directory Multipart State",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "s3-temporary-directory-multipart",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.aws.s3.PutS3Object",
+      "yieldDuration" : "1 sec"
+    } ],
+    "remoteProcessGroups" : [ ],
+    "scheduledState" : "ENABLED",
+    "statelessFlowTimeout" : "1 min"
+  },
+  "flowEncodingVersion" : "1.0",
+  "latest" : false,
+  "parameterContexts" : {
+    "music-flow-spcs" : {
+      "componentType" : "PARAMETER_CONTEXT",
+      "description" : "All parameter variables for music-flow on SPCS. \n\nTODO: Remove all unwanted variables",
+      "inheritedParameterContexts" : [ ],
+      "name" : "music-flow-spcs",
+      "parameters" : [ {
+        "description" : "",
+        "name" : "aws.region",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "us-west-2"
+      }, {
+        "description" : "The Snowflake Cortex System AI System Prompt",
+        "name" : "cortex_prompt_system_message",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "## System Message\n\nYou are an expert data engineer specializing in Apache Avro schema generation and PyIceberg table operations with Polaris Iceberg catalogs. Your task is to analyze CSV file structure and generate both a syntactically valid Avro schema and clean, production-ready Python code for table creation/evolution using Iceberg Types.\n\n### Core Requirements\n\n- Generate a complete, valid Apache Avro schema in JSON format\n- Generate clean, well-formatted Python code for PyIceberg table operations using Iceberg Types\n- Use intelligent data type inference from CSV sample data\n- Follow Avro best practices for field naming and nullability\n- Ensure schema compatibility with Apache NiFi Record processors\n- Handle both first-time table creation and schema evolution scenarios\n- Perform semantic field matching for schema evolution\n- Generate complete evolved schemas with ALL fields (existing + new/changed fields), ensuring new fields are nullable\n- **CRITICAL**: Always use Iceberg Types (StringType, LongType, DoubleType, etc.) for all schema operations\n\n### Schema Evolution Logic\n\n#### Evolution Detection Rules\n\n- When `${schema.evolution.required}` is \"yes\", analyze existing schema against CSV headers\n- Perform semantic field matching to identify:\n  - Exact name matches (case-insensitive)\n  - Semantic equivalents (e.g., \"artist_name\" → \"performer\", \"start_time\" → \"show_time\")\n  - Type changes requiring evolution (e.g., string → double, non-nullable → nullable)\n- Generate evolution-specific Avro schema containing ALL fields (existing + new/changed fields)\n- All newly added fields MUST be nullable for backward compatibility\n- Include field mapping analysis in `schema.analysis` metadata\n\n#### Semantic Field Matching Table\n\n**NEW**: Use this semantic mapping table for field equivalence detection:\n\n| Standard Field | Semantic Equivalents | Data Type | Business Context |\n|---------------|---------------------|-----------|------------------|\n| event_id | show_id, slot_number, performance_id, id | long | Primary identifier |\n| artist_name | dj_performer, performer, headliner, act_name, artist | string | Performer information |\n| stage | main_stage, venue_section, location, venue_area, stage_location, venue | string | Performance location |\n| event_datetime | start_time, time_block, date_time, time_slot, show_time, datetime | string | Event timing |\n| ticket_price | vip_price, admission_cost, ticket_cost, entry_fee, price_tier, price, cost | double | Pricing information |\n| festival_name | event_name, festival, venue_name | string | Event organization |\n| genre | music_genre, category, style, type | string | Classification |\n| capacity | max_attendance, venue_capacity, max_capacity | long | Venue limits |\n| city | location_city, venue_city | string | Geographic location |\n| sponsor | sponsorship, partner, brand | string | Commercial partnerships |\n| ticket_type | pass_type, admission_type, entry_type, ticket_category | string | Ticket classification |\n| quantity | qty, count, number_of_tickets, ticket_count | long | Purchase quantity |\n| unit_price | price_per_ticket, individual_price, single_price | double | Per-unit pricing |\n| total_amount | total_price, final_amount, grand_total, amount_paid | double | Total transaction value |\n| purchase_date | order_date, transaction_date, sale_date, bought_date | string | Transaction timestamp |\n| payment_method | payment_type, pay_method, payment_mode, transaction_type | string | Payment processing method |\n\n#### Evolution Analysis Process\n\n1. **Parse Existing Schema**: Extract field names, types, and nullability from `${existing.schema}` and use provided `${table.name}` and `${table.namespace}` for target table identification\n2. **CSV Header Analysis**: Analyze `${csv.headers}` for new fields using semantic matching\n3. **Type Compatibility Check**: Verify if existing field types can accommodate new data\n4. **Evolution Detection**: Identify fields that require schema changes\n5. **Generate Evolution Schema**: Create complete Avro schema with ALL fields (existing fields + new evolved fields), ensuring all new fields are nullable\n\n### Data Type Mapping Rules\n\n#### Avro Types\n\n- **Integers**: Always use \"long\" (64-bit) instead of \"int\"\n- **Decimals/Floats**: Always use \"double\" instead of \"float\"\n- **Text**: Use \"string\" type\n- **Booleans**: Use \"boolean\" type for true/false values\n- **Dates/Times**: Use \"string\" with logical type annotations when possible\n- **IDs/Keys**: Always use \"long\" type for identifiers\n\n#### PyArrow Type Mapping\n\n- **Avro \"long\"** → `LongType()` (for Iceberg schema creation)\n- **Avro \"double\"** → `DoubleType()` (for Iceberg schema creation)\n- **Avro \"string\"** → `StringType()` (for Iceberg schema creation)\n- **Avro \"boolean\"** → `BooleanType()` (for Iceberg schema creation)\n- **Avro \"int\"** → `IntegerType()` (for Iceberg schema creation)\n\n#### Iceberg Type Mapping for Schema Operations\n\n**CRITICAL**: Always use Iceberg Types for CREATE and ALTER schema operations:\n\n- **Long fields** → `LongType()` from `pyiceberg.types`\n- **Double fields** → `DoubleType()` from `pyiceberg.types`  \n- **String fields** → `StringType()` from `pyiceberg.types`\n- **Boolean fields** → `BooleanType()` from `pyiceberg.types`\n- **Integer fields** → `IntegerType()` from `pyiceberg.types`\n- **Timestamp fields** → `TimestampType()` from `pyiceberg.types`\n\n**MANDATORY**: Import Iceberg types for schema operations:\n\n```python\nfrom pyiceberg.schema import Schema\nfrom pyiceberg.types import (\n    NestedField,\n    StringType,\n    LongType,\n    DoubleType,\n    BooleanType,\n    IntegerType,\n    TimestampType,\n)\n```\n\n### Schema Design Rules\n\n#### Nullability Rules\n\n- Make fields nullable by default: `[\"null\", \"type\"]`\n- Only make fields non-nullable if they are clearly required (like primary keys)\n- Use union types for optional fields\n\n##### Evolution-Specific Nullability Rules\n\n- **CRITICAL**: During schema evolution, ALL newly added fields MUST be nullable\n- **CRITICAL**: Existing fields retain their original nullability settings\n- **CRITICAL**: New fields use `[\"null\", \"type\"]` union type with `\"default\": null`\n\n#### Field Naming\n\n- Use snake_case for field names\n- Convert spaces and special characters to underscores\n- Keep names descriptive but concise\n\n#### Schema Evolution Logic\n\n- Compare current CSV structure with existing schema (if provided)\n- Detect new fields that need to be added using semantic matching\n- Generate appropriate CREATE or ALTER table code based on context\n- When evolution required, generate complete schema with ALL fields (existing + new), making all new fields nullable\n\n### Python Code Requirements\n\n#### Code Quality Standards\n\n- Generate clean, properly formatted Python code ready for file writing\n- Include proper imports for Polaris RestCatalog integration\n- **CRITICAL**: Use comprehensive type hints for ALL variables, function parameters, and return values - no variable should be without a type hint\n- **CRITICAL**: Every variable assignment must include explicit type annotation (e.g., `catalog_uri: Optional[str] = os.getenv(...)`)\n- Include error handling for production use\n- Use single-line comments for documentation\n- Follow PEP 8 standards for formatting\n- Include proper line breaks and indentation (4 spaces)\n- Generate code that's ready to save as .py file\n\n#### PEP 8 Python Formatting Requirements\n\n- **String Quotes**: Use single quotes for all strings: `'string'` not `\"string\"` (This prevents JSON escaping issues)\n- **Docstrings**: Use single quotes for docstrings: `'''docstring'''` not `\"\"\"docstring\"\"\"` (Consistency with string quote policy)\n- **F-strings**: Use f-strings ONLY when substitution is needed: `f'Hello {name}'`, otherwise use regular strings: `'Hello world'`\n- **Trailing Commas**: Use trailing commas in multi-item structures for better readability\n- **Line Length**: Keep lines under 88 characters (Black formatter standard)\n- **Import Organization**: Group imports in order: standard library, third-party, local imports\n- **Function Spacing**: Two blank lines before function definitions\n- **Variable Spacing**: Use snake_case for variables and functions\n- **Constant Naming**: Use UPPER_CASE for constants\n- **Indentation**: Use 4 spaces for indentation, never tabs\n\n#### Functionality Requirements\n\n- If `is_first_time=yes`: Generate CREATE TABLE code with `TableAlreadyExistsError` handling\n- If `is_first_time=no` AND `schema_evolution_required=yes`: Generate ALTER TABLE code for schema evolution\n- If `is_first_time=no` AND `schema_evolution_required=no`: Generate table load code only\n- **CRITICAL**: Include schema comparison logic when existing schema provided\n- **CRITICAL**: Handle semantic field matching for evolution detection\n- **MANDATORY**: Include the exact `load_catalog` function implementation specified in \"Required Catalog Implementation\" section\n- **MANDATORY**: Always call `catalog: RestCatalog = load_catalog()` to initialize catalog connection in CREATE and ALTER scenarios\n- Include main execution function with proper error handling\n- Handle dynamic table naming using provided variables\n- Support schema comparison and evolution detection\n- Include proper logging and status reporting\n- Generate code that works with NiFi variable substitution\n- **CRITICAL**: During schema evolution, Python code should generate ALTER TABLE operations that add ONLY the new fields, not recreate the entire table\n- **CRITICAL**: Use PyIceberg's `table.update_schema().add_column()` method for each new field individually with Iceberg Types (StringType, LongType, DoubleType, etc.) not PyArrow types\n- **CRITICAL**: For table creation, use Iceberg Schema with NestedField and proper Iceberg types\n- **CRITICAL**: Import and use Iceberg types: `from pyiceberg.types import StringType, LongType, DoubleType, BooleanType, IntegerType, TimestampType`\n- **MANDATORY**: Call `update_schema_registry(table_name, table_namespace)` after successful CREATE TABLE or ALTER TABLE operations to mark table as ingestion-ready\n- **MANDATORY**: For CREATE scenarios, call `catalog.create_namespace_if_not_exists(table_namespace)` before table creation to ensure namespace exists\n- **MANDATORY**: Include success logging statements after table creation: `print(f\"Successfully created table: {table_identifier}\")`, `print(f\"Table location: {table.location()}\")`, `print(f\"Table schema: {table.schema()}\")`\n- **MANDATORY**: Include success logging statements after schema evolution: `print(f\"Successfully evolved schema for table: {table_identifier}\")`, `print(f\"New schema: {table.schema()}\")`\n\n#### Iceberg Schema Creation Patterns\n\n**MANDATORY**: For table creation, use Iceberg Schema with NestedField pattern:\n\n```python\nschema = Schema(\n    NestedField(field_id=1, name=\"event_id\", field_type=LongType(), required=True),\n    NestedField(field_id=2, name=\"artist_name\", field_type=StringType(), required=False),\n    NestedField(field_id=3, name=\"ticket_price\", field_type=DoubleType(), required=False),\n)\n\ntable = catalog.create_table(identifier=\"events.music_events\", schema=schema)\n```\n\n**MANDATORY**: For schema evolution, use update_schema() with Iceberg Types:\n\n```python\ntable.update_schema().add_column(\"genre\", StringType(), required=False).add_column(\"sponsor\", StringType(), required=False).commit()\n```\n\n**FORBIDDEN**: Using PyArrow types in schema operations:\n\n```python\n# DO NOT USE - INCORRECT\ntable.update_schema().add_column(\"genre\", pa.string(), required=False).commit()\n```\n\n- **CRITICAL**: Preserve existing table data and structure during evolution\n\n#### Required Imports\n\n**MANDATORY**: Always include these exact imports at the top of all generated Python code:\n\n```python\nimport json\nimport os\nfrom typing import Any, Dict, Optional\n\nimport pyarrow as pa\nfrom dotenv import find_dotenv, load_dotenv\nfrom pyiceberg.catalog.rest import RestCatalog\nfrom pyiceberg.exceptions import NoSuchTableError, TableAlreadyExistsError\nfrom pyiceberg.schema import Schema\nfrom pyiceberg.types import (\n    NestedField,\n    StringType,\n    LongType,\n    DoubleType,\n    BooleanType,\n    IntegerType,\n    TimestampType,\n)\nfrom snowflake.snowpark import Row, Session\n\nif not load_dotenv(find_dotenv(\"../work/.polaris.env\")):\n    raise ValueError(\"Failed to load environment variables from .env file\")\n```\n\n**CRITICAL**: Include the environment loading logic exactly as shown above to ensure proper configuration loading.\n\n#### Required Catalog Implementation\n\n**MANDATORY**: Always use the following exact `load_catalog` function implementation in ALL generated Python code for CREATE and ALTER schema scenarios:\n\n```python\ndef load_catalog() -> RestCatalog:\n    \"\"\"Load and configure Polaris RestCatalog with proper authentication.\"\"\"\n    catalog_uri: Optional[str] = os.getenv(\"POLARIS_CATALOG_URI\")\n    catalog_name: Optional[str] = os.getenv(\"POLARIS_CATALOG_NAME\")\n    realm: Optional[str] = os.getenv(\"POLARIS_REALM\", \"POLARIS\")\n    client_id: Optional[str] = os.getenv(\"POLARIS_CLIENT_ID\")\n    client_secret: Optional[str] = os.getenv(\"POLARIS_CLIENT_SECRET\")\n\n    if catalog_uri is None:\n        raise ValueError(\"POLARIS_CATALOG_URI environment variable is required\")\n    if catalog_name is None:\n        raise ValueError(\"POLARIS_CATALOG_NAME environment variable is required\")\n    if client_id is None:\n        raise ValueError(\"POLARIS_CLIENT_ID environment variable is required\")\n    if client_secret is None:\n        raise ValueError(\"POLARIS_CLIENT_SECRET environment variable is required\")\n\n    catalog: RestCatalog = RestCatalog(\n        name=catalog_name,\n        uri=catalog_uri,\n        credential=f\"{client_id}:{client_secret}\",\n        warehouse=catalog_name,\n        scope=\"PRINCIPAL_ROLE:ALL\",\n        **{\"header.content-type\": \"application/vnd.api+json\"},\n        **{\"header.X-Iceberg-Access-Delegation\": \"vended-credentials\"},\n        **{\"header.Polaris-Realm\": realm},\n    )\n\n    return catalog\n```\n\n**CRITICAL**: This function must be included verbatim in all generated Python code. Do not modify the implementation, parameters, or configuration settings. Always call `catalog: RestCatalog = load_catalog()` to initialize the catalog connection in CREATE and ALTER scenarios.\n\n#### Required Schema Registry Implementation\n\n**MANDATORY**: Always include the following exact `update_schema_registry` function implementation in ALL generated Python code for CREATE and ALTER schema scenarios:\n\n```python\ndef update_schema_registry(table_name: str, table_namespace: str) -> None:\n    \"\"\"Update the schema registry for the specified table.\"\"\"\n    from typing import List\n    \n    try:\n        session = Session.builder.configs(\n            {\n                \"account\": os.getenv(\"SNOWFLAKE_ACCOUNT\"),\n                \"user\": os.getenv(\"SA_USER\"),\n                \"password\": os.getenv(\"SNOWFLAKE_PASSWORD\"),\n                \"role\": os.getenv(\"SNOWFLAKE_OPENFLOW_DEMO_ROLE\"),\n                \"warehouse\": os.getenv(\"SNOWFLAKE_OPENFLOW_DEMO_WAREHOUSE\"),\n                \"database\": os.getenv(\"SNOWFLAKE_OPENFLOW_DEMO_DATABASE\"),\n            }\n        ).getOrCreate()\n        rows: List[Row] = session.sql(f\"\"\"\n            UPDATE metadata.schema_registry\n            SET \n            IS_READY = TRUE\n            WHERE\n            table_name = '{table_name}'\n            AND\n            table_namespace = '{table_namespace}';\n            \"\"\").collect()\n        if rows and len(rows) == 1:\n            print(\n                f\"Table: {table_name} in namespace: {table_namespace} is now ready for ingestion.\"\n            )\n    except Exception as e:\n        print(f\"Error updating schema registry for table {table_name}: {str(e)}\")\n```\n\n**CRITICAL**: This function must be included verbatim in all generated Python code for CREATE and ALTER scenarios. Always call this function after successful table creation or schema evolution operations.\n\n#### PyIceberg Schema Evolution Methods\n\nFor schema evolution, use the correct PyIceberg API with Iceberg Types:\n\n**CORRECT**: Use update_schema() chain with Iceberg Types\n\n```python\ntable.update_schema().add_column('new_field', StringType(), required=False).commit()\n```\n\n**CORRECT**: Multiple field additions with proper types\n\n```python\ntable.update_schema().add_column(\n    'genre', StringType(), required=False\n).add_column(\n    'sponsor', StringType(), required=False\n).add_column(\n    'capacity', LongType(), required=False\n).commit()\n```\n\n**INCORRECT**: Using PyArrow types (deprecated)\n\n```python\ntable.update_schema().add_column('new_field', pa.string(), required=False).commit()\n```\n\n**INCORRECT**: Direct add_column (deprecated)\n\n```python\ntable.add_column('new_field', StringType())\n```\n\n#### Polaris Configuration Requirements\n\n**MANDATORY**: Use the standardized `load_catalog` function implementation specified in the \"Required Catalog Implementation\" section above. Do not create alternative implementations.\n\n**CRITICAL**: The function must:\n\n- Use environment variables: `POLARIS_CATALOG_URI`, `POLARIS_CATALOG_NAME`, `POLARIS_REALM`, `POLARIS_CLIENT_ID`, `POLARIS_CLIENT_SECRET`\n- Validate required environment variables and raise descriptive errors if None\n- Type variables properly with Optional[str] and validate with individual None checks\n- Configure RestCatalog with proper Polaris headers as shown in the standardized implementation\n- Use default realm value: `POLARIS` if environment variable not set\n- Include vended-credentials and realm configuration exactly as specified\n- Include comprehensive type hints for all function parameters and return values\n\n### CRITICAL OUTPUT REQUIREMENTS\n\n#### Response Format - MANDATORY\n\n- **CRITICAL**: Return ONLY a JSON object with exactly four properties: `inferred_metadata`, `avro_schema`, `code`, and `schema_analysis`\n- **CRITICAL**: The `inferred_metadata` property MUST contain inferred table information as a JSON object\n- **CRITICAL**: The `avro_schema` property MUST contain the complete Avro schema as a JSON object converted to string **WITH ALL QUOTES ESCAPED**\n- **CRITICAL**: The `code` property MUST contain properly formatted Python code as a string with proper newlines (`\\n`) and 4-space indentation\n- **CRITICAL**: The `schema_analysis` property MUST contain evolution analysis including field mappings and new field detection\n- **CRITICAL**: The response must be parseable JSON that can be directly loaded and the values extracted with proper formatting preserved\n- **CRITICAL**: Use proper JSON string escaping for quotes, newlines, and other special characters\n\n#### Metadata Inference Requirements - CRITICAL\n\n- **CRITICAL**: Analyze CSV headers and sample data to determine content type using pattern matching\n- **CRITICAL**: When `${schema.evolution.required}` is \"yes\", ALWAYS use `${table.name}` and `${table.namespace}` directly in `inferred_metadata` - DO NOT infer these values from CSV analysis during evolution.\n- **CRITICAL**: Generate table name if not already provided via `${table.name}`\n- **CRITICAL**: Generate table namespace if not already provided via `${table.namespace}`\n- **CRITICAL**: Map content types to standardized table names based on data analysis, NOT filenames:\n  - Festival/Event data → \"music_events\" (keywords: artist, performer, stage, venue, lineup, show, event, festival)\n  - Customer data → \"customers\" (keywords: customer, user, client, contact, member, subscriber)\n  - Sales/Transaction data → \"transactions\" (keywords: price, cost, payment, order, purchase, sale, revenue, ticket_price, unit_price, total_amount, quantity, payment_method, ticket_type, ticket_sales)\n  - Product data → \"products\" (keywords: product, item, inventory, catalog, sku, merchandise)\n  - Employee data → \"employees\" (keywords: employee, staff, worker, personnel, hire, department)\n  - Unknown data → \"raw_data\" (fallback when no clear pattern matches)\n- **CRITICAL**: Use consistent namespaces based on business domain:\n  - Events/Entertainment → \"events\"\n  - Customer Management → \"crm\"\n  - Sales/Commerce → \"sales\"\n  - Product Management → \"inventory\"\n  - Human Resources → \"hr\"\n  - Analytics/Metrics → \"analytics\"\n  - Unknown/Mixed → \"ingestion\"\n- **CRITICAL**: Include source differentiation via metadata columns (source_file, festival_name, data_source)\n- **CRITICAL**: Use partitioning strategies for large unified tables (e.g., PARTITIONED BY festival_name, event_date)\n\n#### Schema Analysis Requirements - CRITICAL\n\nThe `schema_analysis` must contain:\n\n```json\n{\n  \"evolution_required\": true,\n  \"existing_field_count\": 5,\n  \"new_field_count\": 3,\n  \"total_field_count\": 8,\n  \"field_mappings\": {\n    \"retained_fields\": [\"event_id\", \"artist_name\", \"stage\", \"event_datetime\", \"ticket_price\"],\n    \"exact_matches\": [\"event_id\", \"stage\"],\n    \"semantic_matches\": {\n      \"artist_name\": \"performer\",\n      \"event_datetime\": \"show_time\"\n    },\n    \"new_fields\": [\"genre\", \"sponsor\", \"capacity\"],\n    \"type_changes\": {\n      \"ticket_price\": {\n        \"old_type\": \"string\",\n        \"new_type\": \"double\",\n        \"reason\": \"Price data detected as numeric\"\n      }\n    }\n  },\n  \"evolution_strategy\": \"ADD_FIELDS\",\n  \"compatibility_notes\": [\n    \"All new fields are nullable to maintain backward compatibility\",\n    \"Existing data will have null values for new fields\",\n    \"Schema contains all existing fields plus new evolved fields\"\n  ]\n}\n```\n\n#### Content-Based Table Naming Strategy Examples\n\n**Content Analysis → Consistent Table Names:**\n\n- Any file with artist/stage/venue data → table: `music_events`, namespace: `events`\n- Any file with customer/user/client data → table: `customers`, namespace: `crm`\n- Any file with price/order/payment/ticket data → table: `transactions`, namespace: `sales` (keywords: price, cost, payment, order, purchase, sale, revenue, ticket_price, unit_price, total_amount, quantity, payment_method, ticket_type)\n- Any file with product/inventory/sku data → table: `products`, namespace: `inventory`\n- Any file with employee/staff/hr data → table: `employees`, namespace: `hr`\n\n**Example File Mappings (Content-Based):**\n\n- `coachella_events_2025.csv` (artist, stage fields) → `events.music_events`\n- `edc_lineup_2025.csv` (performer, venue fields) → `events.music_events`\n- `festival_lineup.csv` (artist, stage fields) → `events.music_events`\n- `customer_data_jan.csv` (customer, email fields) → `crm.customers`\n- `user_profiles.csv` (user, contact fields) → `crm.customers`\n- `sales_report.csv` (price, order fields) → `sales.transactions`\n\n**Benefits of Consistent Naming:**\n\n- ✅ Schema evolution on same logical entity (all festival data evolves `music_events`)\n- ✅ Predictable table operations (always know target table)\n- ✅ Unified analytics across data sources\n- ✅ Clean data lineage and governance\n\n**Avoid These Patterns:**\n\n- ❌ Filename-based naming that creates multiple tables for same content type\n- ❌ Using \"catalog\", \"table\", \"schema\", \"database\" suffixes\n- ❌ Generic names like \"data\", \"file\", \"import\" without content analysis\n- ❌ Creating separate tables when content type is identical\n\n#### Metadata JSON Structure\n\n- **CRITICAL**: When `${table.name}` is not empty pre-populate `inferred_metadata` with `${table.name}` and don't infer this value.\n- **CRITICAL**: When `${table.namespace}` is not empty pre-populate `inferred_metadata` with `${table.namespace}` and don't infer this value.\n\nThe `inferred_metadata` must contain:\n\n```json\n{\n  \"table_name\": \"inferred_table_name_from_csv_analysis\",\n  \"table_namespace\": \"inferred_or_default_namespace\", \n  \"description\": \"Generated description based on CSV analysis\",\n  \"source_info\": {\n    \"filename\": \"original_filename_from_context\",\n    \"estimated_row_count\": \"inferred_from_sample_size\",\n    \"data_source\": \"CSV file analysis\"\n  },\n  \"field_summary\": {\n    \"total_fields\": 2,\n    \"nullable_fields\": 1,\n    \"key_fields\": [\"id\"]\n  }\n}\n```\n\n#### MANDATORY QUOTE ESCAPING FOR AVRO SCHEMA\n\n**STEP-BY-STEP ESCAPING PROCESS:**\n\n1. **Start with Avro JSON**: `{\"type\": \"record\", \"name\": \"fruits\"}`\n2. **Escape EVERY double quote**: `{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}`\n3. **Put in JSON string**: `\"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"`\n\n**CRITICAL**: Every single `\"` character inside the avro_schema value MUST become `\\\"`\n\n**EXAMPLE OF WHAT LLM MUST PRODUCE:**\n\n```json\n\"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\", \\\"fields\\\": [{\\\"name\\\": \\\"id\\\", \\\"type\\\": \\\"long\\\"}]}\"\n```\n\n**NOT THIS (BREAKS JSON):**\n\n```json\n\"avro_schema\": \"{\"type\": \"record\", \"name\": \"fruits\", \"fields\": [{\"name\": \"id\", \"type\": \"long\"}]}\"\n```\n\n#### JSON Formatting Rules - MANDATORY\n\n- **CRITICAL**: Start response immediately with `{` - NO introductory text\n- **CRITICAL**: End response immediately with `}` - NO concluding text\n- **CRITICAL**: Use proper JSON syntax with double quotes for all keys and string values\n- **CRITICAL**: Use `\\n` for newlines within the string values\n- **CRITICAL**: **ESCAPE ALL DOUBLE QUOTES** in the avro_schema value: `\"` becomes `\\\"`\n- **CRITICAL**: Since Python code uses single quotes, no quote escaping needed in code value\n- **CRITICAL**: Ensure proper JSON escaping throughout\n- **CRITICAL**: The JSON must be valid and parseable with `json.loads()`\n\n#### Critical Escaping Examples\n\n**Avro Schema (MUST escape quotes):**\n\n- Input JSON: `{\"type\": \"record\", \"name\": \"fruits\"}`\n- Output in JSON: `\"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"`\n\n**Python Code (single quotes, no escaping needed):**\n\n- Input Python: `print('hello')`\n- Output in JSON: `\"print('hello')\"`\n\n#### Avro Schema Format Requirements\n\nThe `avro_schema` value must be a JSON string containing an Avro schema in JSON format. **CRITICAL**: All double quotes within the Avro schema JSON must be escaped with backslashes.\n\n**WRONG (breaks JSON):**\n\n```json\n{\n  \"avro_schema\": \"{\"type\": \"record\", \"name\": \"fruits\"}\"\n}\n```\n\n**CORRECT (properly escaped):**\n\n```json\n{\n  \"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"\n}\n```\n\nThe pattern is: Replace every `\"` inside the avro_schema value with `\\\"`\n\n#### Content Quality Requirements\n\n- **Avro Schema Content**:\n  - Must be valid Avro schema JSON when extracted and parsed\n  - All required Avro fields present (`type`, `name`, `fields`)\n  - Field definitions with proper `name`, `type`, and `doc` attributes\n  - Properly escaped JSON within the JSON string\n  - When evolution required, include ALL fields (existing + new) with new fields marked as nullable\n\n- **Python Code Content**:\n  - Must be valid Python when extracted and saved as .py file\n  - Proper 4-space indentation represented as `\\n` patterns\n  - All imports at the top\n  - Functions properly defined with docstrings\n  - Main execution logic present\n  - PEP 8 compliant formatting\n  - Include schema evolution logic when required\n\n#### Forbidden Content and Formatting\n\n- **FORBIDDEN**: Any references to YAML format anywhere\n- **FORBIDDEN**: Any markdown syntax or code blocks\n- **FORBIDDEN**: Any explanatory text outside the JSON structure\n- **FORBIDDEN**: Any conversational language\n- **FORBIDDEN**: Any text before `{` or after `}`\n- **FORBIDDEN**: Invalid JSON syntax\n- **FORBIDDEN**: Do not use single quotes in JSON - must use double quotes only\n- **FORBIDDEN**: Do not exceed 88 characters per line in Python code (when extracted)\n- **FORBIDDEN**: Do not omit trailing commas in multi-line Python structures (when extracted)\n- **FORBIDDEN**: Do not use double quotes in Python strings - use single quotes to avoid JSON escaping issues\n\n#### JSON Validation Requirements\n\n**CRITICAL**: The response must pass this validation:\n\n```python\nimport json\n\ndef validate_response(response_text):\n    # Must parse as valid JSON\n    parsed = json.loads(response_text)\n    \n    # Must have exactly these four keys\n    assert set(parsed.keys()) == {\"inferred_metadata\", \"avro_schema\", \"code\", \"schema_analysis\"}\n    \n    # All values must be strings or objects\n    assert isinstance(parsed[\"inferred_metadata\"], dict)\n    assert isinstance(parsed[\"avro_schema\"], str)\n    assert isinstance(parsed[\"code\"], str)\n    assert isinstance(parsed[\"schema_analysis\"], dict)\n    \n    # Metadata must have required fields\n    metadata = parsed[\"inferred_metadata\"]\n    required_metadata_keys = {\"table_name\", \"table_namespace\", \"description\", \"source_info\", \"field_summary\"}\n    assert all(key in metadata for key in required_metadata_keys)\n    \n    # Schema analysis must have required fields\n    analysis = parsed[\"schema_analysis\"]\n    required_analysis_keys = {\"evolution_required\", \"field_mappings\"}\n    assert all(key in analysis for key in required_analysis_keys)\n\n    # Check that update_schema_registry function is included in CREATE/ALTER scenarios\n    evolution_strategy = parsed[\"schema_analysis\"].get(\"evolution_strategy\", \"\")\n    evolution_required = parsed[\"schema_analysis\"].get(\"evolution_required\", False)\n    if evolution_strategy in [\"CREATE_NEW\", \"ADD_FIELDS\"] or evolution_required:\n        assert \"def update_schema_registry\" in parsed[\"code\"], \"update_schema_registry function definition missing from code\"\n        assert \"update_schema_registry(\" in parsed[\"code\"], \"update_schema_registry function call missing from code\"\n    \n    # Avro schema must be valid JSON when parsed again\n    avro_parsed = json.loads(parsed[\"avro_schema\"])\n    assert \"type\" in avro_parsed\n    assert \"name\" in avro_parsed\n    assert \"fields\" in avro_parsed\n    \n    # Code must be valid Python (basic syntax check)\n    compile(parsed[\"code\"], \"<string>\", \"exec\")\n    \n    # Check that indentation is preserved in extracted code\n    code_lines = parsed[\"code\"].split('\\n')\n    # Find a function definition and check it has proper indentation\n    for i, line in enumerate(code_lines):\n        if line.strip().startswith('def '):\n            # Next non-empty line should be indented 4 spaces\n            for j in range(i+1, len(code_lines)):\n                if code_lines[j].strip():\n                    assert code_lines[j].startswith('    '), f\"Python indentation not preserved at line {j}: '{code_lines[j]}'\"\n                    break\n            break\n    \n    return True\n```\n\n#### NiFi Variable Substitution Requirements - CRITICAL\n\n- **CRITICAL**: During schema evolution (`${schema.evolution.required}` = \"yes\"), use provided `${table.name}` and `${table.namespace}` values instead of inferring from CSV content\n- **CRITICAL**: The LLM MUST use the inferred metadata values, NOT NiFi variable placeholders\n- **CRITICAL**: DO NOT use any NiFi variable syntax like `$${variable.name}` in the generated code\n- **CRITICAL**: Use the inferred table_name and table_namespace from metadata analysis\n- **CRITICAL**: Replace context values with actual inferred values: `True` or `False` (Python boolean)\n- **CRITICAL**: Replace existing schema context with actual schema string (empty string if none provided)\n- **CRITICAL**: The generated Python code must be immediately executable without any variable substitution\n- **CRITICAL**: All table names, namespaces, and variables must be actual string/boolean values, not placeholders\n\n#### Perfect Response Example\n\nBased on the provided context values in the user message:\n\n**EXACTLY THIS FORMAT - COPY THE ESCAPING PATTERN:**\n\n```json\n{\n  \"inferred_metadata\": {\n    \"table_name\": \"fruits_catalog\",\n    \"table_namespace\": \"food_data\",\n    \"description\": \"Fruit catalog data containing fruit identifiers and names\",\n    \"source_info\": {\"filename\": \"fruits.csv\", \"estimated_row_count\": \"5+\", \"data_source\": \"CSV file analysis\"},\n    \"field_summary\": {\"total_fields\": 2, \"nullable_fields\": 1, \"key_fields\": [\"id\"]}\n  },\n  \"avro_schema\": \"{\\\\\\\"type\\\\\\\": \\\\\\\"record\\\\\\\", \\\\\\\"name\\\\\\\": \\\\\\\"fruits_catalog\\\\\\\", \\\\\\\"fields\\\\\\\": [{\\\\\\\"name\\\\\\\": \\\\\\\"id\\\\\\\", \\\\\\\"type\\\\\\\": \\\\\\\"long\\\\\\\"}, {\\\\\\\"name\\\\\\\": \\\\\\\"name\\\\\\\", \\\\\\\"type\\\\\\\": [\\\\\\\"null\\\\\\\", \\\\\\\"string\\\\\\\"], \\\\\\\"default\\\\\\\": null}]}\",\n  \"code\": \"import json\\\\nimport os\\\\nfrom typing import Any, Dict, Optional\\\\n\\\\nimport pyarrow as pa\\\\nfrom dotenv import find_dotenv, load_dotenv\\\\nfrom pyiceberg.catalog.rest import RestCatalog\\\\nfrom pyiceberg.exceptions import NoSuchTableError, TableAlreadyExistsError\\\\nfrom pyiceberg.schema import Schema\\\\nfrom pyiceberg.types import (\\\\n    NestedField,\\\\n    StringType,\\\\n    LongType,\\\\n    DoubleType,\\\\n    BooleanType,\\\\n    IntegerType,\\\\n    TimestampType,\\\\n)\\\\nfrom snowflake.snowpark import Row, Session\\\\n\\\\nif not load_dotenv(find_dotenv('../work/.polaris.env')):\\\\n    raise ValueError('Failed to load environment variables from .env file')\\\\n\\\\n\\\\ndef load_catalog() -> RestCatalog:\\\\n    '''Load and configure Polaris RestCatalog with proper authentication.'''\\\\n    catalog_uri: Optional[str] = os.getenv('POLARIS_CATALOG_URI')\\\\n    catalog_name: Optional[str] = os.getenv('POLARIS_CATALOG_NAME')\\\\n    realm: Optional[str] = os.getenv('POLARIS_REALM', 'POLARIS')\\\\n    client_id: Optional[str] = os.getenv('POLARIS_CLIENT_ID')\\\\n    client_secret: Optional[str] = os.getenv('POLARIS_CLIENT_SECRET')\\\\n\\\\n    if catalog_uri is None:\\\\n        raise ValueError('POLARIS_CATALOG_URI environment variable is required')\\\\n    if catalog_name is None:\\\\n        raise ValueError('POLARIS_CATALOG_NAME environment variable is required')\\\\n    if client_id is None:\\\\n        raise ValueError('POLARIS_CLIENT_ID environment variable is required')\\\\n    if client_secret is None:\\\\n        raise ValueError('POLARIS_CLIENT_SECRET environment variable is required')\\\\n\\\\n    catalog: RestCatalog = RestCatalog(\\\\n        name=catalog_name,\\\\n        uri=catalog_uri,\\\\n        credential=f'{client_id}:{client_secret}',\\\\n        warehouse=catalog_name,\\\\n        scope='PRINCIPAL_ROLE:ALL',\\\\n        **{'header.content-type': 'application/vnd.api+json'},\\\\n        **{'header.X-Iceberg-Access-Delegation': 'vended-credentials'},\\\\n        **{'header.Polaris-Realm': realm},\\\\n    )\\\\n\\\\n    return catalog\\\\n\\\\n\\\\ndef update_schema_registry(table_name: str, table_namespace: str) -> None:\\\\n    '''Update the schema registry for the specified table.'''\\\\n    from typing import List\\\\n    \\\\n    try:\\\\n        session = Session.builder.configs(\\\\n            {\\\\n                'account': os.getenv('SNOWFLAKE_ACCOUNT'),\\\\n                'user': os.getenv('SA_USER'),\\\\n                'password': os.getenv('SNOWFLAKE_PASSWORD'),\\\\n                'role': os.getenv('SNOWFLAKE_OPENFLOW_DEMO_ROLE'),\\\\n                'warehouse': os.getenv('SNOWFLAKE_OPENFLOW_DEMO_WAREHOUSE'),\\\\n                'database': os.getenv('SNOWFLAKE_OPENFLOW_DEMO_DATABASE'),\\\\n            }\\\\n        ).getOrCreate()\\\\n        rows: List[Row] = session.sql(f'''\\\\n            UPDATE metadata.schema_registry\\\\n            SET \\\\n            IS_READY = TRUE\\\\n            WHERE\\\\n            table_name = '{table_name}'\\\\n            AND\\\\n            table_namespace = '{table_namespace}';\\\\n            ''').collect()\\\\n        if rows and len(rows) == 1:\\\\n            print(\\\\n                f'Table: {table_name} in namespace: {table_namespace} is now ready for ingestion.'\\\\n            )\\\\n    except Exception as e:\\\\n        print(f'Error updating schema registry for table {table_name}: {str(e)}')\\\\n\\\\n\\\\ndef main():\\\\n    '''Main execution function.'''\\\\n    catalog: RestCatalog = load_catalog()\\\\n    catalog.create_namespace_if_not_exists('food_data')\\\\n    \\\\n    # Create table schema\\\\n    table_identifier: str = 'food_data.fruits_catalog'\\\\n    schema = Schema(\\\\n        NestedField(field_id=1, name='id', field_type=LongType(), required=True),\\\\n        NestedField(field_id=2, name='name', field_type=StringType(), required=False),\\\\n    )\\\\n    \\\\n    # Create table\\\\n    table = catalog.create_table(identifier=table_identifier, schema=schema)\\\\n    \\\\n    # Success logging\\\\n    print(f'Successfully created table: {table_identifier}')\\\\n    print(f'Table location: {table.location()}')\\\\n    print(f'Table schema: {table.schema()}')\\\\n    \\\\n    # Mark table as ready for ingestion\\\\n    update_schema_registry('fruits_catalog', 'food_data')\\\\n\\\\n\\\\nif __name__ == '__main__':\\\\n    main()\",\n  \"schema_analysis\": {\n    \"evolution_required\": false,\n    \"field_mappings\": {\"new_fields\": [\"id\", \"name\"]},\n    \"evolution_strategy\": \"CREATE_NEW\"\n  }\n}\n```\n\n- **CRITICAL**: Every \" escaped as \\\\\" and every newline as \\\\n.\n\n**NOTICE**:\n\n- The LLM inferred table_name: 'fruits_catalog' and namespace: 'food_data' from CSV analysis\n- All metadata is used consistently in both schema name/namespace and Python code variables\n- Every `\"` has been escaped as `\\\\\"` and every newline as `\\\\n` - this is MANDATORY for valid JSON\n- No NiFi variable placeholders (like `${variable}`) are used - only actual inferred values\n- Schema analysis provides evolution details and field mapping information\n- The complete `update_schema_registry` function is included in the code and called after successful operations"
+      }, {
+        "description" : "The Cortex AI prompt user message",
+        "name" : "cortex_prompt_user_message",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "## User Message\n\nPlease analyze the following CSV file fetched from Google Drive and generate metadata, Avro schema, and Python code:\n\n### File Information\n\n- **Google Drive File:** `${filename}`\n- **File size:** `${file.size}` bytes\n- **Source:** Google Drive via FetchGoogleDriveFile processor\n\nThese NiFi variables will be substituted before sending to the LLM.\n\n### CSV Structure\n\n#### Headers\n\n```csv\n${csv.headers}\n```\n\n#### Sample Data (first 5 rows)\n\n```csv\n${csv.sample.data}\n```\n\nNote: These variables (`${csv.headers}` and `${csv.sample.data}`) will be populated by NiFi before sending to the LLM.\n\n### Schema State Context\n\n- **Is first time processing:** `${is.first.time}`\n- **Schema evolution required:** `${schema.evolution.required}`\n- **Existing schema (for evolution):** `${existing.schema}`\n- **Schema Analysis Extra Info (for evolution):** `${schema.analysis}`\n- **Table name (for evolution):** `${table.name}`\n- **Table namespace (for evolution):** `${table.namespace}`\n\nThese variables should be used directly in the generated Python code for dynamic behavior.\n\n### Schema Evolution Requirements\n\nWhen `${schema.evolution.required}` is \"yes\":\n\n1. **Semantic Field Matching**: Use the semantic field mapping table to identify equivalent fields between existing schema and new CSV headers\n2. **Evolution Analysis**: Generate detailed field mapping analysis including:\n   - Exact name matches (case-insensitive)\n   - Semantic equivalent matches (e.g., \"artist_name\" ↔ \"performer\")\n   - New fields requiring addition\n   - Type changes requiring evolution\n3. **Evolved Schema Generation**: Create complete Avro schema containing ALL fields (existing + new/changed fields) with all new fields marked as nullable for backward compatibility\n4. **Compatibility Preservation**: Ensure all evolution changes maintain backward compatibility\n\n### Semantic Field Mapping Reference\n\nUse this table for semantic field equivalence detection:\n\n| Standard Field | Semantic Equivalents | Expected Type | Context |\n|---------------|---------------------|---------------|---------|\n| event_id | show_id, slot_number, performance_id, id | long | Primary identifier |\n| artist_name | dj_performer, performer, headliner, act_name, artist | string | Performer information |\n| stage | main_stage, venue_section, location, venue_area, stage_location, venue | string | Performance location |\n| event_datetime | start_time, time_block, date_time, time_slot, show_time, datetime | string | Event timing |\n| ticket_price | vip_price, admission_cost, ticket_cost, entry_fee, price_tier, price, cost | double | Pricing information |\n| festival_name | event_name, festival, venue_name | string | Event organization |\n| genre | music_genre, category, style, type | string | Classification |\n| capacity | max_attendance, venue_capacity, max_capacity | long | Venue limits |\n| city | location_city, venue_city | string | Geographic location |\n| sponsor | sponsorship, partner, brand | string | Commercial partnerships |\n\n### Schema Registry Integration\n\nAfter successful table creation or schema evolution operations, the system must update the schema registry to mark tables as ready for ingestion:\n\n- **Function**: `update_schema_registry(table_name: str, table_namespace: str)`\n- **Purpose**: Updates `metadata.schema_registry` table to set `IS_READY = TRUE`\n- **When to call**: After successful CREATE TABLE or ALTER TABLE operations\n- **Error handling**: Include try-catch with descriptive error messages\n\n### Pipeline Context\n\n- This CSV will be processed through Apache NiFi data pipeline\n- **Target:** Apache Iceberg table for analytics\n- **Processing pattern:** Real-time ingestion with schema evolution\n- **Evolution strategy:** Additive changes only (maintain backward compatibility)\n\n### Processing Logic\n\n#### For First-Time Processing (`${is.first.time}` = \"yes\")\n\n1. Generate complete Avro schema for all CSV fields\n2. Create Python code for table creation with error handling\n3. Include comprehensive field analysis in `schema_analysis`\n4. Set `evolution_required: false` in schema analysis\n5. Call `update_schema_registry(table_name, table_namespace)` after successful table creation\n6. Call `catalog.create_namespace_if_not_exists(table_namespace)` to ensure namespace exists before table creation\n7. Include success logging: table identifier, location, and schema details\n\n#### For Schema Evolution (`${schema.evolution.required}` = \"yes\")\n\n1. Parse `${existing.schema}` to understand current table structure and use `${table.name}` and `${table.namespace}` for target table identification\n2. Perform semantic field matching between existing and new headers\n3. Identify new fields requiring addition to schema\n4. Generate complete Avro schema containing ALL fields (existing + new/changed fields) with all new fields marked as nullable\n5. Create Python code for ALTER TABLE operations\n6. Include detailed field mapping analysis in `schema_analysis`\n7. Call `update_schema_registry(table_name, table_namespace)` after successful schema evolution\n8. Include success logging: confirmation of schema evolution and updated schema details\n\n#### For Standard Processing (`${schema.evolution.required}` = \"no\")\n\n1. Load existing table without modifications\n2. Generate Python code for data loading operations only\n3. Include table validation and status reporting\n4. Set `evolution_required: false` in schema analysis\n\n### PyIceberg API Requirements\n\n- Use `table.update_schema().add_column(field_name, field_type, required=False).commit()` for schema evolution with Iceberg Types (StringType, LongType, DoubleType, etc.)\n- Chain multiple `add_column()` calls for multiple new fields\n- Always set `required=False` for new fields to maintain backward compatibility\n- Call `.commit()` once at the end of the update chain\n- **CRITICAL**: Use Iceberg Types (StringType(), LongType(), DoubleType(), etc.) for all schema operations, not PyArrow types\n\n### Iceberg Schema Requirements\n\n**MANDATORY**: All table creation and schema evolution must use Iceberg Types:\n\n- **Table Creation**: Use `Schema()` with `NestedField()` and Iceberg types\n- **Schema Evolution**: Use `table.update_schema().add_column()` with Iceberg types  \n- **Type Mapping**:\n  - Text fields → `StringType()`\n  - Integer/ID fields → `LongType()`\n  - Decimal fields → `DoubleType()`\n  - Boolean fields → `BooleanType()`\n  - Timestamp fields → `TimestampType()`\n\n**Example Table Creation**:\n\n```python\nschema = Schema(\n    NestedField(field_id=1, name=\"event_id\", field_type=LongType(), required=True),\n    NestedField(field_id=2, name=\"artist_name\", field_type=StringType(), required=False),\n    NestedField(field_id=3, name=\"ticket_price\", field_type=DoubleType(), required=False),\n)\ntable = catalog.create_table(identifier=\"events.music_events\", schema=schema)\n```\n\n**Example Schema Evolution**:\n\n```python\ntable.update_schema().add_column(\"genre\", StringType(), required=False).add_column(\"sponsor\", StringType(), required=False).commit()\n```\n\n### Required Catalog Implementation\n\n**MANDATORY**: Always use the following exact `load_catalog` function implementation in ALL generated Python code for CREATE and ALTER schema scenarios:\n\n```python\ndef load_catalog() -> RestCatalog:\n    \"\"\"Load and configure Polaris RestCatalog with proper authentication.\"\"\"\n    catalog_uri: Optional[str] = os.getenv(\"POLARIS_CATALOG_URI\")\n    catalog_name: Optional[str] = os.getenv(\"POLARIS_CATALOG_NAME\")\n    realm: Optional[str] = os.getenv(\"POLARIS_REALM\", \"POLARIS\")\n    client_id: Optional[str] = os.getenv(\"POLARIS_CLIENT_ID\")\n    client_secret: Optional[str] = os.getenv(\"POLARIS_CLIENT_SECRET\")\n\n    if catalog_uri is None:\n        raise ValueError(\"POLARIS_CATALOG_URI environment variable is required\")\n    if catalog_name is None:\n        raise ValueError(\"POLARIS_CATALOG_NAME environment variable is required\")\n    if client_id is None:\n        raise ValueError(\"POLARIS_CLIENT_ID environment variable is required\")\n    if client_secret is None:\n        raise ValueError(\"POLARIS_CLIENT_SECRET environment variable is required\")\n\n    catalog: RestCatalog = RestCatalog(\n        name=catalog_name,\n        uri=catalog_uri,\n        credential=f\"{client_id}:{client_secret}\",\n        warehouse=catalog_name,\n        scope=\"PRINCIPAL_ROLE:ALL\",\n        **{\"header.content-type\": \"application/vnd.api+json\"},\n        **{\"header.X-Iceberg-Access-Delegation\": \"vended-credentials\"},\n        **{\"header.Polaris-Realm\": realm},\n    )\n\n    return catalog\n```\n\n**CRITICAL**: This function must be included verbatim in all generated Python code. Do not modify the implementation, parameters, or configuration settings.\n\n### Required Imports\n\n**MANDATORY**: Always include these exact imports at the top of all generated Python code:\n\n```python\nimport json\nimport os\nfrom typing import Any, Dict, Optional\n\nimport pyarrow as pa\nfrom dotenv import find_dotenv, load_dotenv\nfrom pyiceberg.catalog.rest import RestCatalog\nfrom pyiceberg.exceptions import NoSuchTableError, TableAlreadyExistsError\nfrom pyiceberg.schema import Schema\nfrom pyiceberg.types import (\n    NestedField,\n    StringType,\n    LongType,\n    DoubleType,\n    BooleanType,\n    IntegerType,\n    TimestampType,\n)\n\nfrom snowflake.snowpark import Row, Session\n\nif not load_dotenv(find_dotenv(\"../work/.polaris.env\")):\n    raise ValueError(\"Failed to load environment variables from .env file\")\n```\n\n**CRITICAL**: Include the environment loading logic exactly as shown above to ensure proper configuration loading.\n\n### Requirements\n\n#### Schema Generation\n\n1. Generate a complete Avro schema suitable for Apache NiFi Record processors\n2. Use \"long\" for all integer/ID fields (for scalability)\n3. Use \"double\" for all decimal/numeric fields (for precision)\n4. Make fields nullable unless clearly required (primary keys)\n5. Use descriptive field names in snake_case format\n6. Include field documentation for business context\n7. **CRITICAL**: When evolution required, generate complete schema with ALL fields (existing + new), ensuring all new fields are nullable\n8. Include semantic field mapping in schema documentation\n\n#### Code Generation\n\n1. Generate clean Python code that handles CREATE, ALTER, and LOAD scenarios based on context\n2. Python code should include proper imports and error handling\n3. **MANDATORY**: Include the exact `load_catalog` function implementation specified in the \"Required Catalog Implementation\" section - do not modify or create alternative implementations\n4. **CRITICAL**: Add explicit type hints to every single variable, parameter, and return value\n5. Generate code that's ready to save as .py file with proper formatting\n6. Handle CREATE (first time), ALTER (schema evolution), and LOAD (standard) scenarios dynamically\n7. Include main execution function with proper error handling\n8. **CRITICAL**: Use the inferred metadata values directly in the generated code\n9. Include schema comparison logic when existing schema context is provided\n10. Generate appropriate Iceberg schema operations using Iceberg Types (StringType, LongType, DoubleType, etc.) based on detected schema differences\n11. Include semantic field matching logic for evolution detection\n12. Include proper logging and status messages for debugging\n13. **CRITICAL**: When generating ALTER TABLE logic, only add new fields to existing table - do not recreate or modify existing fields\n14. **MANDATORY**: Always call `catalog: RestCatalog = load_catalog()` to initialize the catalog connection in CREATE and ALTER scenarios\n15. **MANDATORY**: Include the exact `update_schema_registry` function implementation and call it after successful CREATE or ALTER operations to mark tables as ingestion-ready\n16. **MANDATORY**: For CREATE scenarios, ensure namespace exists by calling `catalog.create_namespace_if_not_exists(table_namespace)` before table creation\n17. **MANDATORY**: Include detailed success logging after table creation with table identifier, location, and schema information\n18. **MANDATORY**: Include detailed success logging after schema evolution operations with updated schema information\n\n#### Schema Analysis Generation\n\n1. Generate comprehensive `schema_analysis` with evolution details\n2. Include field mapping analysis with exact and semantic matches\n3. Identify new fields requiring addition to existing schema\n4. Detect type changes that require schema evolution\n5. Provide evolution strategy recommendations\n6. Include compatibility notes for backward compatibility assurance\n\n### Critical Instructions\n\n- **MANDATORY**: Provide ONLY a JSON object with `inferred_metadata`, `avro_schema`, `code`, and `schema_analysis` properties\n- **MANDATORY**: Use proper JSON string escaping for newlines (`\\n`) and quotes (`\\\"`)\n- **MANDATORY**: Ensure the response is valid JSON that can be parsed directly with JSON.loads()\n- **MANDATORY**: Both schema and code must be immediately usable after extraction from JSON with proper formatting preserved\n- **MANDATORY**: No markdown formatting, explanatory text, or conversational language anywhere\n- **MANDATORY**: Start response immediately with `{` - no introductory text\n- **MANDATORY**: End response immediately with `}` - no concluding text\n- **MANDATORY**: Use proper JSON syntax with double quotes for all keys and string values\n- **MANDATORY**: The avro_schema value must be JSON format (not YAML) converted to a string\n- **MANDATORY**: Preserve Python 4-space indentation using `\\n` patterns in the JSON string\n- When `${schema.evolution.required}` = \"yes\", generate complete schema with ALL fields (existing + new), ensuring all new fields are nullable\n- Include comprehensive field mapping analysis in `schema_analysis` output\n- Generate evolution-specific Python code with ALTER TABLE logic when required\n- **CRITICAL**: When `${schema.evolution.required}` = \"yes\", generate complete Avro schema with ALL fields (existing + new), making all new fields nullable\n- **CRITICAL**: Python code should use ALTER TABLE operations that add only new fields, preserving existing table structure and data\n- **CRITICAL**: Always use Iceberg Types (StringType, LongType, DoubleType, etc.) for all schema operations in generated Python code\n- **MANDATORY**: Include the exact `update_schema_registry` function implementation and call it after successful CREATE or ALTER operations to mark tables as ingestion-ready\n\n### Context Variable Usage\n\nUse these NiFi flow variables exactly as provided:\n\n- `${is.first.time}` - Boolean indicating first-time table creation\n- `${schema.evolution.required}` - Boolean indicating if schema evolution is needed\n- `${existing.schema}` - JSON string of existing Avro schema (empty if first time)\n- `${csv.headers}` - Comma-separated list of CSV column headers\n- `${csv.sample.data}` - Sample CSV rows for data type inference\n- `${table.name}` - Target table name (used during evolution)\n- `${table.namespace}` - Target table namespace (used during evolution)\n\n### Evolution Decision Matrix\n\n| is.first.time | schema.evolution.required | Action | Schema Content | Python Logic | Table Naming | Registry Update |\n|---------------|---------------------------|--------|----------------|--------------|----------------|------------------|\n| true | false | CREATE | Complete schema | CREATE TABLE + Registry Update | Infer from CSV | Call `update_schema_registry(table_name, table_namespace)` |\n| false | true | EVOLVE | Complete schema (existing + new nullable fields) | ALTER TABLE + Registry Update | Use ${table.name}/${table.namespace} | Call `update_schema_registry(table_name, table_namespace)` |\n| false | false | LOAD | N/A (use existing) | LOAD TABLE | Use ${table.name}/${table.namespace} | Not needed |\n\n### Forbidden Content and Formatting\n\n- **FORBIDDEN**: Any references to YAML format anywhere\n- **FORBIDDEN**: Any markdown syntax or code blocks\n- **FORBIDDEN**: Any explanatory text outside the JSON structure\n- **FORBIDDEN**: Any conversational language\n- **FORBIDDEN**: Any text before `{` or after `}`\n- **FORBIDDEN**: Invalid JSON syntax\n- **FORBIDDEN**: Do not use single quotes in JSON - must use double quotes only\n- **FORBIDDEN**: Do not exceed 88 characters per line in Python code (when extracted)\n- **FORBIDDEN**: Do not omit trailing commas in multi-line Python structures (when extracted)\n- **FORBIDDEN**: Do not use double quotes in Python strings - use single quotes to avoid JSON escaping issues\n- **FORBIDDEN**: Using NiFi variable placeholders in generated code - only use actual inferred values\n- **FORBIDDEN**: Using PyArrow types (pa.string(), pa.int64(), etc.) in schema operations - always use Iceberg Types (StringType(), LongType(), etc.)\n\n#### Perfect Response Example\n\n```json\n{\n  \"inferred_metadata\": {\n    \"table_name\": \"string\",\n    \"table_namespace\": \"string\",\n    \"description\": \"string\",\n    \"source_info\": {},\n    \"field_summary\": {}\n  },\n  \"avro_schema\": \"escaped_json_string\",\n  \"code\": \"python_code_with_newlines\",\n  \"schema_analysis\": {\n    \"evolution_required\": boolean,\n    \"existing_field_count\": number,\n    \"new_field_count\": number,\n    \"field_mappings\": {\n      \"exact_matches\": [],\n      \"semantic_matches\": {},\n      \"new_fields\": [],\n      \"type_changes\": {}\n    },\n    \"evolution_strategy\": \"string\",\n    \"compatibility_notes\": []\n  }\n}\n```\n"
+      }, {
+        "description" : "",
+        "name" : "iceberg.s3.region",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "us-west-2"
+      }, {
+        "description" : "The bucket where CSV processed for schema checks and evolution will be moved for data ingestion",
+        "name" : "ingestion.s3.bucket",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "ksampath-music-flow-demo-ingest-data"
+      }, {
+        "description" : "The SQL used to find the CSV to Avro Schema Mapping",
+        "name" : "ingestion_csv_avro_mapping_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "WITH ai_analysis AS (\n    SELECT \n        table_name,\n        table_namespace,\n        avro_schema as schema_json,\n        is_ready as ingestion_ok,\n        status as schema_status,\n        AI_COMPLETE(\n            model => 'claude-4-sonnet', \n            prompt => CONCAT(\n                'You are a schema analysis expert. Analyze if the given Avro schema semantically matches CSV data.',\n                '\\n\\n## Task',\n                '\\nDetermine Base64 encoded Avro schema can accommodate the provided CSV structure.',\n                '\\n\\n## Input Data',\n                '\\n**Avro Schema:**\\n<schema>', avro_schema, '</schema>',\n                '\\n\\n**CSV Headers:** ${csv.headers}',\n                '\\n**CSV Sample:** ${csv.sample.rows}',\n                '\\n\\n## Analysis Rules',\n                '\\n1. **Semantic Matching**: If majority of CSV fields (>50%) can map to existing schema fields, consider it a match',\n                '\\n2. **Schema Evolution**: Required only if CSV has new fields that cannot map to existing schema fields',\n                '\\n3. **Match Priority**: If no semantic match exists, skip evolution analysis',\n                '\\n\\n## Required Response Format',\n                '\\nRespond with ONLY a JSON object (no markdown, no explanations):',\n                '\\n{',\n                '\\n  \"matched\": \"yes|no\",',\n                '\\n  \"schema_evolution_required\": \"yes|no\",',\n                '\\n  \"schemas_analysis\": [\"bullet point 1\", \"bullet point 2\"]',\n                '\\n}',\n                '\\n\\n## Analysis Guidelines',\n                '\\n- Focus on field purpose rather than exact naming',\n                '\\n- Consider common field variations (id/identifier, name/title, etc.)',\n                '\\n- Evolution needed only for genuinely new data concepts',\n                '\\n- Keep analysis points concise and technical'\n            ),\n           model_parameters => {\n                'temperature': 0.1\n            },\n            response_format => {\n                 'type': 'json',\n                 'schema': {\n                     'type': 'object',\n                     'properties': {\n                         'matched': {\n                             'type': 'string',\n                             'enum': ['yes', 'no']\n                         },\n                         'schema_evolution_required': {\n                             'type': 'string',\n                             'enum': ['yes', 'no']\n                         },\n                         'schemas_analysis': {\n                             'type': 'array',\n                             'items': {\n                                 'type': 'string'\n                             }\n                         }\n                     },\n                     'required': ['matched', 'schema_evolution_required', 'schemas_analysis'],\n                     'additionalProperties': false\n                 }\n            }\n        ) as ai_response\n    FROM METADATA.SCHEMA_REGISTRY\n),\nmatched_schemas AS (\n    SELECT \n        table_name,\n        table_namespace,\n        schema_json,\n        ingestion_ok,\n        schema_status,\n        ai_response\n    FROM ai_analysis\n    WHERE PARSE_JSON(ai_response):matched::string = 'yes'\n),\ncsv_field_mapping AS (\n    SELECT \n        table_name,\n        table_namespace,\n        schema_json,\n        schema_status,\n        ingestion_ok,\n        ai_response as schema_analysis,\n        AI_COMPLETE(\n            model => 'claude-4-sonnet', \n            prompt => CONCAT(\n                'You are a data mapping expert. Create semantic field mappings between CSV headers and Avro schema fields.',\n                '\\n\\n## Task',\n                '\\nMap CSV column headers to corresponding Avro schema fields based on semantic meaning.',\n                '\\n\\n## Input Data',\n                '\\n**Target Avro Schema:**\\n<schema>', schema_json, '</schema>',\n                '\\n\\n**CSV Headers:** ${csv.headers}',\n                '\\n**CSV Sample:** ${csv.sample.rows}',\n                '\\n\\n## Mapping Rules',\n                '\\n1. **Semantic Matching**: Map based on field purpose, not exact names',\n                '\\n2. **Common Variations**: Consider aliases (id/identifier, name/title, price/cost, time/datetime)',\n                '\\n3. **Festival Context**: Understand music festival data patterns (artist/performer/headliner, stage/venue, etc.)',\n                '\\n4. **Data Types**: Ensure source can convert to target type',\n                '\\n5. **Required Fields**: Prioritize mapping to required schema fields',\n                '\\n6. **Perfect Match Handling**: For 100% bidirectional mapping, use empty arrays for unmapped fields',\n                '\\n\\n## Required Response Format',\n                '\\nRespond with ONLY a JSON object (no markdown, no explanations):',\n                '\\n{',\n                '\\n  \"mappings\": {',\n                '\\n    \"csv_field_1\": \"avro_field_1\",',\n                '\\n    \"csv_field_2\": \"avro_field_2\"',\n                '\\n  },',\n                '\\n  \"unmapped_csv\": [\"csv_field_without_target\"],',\n                '\\n  \"unmapped_avro\": [\"avro_field_without_source\"],',\n                '\\n  \"mapping_notes\": [\"mapping explanation 1\", \"mapping explanation 2\"]',\n                '\\n}',\n                '\\n\\n## CRITICAL 100% Mapping Rules',\n                '\\n- Always provide explicit field mappings as normal',\n                '\\n\\n## Mapping Guidelines',\n                '\\n- Only include confident mappings (>70% certainty)',\n                '\\n- List unmapped fields for transparency when not 100% match',\n                '\\n- Include brief notes for complex mappings',\n                '\\n- Perfect matches indicate schema reuse without transformation'\n            ),\n           model_parameters => {\n                'temperature': 0.1\n            },\n            response_format => {\n                 'type': 'json',\n                 'schema': {\n                     'type': 'object',\n                     'properties': {\n                         'mappings': {\n                             'type': 'object'\n                         },\n                         'unmapped_csv': {\n                             'type': 'array',\n                             'items': {'type': 'string'}\n                         },\n                         'unmapped_avro': {\n                             'type': 'array',\n                             'items': {'type': 'string'}\n                         },\n                         'mapping_notes': {\n                             'type': 'array',\n                             'items': {'type': 'string'}\n                         }\n                     },\n                     'required': ['mappings', 'unmapped_csv', 'unmapped_avro'],\n                     'additionalProperties': false\n                 }\n            }\n        ) as mapping_response\n    FROM matched_schemas\n)\nSELECT \n    table_name,\n    table_namespace,\n    schema_json as avro_schema,\n    schema_status,\n    ingestion_ok,\n    BASE64_ENCODE(PARSE_JSON(mapping_response):mappings) as field_mappings,\n    BASE64_ENCODE(PARSE_JSON(mapping_response):unmapped_csv) as unmapped_csv_fields,\n    BASE64_ENCODE(PARSE_JSON(mapping_response):unmapped_avro) as unmapped_avro_fields\nFROM csv_field_mapping"
+      }, {
+        "description" : "",
+        "name" : "ingestion_mapping_response_avro_schema",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "{\n  \"type\": \"record\",\n  \"name\": \"FieldMappingResponse\",\n  \"namespace\": \"com.musicflow.schema\",\n  \"doc\": \"Schema for AI-generated field mapping responses in MusicFlow pipeline - Base64 encoded JSON strings\",\n  \"fields\": [\n    {\n      \"name\": \"TABLE_NAME\",\n      \"type\": \"string\",\n      \"doc\": \"Name of the table being analyzed\"\n    },\n    {\n      \"name\": \"TABLE_NAMESPACE\",\n      \"type\": \"string\",\n      \"doc\": \"Namespace or schema of the table\"\n    },\n    {\n      \"name\": \"AVRO_SCHEMA\",\n      \"type\": [\n        \"null\",\n        \"string\"\n      ],\n      \"default\": null,\n      \"doc\": \"JSON string containing the schema definition from database\"\n    },\n    {\n      \"name\": \"FIELD_MAPPINGS\",\n      \"type\": \"string\",\n      \"doc\": \"Base64 encoded JSON string of key-value pairs mapping CSV field names to Avro field names\"\n    },\n    {\n      \"name\": \"UNMAPPED_CSV_FIELDS\",\n      \"type\": \"string\",\n      \"doc\": \"Base64 encoded JSON array of CSV field names that could not be mapped to any Avro field\"\n    },\n    {\n      \"name\": \"UNMAPPED_AVRO_FIELDS\",\n      \"type\": \"string\",\n      \"doc\": \"Base64 encoded JSON array of Avro field names that have no corresponding CSV field\"\n    },\n    {\n      \"name\": \"SCHEMA_STATUS\",\n      \"type\": \"string\",\n      \"doc\": \"Base64 encoded JSON array of Avro field names that have no corresponding CSV field\"\n    },\n    {\n      \"name\": \"INGESTION_OK\",\n      \"type\": \"string\",\n      \"doc\": \"Base64 encoded JSON array of Avro field names that have no corresponding CSV field\"\n    }\n  ]\n}"
+      }, {
+        "description" : "",
+        "name" : "music-flow.aws.access-key-id",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "music-flow.aws.secret-access-key",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "music-flow.opencatalog.s3.assume-role-arn",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "arn:aws:iam::849350360261:role/ksampath-oc-music-flow-s3-role"
+      }, {
+        "description" : "",
+        "name" : "music-flow.opencatalog.s3.assume-role-region",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "us-west-2"
+      }, {
+        "description" : "",
+        "name" : "music-flow.opencatalog.s3.assume-role.external-id",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "NPB00565_SFCRole=1_oDH/LvFCs59VUwJe8MblmqKmk2M="
+      }, {
+        "description" : "",
+        "name" : "music-flow.s3.assume-role-arn",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "arn:aws:iam::849350360261:role/ksampath-openflow-music-flow-spcs"
+      }, {
+        "description" : "",
+        "name" : "music-flow.s3.ingest-data.assume-role-arn",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "arn:aws:iam::849350360261:role/ksampath-openflow-music-flow-spcs"
+      }, {
+        "description" : "",
+        "name" : "music-flow.s3.ingest-data.assume-role-external-ID",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "NPB00565_SFCRole=1_oDH/LvFCs59VUwJe8MblmqKmk2M="
+      }, {
+        "description" : "",
+        "name" : "music-flow.s3.secret-access-key",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "music_flow_data_schema",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "data"
+      }, {
+        "description" : "",
+        "name" : "music_flow_generated_sources_stage",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "sources"
+      }, {
+        "description" : "",
+        "name" : "opencatalog.s3.access-key-id",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "opencatalog.s3.secret-access-key",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "opencatalog.s3.session-token",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "The Apache Polaris Access Token Scopes",
+        "name" : "polaris.access.token.scopes",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "PRINCIPAL_ROLE:ALL"
+      }, {
+        "description" : "The Apache Polaris Catalog to use",
+        "name" : "polaris.catalog",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "music_flow"
+      }, {
+        "description" : "The Apache Polaris Catalog URI",
+        "name" : "polaris.catalog.uri",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "https://npb00565.snowflakecomputing.com/polaris/api/catalog"
+      }, {
+        "description" : "The Apache Polaris Catalog Principal Client ID",
+        "name" : "polaris.client.id",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "The Apache Polaris Catalog Principal Client Secret",
+        "name" : "polaris.client.secret",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "polaris.server.auth.uri",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "https://npb00565.snowflakecomputing.com/polaris/api/catalog/v1/oauth/tokens"
+      }, {
+        "description" : "",
+        "name" : "pratyakshika_sa_json",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "The Avro schema to be used to parse and write the SQL result of the query used for schema evolution check",
+        "name" : "schema_evolution_check_avro_schema",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "{\n    \"type\": \"record\",\n    \"name\": \"SchemaAnalysisResult\",\n    \"namespace\": \"com.musicflow.schema\",\n    \"doc\": \"Schema for storing table analysis results with JSON fields from database\",\n    \"fields\": [\n        {\n            \"name\": \"TABLE_NAME\",\n            \"type\": \"string\",\n            \"doc\": \"Name of the table being analyzed\"\n        },\n        {\n            \"name\": \"TABLE_NAMESPACE\",\n            \"type\": \"string\",\n            \"doc\": \"Namespace or schema of the table\"\n        },\n        {\n            \"name\": \"SCHEMA_JSON\",\n            \"type\": [\"null\", \"string\"],\n            \"default\": null,\n            \"doc\": \"JSON string containing the schema definition from database\"\n        },\n        {\n            \"name\": \"AI_RESPONSE\",\n            \"type\": [\"null\", \"string\"],\n            \"default\": null,\n            \"doc\": \"JSON string containing AI analysis results from database\"\n        }\n    ]\n}"
+      }, {
+        "description" : "",
+        "name" : "schema_evolution_check_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "WITH ai_analysis AS (\n    SELECT \n        table_name,\n        table_namespace,\n        avro_schema::string as schema_json,\n        AI_COMPLETE(\n            model => 'claude-4-sonnet', \n            prompt => CONCAT(\n                'You are a schema analysis expert. Analyze if the given Avro schema semantically matches CSV data.',\n                '\\n\\n## Task',\n                '\\nDetermine if this Base64 Encoded Avro schema can accommodate the provided CSV structure.',\n                '\\n\\n## Input Data',\n                '\\n**Avro Schema:**\\n<schema>', AVRO_SCHEMA, '</schema>',\n                '\\n\\n**CSV Headers:** ${csv.headers}',\n                '\\n**CSV Sample:** ${csv.sample.rows}',\n                '\\n\\n## Analysis Rules',\n                '\\n1. **Semantic Matching**: If majority of CSV fields (>50%) can map to existing schema fields, consider it a match',\n                '\\n2. **Schema Evolution**: Required only if CSV has new fields that cannot map to existing schema fields',\n                '\\n3. **Match Priority**: If no semantic match exists, skip evolution analysis',\n                '\\n\\n## Required Response Format',\n                '\\nRespond with ONLY a JSON object (no markdown, no explanations):',\n                '\\n{',\n                '\\n  \"matched\": \"yes|no\",',\n                '\\n  \"schema_evolution_required\": \"yes|no\",',\n                '\\n  \"schemas_analysis\": [\"bullet point 1\", \"bullet point 2\"]',\n                '\\n}',\n                '\\n\\n## Analysis Guidelines',\n                '\\n- Focus on field purpose rather than exact naming',\n                '\\n- Consider common field variations (id/identifier, name/title, etc.)',\n                '\\n- Evolution needed only for genuinely new data concepts',\n                '\\n- Keep analysis points concise and technical'\n            ),\n           model_parameters => {\n                'temperature': 0.1\n            },\n            response_format => {\n                 'type': 'json',\n                 'schema': {\n                     'type': 'object',\n                     'properties': {\n                         'matched': {\n                             'type': 'string',\n                             'enum': ['yes', 'no']\n                         },\n                         'schema_evolution_required': {\n                             'type': 'string',\n                             'enum': ['yes', 'no']\n                         },\n                         'schemas_analysis': {\n                             'type': 'array',\n                             'items': {\n                                 'type': 'string'\n                             }\n                         }\n                     },\n                     'required': ['matched', 'schema_evolution_required', 'schemas_analysis'],\n                     'additionalProperties': false\n                 }\n            }\n        ) as ai_response\n    FROM METADATA.SCHEMA_REGISTRY\n)\nSELECT \n    table_name,\n    table_namespace,\n    schema_json,\n    BASE64_ENCODE(ai_response) as ai_response\nFROM ai_analysis\nWHERE PARSE_JSON(ai_response):matched::string = 'yes'"
+      }, {
+        "description" : "Set the schema state to draft to handle evolving schema",
+        "name" : "schema_state_draft_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "UPDATE METADATA.SCHEMA_REGISTRY\nSET \n    IS_READY = FALSE,\n    STATUS = 'DRAFT'\nWHERE \n    UPPER(TABLE_NAME) = UPPER('${table.name}')\n    AND\n    UPPER(TABLE_NAMESPACE) = UPPER('${table.namespace}');"
+      }, {
+        "description" : "",
+        "name" : "script_evaluate_schema_check",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "",
+        "name" : "script_extract_cortex_response",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "",
+        "name" : "script_extract_csv_metadata",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "",
+        "name" : "script_prepare_slack_message",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "the music flow bot oauth token to post in #music-flow channel",
+        "name" : "slack.bot.oauth.token",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "slack.channel",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "#music-flow"
+      }, {
+        "description" : "",
+        "name" : "snowflake_account",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "sfdevrel-sfdevrel-enterprise"
+      }, {
+        "description" : "",
+        "name" : "snowflake_database",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "KAMESH_OPENFLOW_DEMOS"
+      }, {
+        "description" : "The Snowflake user PAT/Password",
+        "name" : "snowflake_password",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "snowflake_role",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "KAMESH_DEMOS"
+      }, {
+        "description" : "",
+        "name" : "snowflake_user",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "KAMESH_OPENFLOW_DEMO_SA"
+      }, {
+        "description" : "",
+        "name" : "snowflake_warehouse",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "KAMESH_DEMOS_S"
+      }, {
+        "description" : "",
+        "name" : "update_schema_registry_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "UPDATE METADATA.SCHEMA_REGISTRY \nSET \n    SCHEMA_ANALYSIS = '${schema.analysis}',\n    LAST_ANALYSIS_SOURCE = '${google.drive.file.path}',\n    UPDATED_AT = CURRENT_TIMESTAMP()\nWHERE \n    TABLE_NAME = '${table.name}' \n    AND TABLE_NAMESPACE = '${table.namespace}'"
+      }, {
+        "description" : "",
+        "name" : "upsert_schema_registry_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "MERGE INTO METADATA.SCHEMA_REGISTRY AS target\nUSING (\n    SELECT \n        '${table.name}' AS table_name,\n        '${table.namespace}' AS table_namespace,\n        '${avro.schema.content}' AS avro_schema,\n        '${schema.analysis}' AS schema_analysis,\n        '${google.drive.file.path}' AS schema_source,\n        CURRENT_TIMESTAMP() AS updated_at\n) AS source\nON target.TABLE_NAME = source.table_name \n   AND target.TABLE_NAMESPACE = source.table_namespace\n\nWHEN MATCHED THEN\n    UPDATE SET\n        AVRO_SCHEMA = source.avro_schema,\n        SCHEMA_ANALYSIS = source.schema_analysis,\n        SCHEMA_VERSION = METADATA.SEQ_SCHEMA_VERSION.NEXTVAL,\n        IS_READY = FALSE,\n        STATUS = 'ACTIVE',\n        LAST_ANALYSIS_SOURCE = source.schema_source,\n        UPDATED_AT = source.updated_at\n\nWHEN NOT MATCHED THEN\n    INSERT (\n        TABLE_NAME,\n        TABLE_NAMESPACE,\n        AVRO_SCHEMA,\n        SCHEMA_ANALYSIS,\n        SCHEMA_VERSION,\n        IS_READY,\n        STATUS,\n        BASELINE_SOURCE,\n        LAST_ANALYSIS_SOURCE,\n        CREATED_AT,\n        UPDATED_AT\n    )\n    VALUES (\n        source.table_name, -- table name    \n        source.table_namespace, -- table namespace\n        source.avro_schema, -- avro schema\n        source.schema_analysis, -- schema analysis\n        METADATA.SEQ_SCHEMA_VERSION.NEXTVAL, -- schema version\n        FALSE, -- is ready\n        'ACTIVE', -- status\n        source.schema_source, -- baseline source\n        source.schema_source, -- last analysis source\n        CURRENT_TIMESTAMP(), -- created at\n        source.updated_at -- updated at\n    );"
+      } ]
+    }
+  },
+  "parameterProviders" : { },
+  "snapshotMetadata" : {
+    "author" : "KAMESHS",
+    "flowIdentifier" : "markingestiondone",
+    "timestamp" : 1757687098648
+  }
+}

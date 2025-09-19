@@ -1,0 +1,148 @@
+# https://taskfile.dev
+
+version: "3"
+
+env:
+    DEMO_DIR: "{{.USER_WORKING_DIR}}"
+    WORK_DIR: "{{.DEMO_DIR}}/work"
+
+includes:
+    opencatalog: ./.taskfiles/opencatalog.yml
+
+tasks:
+    setup:
+        desc: "Setup the Snowflake environment"
+        env:
+            # this should be role with higher privileges to be able to create the role and database
+            # Catalog Integration, External Volume etc.,
+            SNOWFLAKE_ROLE2:
+                sh: |
+                    snow sql -q 'select current_role() as CURRENT_ROLE' \
+                    --format=json  | jq -r '.[0].CURRENT_ROLE'
+            SQL_DIR: "{{.USER_WORKING_DIR}}/infra"
+        cmds:
+            - |
+                snow sql --filename "{{.SQL_DIR}}/setup.sql" \
+                --variable SNOWFLAKE_DATABASE="{{.SNOWFLAKE_OPENFLOW_DEMO_DATABASE}}" \
+                --variable SNOWFLAKE_WAREHOUSE="{{.SNOWFLAKE_OPENFLOW_DEMO_WAREHOUSE}}" \
+                --variable SNOWFLAKE_ROLE="{{.SNOWFLAKE_OPENFLOW_DEMO_ROLE}}" \
+                --variable SNOWFLAKE_USER="{{.SNOWFLAKE_USER}}" \
+                --variable SNOWFLAKE_ROLE2="{{.SNOWFLAKE_ROLE2}}"
+        silent: true
+
+    download_sources:
+        desc: "Download generated schema sources"
+        cmds:
+            - mkdir -p {{.USER_WORKING_DIR}}/flow-state
+            - |
+                snow stage  copy @sources {{.USER_WORKING_DIR}}/flow-state/ \
+                 --overwrite --recursive \
+                 --account "{{ .SNOWFLAKE_ACCOUNT }}" \
+                 --database "{{ .SNOWFLAKE_OPENFLOW_DEMO_DATABASE }}" \
+                 --schema "data"
+
+    create_schema:
+        desc: "Create or update the Iceberg table with the generated SQL code"
+        silent: false
+        deps:
+            - download_sources
+        cmds:
+            - |
+                snow sql --enable-templating JINJA \
+                  -f "{{.USER_WORKING_DIR}}/flow-state/{{.TABLE_NAMESPACE}}_{{.TABLE_NAME}}_create.sql" \
+                  --database "${SNOWFLAKE_MUSIC_FLOW_DATABASE}" \
+                  --role "{{.SNOWFLAKE_ROLE}}" \
+                  --variable "music_flow_demo_db=${SNOWFLAKE_MUSIC_FLOW_DATABASE}" \
+                  --variable "music_flow_system_db=${SNOWFLAKE_OPENFLOW_DEMO_DATABASE}"
+
+    evolve_schema:
+        desc: "Create or update the Iceberg table with the generated SQL code"
+        silent: false
+        deps:
+            - download_sources
+        cmds:
+            - |
+                snow sql --enable-templating JINJA \
+                  -f "{{.USER_WORKING_DIR}}/flow-state/{{.TABLE_NAMESPACE}}_{{.TABLE_NAME}}_evolve.sql" \
+                  --database "${SNOWFLAKE_MUSIC_FLOW_DATABASE}" \
+                  --role "{{.SNOWFLAKE_ROLE}}" \
+                  --variable "music_flow_demo_db=${SNOWFLAKE_MUSIC_FLOW_DATABASE}" \
+                  --variable "music_flow_system_db=${SNOWFLAKE_OPENFLOW_DEMO_DATABASE}"
+
+    truncate_schema_registry:
+        desc: "Truncate the schema registry table"
+        silent: true
+        aliases:
+            - cleanup_schema_registry
+            - clean_schema_registry
+        cmds:
+            - |
+                snow sql \
+                 --temporary-connection \
+                 --account "{{ .SNOWFLAKE_ACCOUNT }}" \
+                 --user "{{ .SA_USER }}" \
+                 --role "{{ .SNOWFLAKE_OPENFLOW_DEMO_ROLE }}" \
+                 --database "{{ .SNOWFLAKE_OPENFLOW_DEMO_DATABASE }}" \
+                 --warehouse "{{ .SNOWFLAKE_OPENFLOW_DEMO_WAREHOUSE }}" \
+                 --query "truncate table metadata.schema_registry;" \
+                 --format json
+
+    truncate_music_flow_resources:
+        desc: "Truncate the music flow schema, tables , database and empty sources stage"
+        silent: true
+        cmds:
+            - |
+                snow sql --stdin <<EOF
+                 use role {{.SNOWFLAKE_ROLE}};
+                 rm @kamesh_openflow_demos.data.sources;
+                 alter stage kamesh_openflow_demos.data.sources refresh;
+                EOF
+            - |
+                snow sql --stdin <<EOF
+                 USE ROLE {{.SNOWFLAKE_ROLE}};
+                 USE DATABASE $SNOWFLAKE_MUSIC_FLOW_DATABASE;
+                 TRUNCATE TABLE IF EXISTS "music_events";
+                 DROP TABLE IF EXISTS "music_events";
+                 DROP SCHEMA IF EXISTS "events";
+                 DROP SCHEMA IF EXISTS DATA;
+                 DROP DATABASE IF EXISTS $SNOWFLAKE_MUSIC_FLOW_DATABASE;
+                 DROP EXTERNAL VOLUME IF EXISTS ${{.USER}}_openflow_music_flow;
+                 DROP CATALOG INTEGRATION IF EXISTS music_flow_music_events_rw;
+                EOF
+    clean:
+        desc: "Clean the environment and setup for demo"
+        deps:
+            - truncate_schema_registry
+            - truncate_music_flow_resources
+        cmds:
+            - rm -rf {{.USER_WORKING_DIR}}/flow-state/*
+            - "echo 'Environment cleaned'"
+
+    # =============================================================================
+    # SPARK INTEGRATION TASKS
+    # =============================================================================
+
+    spark_sql:
+        desc: "Run the query against the Spark environment. Pass the SQL file to run as a parameter."
+        silent: false
+        cmds:
+            - |
+                spark-sql \
+                --packages org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.10.0,org.apache.hadoop:hadoop-aws:3.4.0,org.apache.hadoop:hadoop-common:3.4.0,org.apache.iceberg:iceberg-aws-bundle:1.10.0 \
+                --conf spark.jars.ivySettings={{.USER_WORKING_DIR}}/ivy-settings.xml \
+                --conf spark.sql.extensions=org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions \
+                --conf spark.sql.catalog.music_flow=org.apache.iceberg.spark.SparkCatalog \
+                --conf spark.sql.catalog.music_flow.type=rest \
+                --conf spark.sql.catalog.music_flow.header.X-Iceberg-Access-Delegation="vended-credentials" \
+                --conf spark.sql.catalog.music_flow.token-refresh-enabled=true \
+                --conf spark.sql.catalog.music_flow.uri="${POLARIS_CATALOG_URI}" \
+                --conf spark.sql.catalog.music_flow.credential="${POLARIS_CLIENT_ID}:${POLARIS_CLIENT_SECRET}" \
+                --conf spark.sql.catalog.music_flow.warehouse="${POLARIS_CATALOG_NAME}" \
+                --conf spark.sql.catalog.music_flow.scope='PRINCIPAL_ROLE:ALL' \
+                --conf spark.hadoop.fs.s3a.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \
+                --conf spark.hadoop.fs.s3.impl=org.apache.hadoop.fs.s3a.S3AFileSystem \
+                --conf spark.sql.defaultCatalog=music_flow \
+                --conf spark.sql.catalog.music_flow.client.factory=org.apache.iceberg.aws.AssumeRoleAwsClientFactory \
+                --conf spark.sql.catalog.music_flow.client.assume-role.arn="${AWS_ROLE_ARN}" \
+                --conf spark.sql.catalog.music_flow.client.assume-role.region="${AWS_REGION}" \
+                --conf spark.sql.catalog.music_flow.client.assume-role.external-id="${AWS_EXTERNAL_ID}"

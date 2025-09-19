@@ -1,0 +1,23 @@
+{
+    "type": "record",
+    "name": "IngestionMappingResponse",
+    "namespace": "com.musicflow.schema",
+    "fields": [
+        {
+            "name": "AVRO_SCHEMA",
+            "type": "string"
+        },
+        {
+            "name": "ADAPTED_AVRO_SCHEMA",
+            "type": "string"
+        },
+        {
+            "name": "SCHEMA_STATUS",
+            "type": "string"
+        },
+        {
+            "name": "IS_READY",
+            "type": "string"
+        }
+    ]
+}

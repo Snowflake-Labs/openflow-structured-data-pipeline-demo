@@ -1,0 +1,41 @@
+sale_id,customer_id,event_id,festival_name,ticket_type,quantity,unit_price,total_amount,purchase_date,payment_method
+5001,1001,1,SoundWave Festival,VIP,2,299.99,599.98,2025-02-14,Credit Card
+5002,1002,101,Beat Valley,General,1,89.50,89.50,2025-03-22,PayPal
+5003,1003,201,Harmony Grove,Premium,3,125.00,375.00,2025-04-10,Credit Card
+5004,1004,2,SoundWave Festival,VIP,1,349.99,349.99,2025-02-18,Apple Pay
+5005,1005,102,Beat Valley,General,2,94.75,189.50,2025-03-25,Credit Card
+5006,1006,202,Harmony Grove,Standard,1,115.00,115.00,2025-04-12,Debit Card
+5007,1007,3,SoundWave Festival,VIP,4,329.99,1319.96,2025-02-20,Credit Card
+5008,1008,103,Beat Valley,General,1,87.25,87.25,2025-03-28,PayPal
+5009,1009,203,Harmony Grove,Premium,2,135.00,270.00,2025-04-15,Credit Card
+5010,1010,4,SoundWave Festival,VIP,1,289.99,289.99,2025-02-22,Apple Pay
+5011,1011,104,Beat Valley,General,3,92.50,277.50,2025-03-30,Credit Card
+5012,1012,204,Harmony Grove,Premium,1,130.00,130.00,2025-04-18,Credit Card
+5013,1013,5,SoundWave Festival,Standard,2,199.99,399.98,2025-02-25,PayPal
+5014,1014,105,Beat Valley,General,1,96.00,96.00,2025-04-01,Debit Card
+5015,1015,205,Harmony Grove,Standard,4,98.00,392.00,2025-04-20,Credit Card
+5016,1016,6,SoundWave Festival,Standard,1,219.99,219.99,2025-02-28,PayPal
+5017,1017,106,Beat Valley,VIP,2,88.75,177.50,2025-04-03,Credit Card
+5018,1018,206,Harmony Grove,Standard,1,98.00,98.00,2025-04-22,Apple Pay
+5019,1019,7,SoundWave Festival,Standard,3,179.99,539.97,2025-03-02,Credit Card
+5020,1020,107,Beat Valley,VIP,1,91.25,91.25,2025-04-05,Credit Card
+5021,1021,207,Harmony Grove,Budget,2,75.00,150.00,2025-04-25,PayPal
+5022,1022,8,SoundWave Festival,Standard,1,249.99,249.99,2025-03-05,Credit Card
+5023,1023,108,Beat Valley,General,2,89.99,179.98,2025-04-08,Debit Card
+5024,1024,208,Harmony Grove,Budget,1,78.00,78.00,2025-04-28,PayPal
+5025,1025,9,SoundWave Festival,VIP,2,379.99,759.98,2025-03-08,Credit Card
+5026,1002,109,Beat Valley,General,1,93.50,93.50,2025-04-10,PayPal
+5027,1004,210,Harmony Grove,Budget,3,74.00,222.00,2025-05-01,Apple Pay
+5028,1006,10,SoundWave Festival,VIP,1,309.99,309.99,2025-03-10,Debit Card
+5029,1008,110,Beat Valley,General,2,90.75,181.50,2025-04-12,PayPal
+5030,1010,211,Harmony Grove,Standard,1,102.00,102.00,2025-05-03,Apple Pay
+5031,1001,301,Music Mountain,Premium,2,145.00,290.00,2025-06-15,Credit Card
+5032,1003,302,Music Mountain,Premium,1,135.00,135.00,2025-06-18,Credit Card
+5033,1005,303,Music Mountain,Standard,3,125.00,375.00,2025-06-20,Credit Card
+5034,1007,304,Music Mountain,Premium,2,130.00,260.00,2025-06-22,Credit Card
+5035,1009,305,Music Mountain,Budget,4,85.00,340.00,2025-06-25,Credit Card
+5036,1012,401,Coastal Beats,Premium,1,165.00,165.00,2025-07-10,Credit Card
+5037,1015,402,Coastal Beats,Standard,2,125.00,250.00,2025-07-12,Credit Card
+5038,1018,403,Coastal Beats,Premium,1,175.00,175.00,2025-07-15,Apple Pay
+5039,1020,404,Coastal Beats,Budget,3,95.00,285.00,2025-07-18,Credit Card
+5040,1023,405,Coastal Beats,Standard,2,115.00,230.00,2025-07-20,Credit Card

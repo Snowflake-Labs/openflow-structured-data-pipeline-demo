@@ -1,0 +1,1730 @@
+{
+  "externalControllerServices" : { },
+  "flow" : {
+    "createdTimestamp" : 1756984717365,
+    "description" : "Move to Ingest",
+    "identifier" : "move-to-ingest",
+    "lastModifiedTimestamp" : 1756984717365,
+    "name" : "move-to-ingest",
+    "versionCount" : 0
+  },
+  "flowContents" : {
+    "comments" : "",
+    "componentType" : "PROCESS_GROUP",
+    "connections" : [ {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab3512-0199-1000-4398-09c56dc81091",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "0dab3516-0199-1000-8a98-e69dbc9b2e7d",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab3510-0199-1000-b233-f4949cea4f5e",
+        "name" : "UpdateAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 108
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab3510-0199-1000-b233-f4949cea4f5e",
+        "name" : "UpdateAttribute",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "45b59329-426b-343d-8bc5-675697b2743b",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab350f-0199-1000-670e-cbf59ab291c7",
+        "name" : "Update Schema Registry",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 138
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab350f-0199-1000-670e-cbf59ab291c7",
+        "name" : "Update Schema Registry",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "4f49538e-f038-3965-b652-19861dceccf6",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "Unaltered",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "unmatched" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "f3631ed9-69da-34ce-af6d-d18cd5ce4dc9",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 134
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab3510-0199-1000-b233-f4949cea4f5e",
+        "name" : "UpdateAttribute",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "683a8420-0437-33d1-9b4c-8da6ae5f090f",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "created_or_altered" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "f3631ed9-69da-34ce-af6d-d18cd5ce4dc9",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 141
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "ecb35e6b-98d4-3a2c-92d3-24d28d76b91b",
+        "name" : "PutS3Object",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "7c9e52a5-c30b-30a1-bf44-63a699f9379f",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "file.exists" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab3512-0199-1000-4398-09c56dc81091",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 145
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "f3631ed9-69da-34ce-af6d-d18cd5ce4dc9",
+        "name" : "RouteOnAttribute",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "81a7a80c-44a9-36cb-b629-8b4e3c9cf585",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "" ],
+      "source" : {
+        "groupId" : "flow-contents-group",
+        "id" : "0dab3513-0199-1000-9df7-5cf8f3c65dc4",
+        "name" : "Move to Ingest",
+        "type" : "INPUT_PORT"
+      },
+      "zIndex" : 133
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab350d-0199-1000-6d37-f8260c6ab624",
+        "name" : "Prepare Slack Message",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "90e104e7-1454-3d71-8412-1590304bc3fa",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "ecb35e6b-98d4-3a2c-92d3-24d28d76b91b",
+        "name" : "PutS3Object",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 144
+    }, {
+      "backPressureDataSizeThreshold" : "1 GB",
+      "backPressureObjectThreshold" : 10000,
+      "bends" : [ ],
+      "componentType" : "CONNECTION",
+      "destination" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab3511-0199-1000-8c11-fba91f630ce1",
+        "name" : "Notify Schema Generation Done",
+        "type" : "PROCESSOR"
+      },
+      "flowFileExpiration" : "0 sec",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "d161de2b-7f81-3da7-8850-893e51f41eb0",
+      "labelIndex" : 0,
+      "loadBalanceCompression" : "DO_NOT_COMPRESS",
+      "loadBalanceStrategy" : "DO_NOT_LOAD_BALANCE",
+      "name" : "",
+      "partitioningAttribute" : "",
+      "prioritizers" : [ ],
+      "selectedRelationships" : [ "success" ],
+      "source" : {
+        "comments" : "",
+        "groupId" : "flow-contents-group",
+        "id" : "0dab350d-0199-1000-6d37-f8260c6ab624",
+        "name" : "Prepare Slack Message",
+        "type" : "PROCESSOR"
+      },
+      "zIndex" : 140
+    } ],
+    "controllerServices" : [ {
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "runtime-snowflake-connection-service-nar",
+        "group" : "com.snowflake.openflow.runtime",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "CONTROLLER_SERVICE",
+      "controllerServiceApis" : [ {
+        "bundle" : {
+          "artifact" : "nifi-standard-services-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2025.9.4.20"
+        },
+        "type" : "org.apache.nifi.dbcp.DBCPService"
+      } ],
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "4595e971-cb4f-3618-b3a1-6428acdbe52f",
+      "name" : "Snowflake Enterprise",
+      "properties" : {
+        "Account" : "#{snowflake_account}",
+        "Warehouse" : "#{snowflake_warehouse}",
+        "User" : "#{snowflake_user}",
+        "Maximum Connections" : "10",
+        "Maximum Lifetime" : "30 minutes",
+        "Connection Strategy" : "STANDARD",
+        "Connection Timeout" : "30 seconds",
+        "Role" : "#{snowflake_role}",
+        "Idle Timeout" : "10 minutes",
+        "Authentication Strategy" : "SNOWFLAKE_SESSION_TOKEN",
+        "Database Name" : "#{snowflake_database}",
+        "Password" : "#{snowflake_password}"
+      },
+      "propertyDescriptors" : {
+        "Account" : {
+          "displayName" : "Account",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Account",
+          "sensitive" : false
+        },
+        "Warehouse" : {
+          "displayName" : "Warehouse",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Warehouse",
+          "sensitive" : false
+        },
+        "User" : {
+          "displayName" : "User",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "User",
+          "sensitive" : false
+        },
+        "Maximum Connections" : {
+          "displayName" : "Maximum Connections",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Maximum Connections",
+          "sensitive" : false
+        },
+        "Maximum Lifetime" : {
+          "displayName" : "Maximum Lifetime",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Maximum Lifetime",
+          "sensitive" : false
+        },
+        "Schema" : {
+          "displayName" : "Schema",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Schema",
+          "sensitive" : false
+        },
+        "Private Key Service" : {
+          "displayName" : "Private Key Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "Private Key Service",
+          "sensitive" : false
+        },
+        "Connection Strategy" : {
+          "displayName" : "Connection Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Connection Strategy",
+          "sensitive" : false
+        },
+        "Connection Timeout" : {
+          "displayName" : "Connection Timeout",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Connection Timeout",
+          "sensitive" : false
+        },
+        "Role" : {
+          "displayName" : "Role",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Role",
+          "sensitive" : false
+        },
+        "Idle Timeout" : {
+          "displayName" : "Idle Timeout",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Idle Timeout",
+          "sensitive" : false
+        },
+        "Authentication Strategy" : {
+          "displayName" : "Authentication Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Authentication Strategy",
+          "sensitive" : false
+        },
+        "Database Name" : {
+          "displayName" : "Database Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Database Name",
+          "sensitive" : false
+        },
+        "Password" : {
+          "displayName" : "Password",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Password",
+          "sensitive" : true
+        }
+      },
+      "scheduledState" : "DISABLED",
+      "type" : "com.snowflake.openflow.runtime.services.snowflake.SnowflakeConnectionService"
+    }, {
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-aws-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "CONTROLLER_SERVICE",
+      "controllerServiceApis" : [ {
+        "bundle" : {
+          "artifact" : "nifi-aws-service-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2025.9.4.20"
+        },
+        "type" : "org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderService"
+      }, {
+        "bundle" : {
+          "artifact" : "nifi-aws-service-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2025.9.4.20"
+        },
+        "type" : "org.apache.nifi.processors.aws.credentials.provider.AwsCredentialsProviderService"
+      } ],
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "863cfdae-854c-319f-ad50-35abe946e632",
+      "name" : "AWS DevRel Sandbox",
+      "properties" : {
+        "Access Key" : "#{music-flow.aws.access-key-id}",
+        "default-credentials" : "false",
+        "Session Time" : "3600",
+        "assume-role-sts-signer-override" : "Default Signature",
+        "Assume Role ARN" : "#{music-flow.s3.assume-role-arn}",
+        "Assume Role Session Name" : "Kamesh_Openflow_SPCS_MF_Demo",
+        "assume-role-sts-region" : "us-west-2",
+        "Secret Key" : "#{music-flow.aws.secret-access-key}",
+        "assume-role-external-id" : "#{music-flow.s3.ingest-data.assume-role-external-ID}",
+        "anonymous-credentials" : "false"
+      },
+      "propertyDescriptors" : {
+        "profile-name" : {
+          "displayName" : "Profile Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "profile-name",
+          "sensitive" : false
+        },
+        "Access Key" : {
+          "displayName" : "Access Key ID",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Access Key",
+          "sensitive" : true
+        },
+        "assume-role-proxy-configuration-service" : {
+          "displayName" : "Assume Role Proxy Configuration Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "assume-role-proxy-configuration-service",
+          "sensitive" : false
+        },
+        "default-credentials" : {
+          "displayName" : "Use Default Credentials",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "default-credentials",
+          "sensitive" : false
+        },
+        "Session Time" : {
+          "displayName" : "Assume Role Session Time",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Session Time",
+          "sensitive" : false
+        },
+        "assume-role-ssl-context-service" : {
+          "displayName" : "Assume Role SSL Context Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "assume-role-ssl-context-service",
+          "sensitive" : false
+        },
+        "assume-role-sts-signer-override" : {
+          "displayName" : "Assume Role STS Signer Override",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "assume-role-sts-signer-override",
+          "sensitive" : false
+        },
+        "custom-signer-class-name" : {
+          "displayName" : "Custom Signer Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-class-name",
+          "sensitive" : false
+        },
+        "Assume Role ARN" : {
+          "displayName" : "Assume Role ARN",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Assume Role ARN",
+          "sensitive" : false
+        },
+        "custom-signer-module-location" : {
+          "displayName" : "Custom Signer Module Location",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-module-location",
+          "resourceDefinition" : {
+            "cardinality" : "MULTIPLE",
+            "resourceTypes" : [ "DIRECTORY", "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "Assume Role Session Name" : {
+          "displayName" : "Assume Role Session Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Assume Role Session Name",
+          "sensitive" : false
+        },
+        "assume-role-sts-endpoint" : {
+          "displayName" : "Assume Role STS Endpoint Override",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "assume-role-sts-endpoint",
+          "sensitive" : false
+        },
+        "assume-role-sts-region" : {
+          "displayName" : "Assume Role STS Region",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "assume-role-sts-region",
+          "sensitive" : false
+        },
+        "Secret Key" : {
+          "displayName" : "Secret Access Key",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Secret Key",
+          "sensitive" : true
+        },
+        "Credentials File" : {
+          "displayName" : "Credentials File",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Credentials File",
+          "resourceDefinition" : {
+            "cardinality" : "SINGLE",
+            "resourceTypes" : [ "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "assume-role-external-id" : {
+          "displayName" : "Assume Role External ID",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "assume-role-external-id",
+          "sensitive" : false
+        },
+        "anonymous-credentials" : {
+          "displayName" : "Use Anonymous Credentials",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "anonymous-credentials",
+          "sensitive" : false
+        }
+      },
+      "scheduledState" : "DISABLED",
+      "type" : "org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderControllerService"
+    }, {
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-gcp-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "CONTROLLER_SERVICE",
+      "controllerServiceApis" : [ {
+        "bundle" : {
+          "artifact" : "nifi-gcp-services-api-nar",
+          "group" : "org.apache.nifi",
+          "version" : "2025.9.4.20"
+        },
+        "type" : "org.apache.nifi.gcp.credentials.service.GCPCredentialsService"
+      } ],
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "deb94ca9-96f3-3227-b1d2-3ed5fa520471",
+      "name" : "Pratyakshika Openflow",
+      "properties" : {
+        "compute-engine-credentials" : "false",
+        "Delegation Strategy" : "Service Account",
+        "application-default-credentials" : "false",
+        "service-account-json-file" : "#{pratyakshika_sa_json}"
+      },
+      "propertyDescriptors" : {
+        "proxy-configuration-service" : {
+          "displayName" : "Proxy Configuration Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "proxy-configuration-service",
+          "sensitive" : false
+        },
+        "compute-engine-credentials" : {
+          "displayName" : "Use Compute Engine Credentials",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "compute-engine-credentials",
+          "sensitive" : false
+        },
+        "Delegation Strategy" : {
+          "displayName" : "Delegation Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Delegation Strategy",
+          "sensitive" : false
+        },
+        "application-default-credentials" : {
+          "displayName" : "Use Application Default Credentials",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "application-default-credentials",
+          "sensitive" : false
+        },
+        "service-account-json-file" : {
+          "displayName" : "Service Account JSON File",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "service-account-json-file",
+          "resourceDefinition" : {
+            "cardinality" : "SINGLE",
+            "resourceTypes" : [ "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "Delegation User" : {
+          "displayName" : "Delegation User",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Delegation User",
+          "sensitive" : false
+        },
+        "service-account-json" : {
+          "displayName" : "Service Account JSON",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "service-account-json",
+          "sensitive" : true
+        }
+      },
+      "scheduledState" : "DISABLED",
+      "type" : "org.apache.nifi.processors.gcp.credentials.service.GCPCredentialsControllerService"
+    } ],
+    "defaultBackPressureDataSizeThreshold" : "1 GB",
+    "defaultBackPressureObjectThreshold" : 10000,
+    "defaultFlowFileExpiration" : "0 sec",
+    "executionEngine" : "INHERITED",
+    "externalControllerServiceReferences" : { },
+    "flowFileConcurrency" : "UNBOUNDED",
+    "flowFileOutboundPolicy" : "STREAM_WHEN_AVAILABLE",
+    "funnels" : [ ],
+    "identifier" : "flow-contents-group",
+    "inputPorts" : [ {
+      "allowRemoteAccess" : false,
+      "componentType" : "INPUT_PORT",
+      "concurrentlySchedulableTaskCount" : 1,
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "0dab3513-0199-1000-9df7-5cf8f3c65dc4",
+      "name" : "Move to Ingest",
+      "portFunction" : "STANDARD",
+      "position" : {
+        "x" : 160.0,
+        "y" : -920.0
+      },
+      "scheduledState" : "ENABLED",
+      "type" : "INPUT_PORT"
+    } ],
+    "labels" : [ ],
+    "maxConcurrentTasks" : 1,
+    "name" : "Move to Ingest",
+    "outputPorts" : [ ],
+    "parameterContextName" : "music-flow-spcs",
+    "position" : {
+      "x" : 0.0,
+      "y" : 0.0
+    },
+    "processGroups" : [ ],
+    "processors" : [ {
+      "autoTerminatedRelationships" : [ "failure" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-groovyx-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "0dab350d-0199-1000-6d37-f8260c6ab624",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "Prepare Slack Message",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 112.0,
+        "y" : 144.0
+      },
+      "properties" : {
+        "groovyx-failure-strategy" : "rollback",
+        "groovyx-script-file" : "#{script_prepare_slack_message}"
+      },
+      "propertyDescriptors" : {
+        "groovyx-script-body" : {
+          "displayName" : "Script Body",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "groovyx-script-body",
+          "sensitive" : false
+        },
+        "groovyx-failure-strategy" : {
+          "displayName" : "Failure strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "groovyx-failure-strategy",
+          "sensitive" : false
+        },
+        "groovyx-additional-classpath" : {
+          "displayName" : "Additional classpath",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "groovyx-additional-classpath",
+          "sensitive" : false
+        },
+        "groovyx-script-file" : {
+          "displayName" : "Script File",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "groovyx-script-file",
+          "resourceDefinition" : {
+            "cardinality" : "SINGLE",
+            "resourceTypes" : [ "FILE" ]
+          },
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.groovyx.ExecuteGroovyScript",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "failure" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "runtime-database-processors-nar",
+        "group" : "com.snowflake.openflow.runtime",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "0dab350f-0199-1000-670e-cbf59ab291c7",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "Update Schema Registry",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 760.0,
+        "y" : -664.0
+      },
+      "properties" : {
+        "Max Batch Size" : "1",
+        "Connection Pooling Service" : "4595e971-cb4f-3618-b3a1-6428acdbe52f",
+        "Max Content Reference Size" : "32 KB",
+        "SQL" : "#{update_schema_registry_sql}"
+      },
+      "propertyDescriptors" : {
+        "Max Batch Size" : {
+          "displayName" : "Max Batch Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Max Batch Size",
+          "sensitive" : false
+        },
+        "Connection Pooling Service" : {
+          "displayName" : "Connection Pooling Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "Connection Pooling Service",
+          "sensitive" : false
+        },
+        "Max Content Reference Size" : {
+          "displayName" : "Max Content Reference Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Max Content Reference Size",
+          "sensitive" : false
+        },
+        "SQL" : {
+          "displayName" : "SQL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "SQL",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "com.snowflake.openflow.runtime.processors.database.ExecuteSQLStatement",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-update-attribute-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "0dab3510-0199-1000-b233-f4949cea4f5e",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "UpdateAttribute",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 104.0,
+        "y" : -544.0
+      },
+      "properties" : {
+        "filename" : "${source.filename}",
+        "table.namespace" : "${table.namespace}",
+        "Store State" : "Do not store state",
+        "canonical-value-lookup-cache-size" : "100",
+        "table.name" : "${table.name}",
+        "tag-music-flow.table-namespace" : "${table.namespace}",
+        "tag-music-flow.table-name" : "${table.name}",
+        "ingestion.s3.bucket" : "#{ingestion.s3.bucket}",
+        "mime.type" : "${source.mime.type}"
+      },
+      "propertyDescriptors" : {
+        "Delete Attributes Expression" : {
+          "displayName" : "Delete Attributes Expression",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Delete Attributes Expression",
+          "sensitive" : false
+        },
+        "filename" : {
+          "displayName" : "filename",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "filename",
+          "sensitive" : false
+        },
+        "table.namespace" : {
+          "displayName" : "table.namespace",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "table.namespace",
+          "sensitive" : false
+        },
+        "Store State" : {
+          "displayName" : "Store State",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Store State",
+          "sensitive" : false
+        },
+        "canonical-value-lookup-cache-size" : {
+          "displayName" : "Cache Value Lookup Cache Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "canonical-value-lookup-cache-size",
+          "sensitive" : false
+        },
+        "table.name" : {
+          "displayName" : "table.name",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "table.name",
+          "sensitive" : false
+        },
+        "tag-music-flow.table-namespace" : {
+          "displayName" : "tag-music-flow.table-namespace",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "tag-music-flow.table-namespace",
+          "sensitive" : false
+        },
+        "tag-music-flow.table-name" : {
+          "displayName" : "tag-music-flow.table-name",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "tag-music-flow.table-name",
+          "sensitive" : false
+        },
+        "ingestion.s3.bucket" : {
+          "displayName" : "ingestion.s3.bucket",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "ingestion.s3.bucket",
+          "sensitive" : false
+        },
+        "mime.type" : {
+          "displayName" : "mime.type",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "mime.type",
+          "sensitive" : false
+        },
+        "Stateful Variables Initial Value" : {
+          "displayName" : "Stateful Variables Initial Value",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Stateful Variables Initial Value",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 25,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.attributes.UpdateAttribute",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "failure", "rate limited", "success" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-slack-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "0dab3511-0199-1000-8c11-fba91f630ce1",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "Notify Schema Generation Done",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 112.0,
+        "y" : 376.0
+      },
+      "properties" : {
+        "Max FlowFile Size" : "1 MB",
+        "Publish Strategy" : "Use 'Message Text' Property",
+        "Channel" : "#{slack.channel}",
+        "Access Token" : "#{slack.bot.oauth.token}",
+        "Message Text" : "${slack.message}",
+        "Character Set" : "UTF-8",
+        "Include FlowFile Content as Attachment" : "false"
+      },
+      "propertyDescriptors" : {
+        "Max FlowFile Size" : {
+          "displayName" : "Max FlowFile Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Max FlowFile Size",
+          "sensitive" : false
+        },
+        "Thread Timestamp" : {
+          "displayName" : "Thread Timestamp",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Thread Timestamp",
+          "sensitive" : false
+        },
+        "Methods Endpoint Url Prefix" : {
+          "displayName" : "Methods Endpoint Url Prefix",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Methods Endpoint Url Prefix",
+          "sensitive" : false
+        },
+        "Publish Strategy" : {
+          "displayName" : "Publish Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Publish Strategy",
+          "sensitive" : false
+        },
+        "Channel" : {
+          "displayName" : "Channel",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Channel",
+          "sensitive" : false
+        },
+        "Access Token" : {
+          "displayName" : "Access Token",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Access Token",
+          "sensitive" : true
+        },
+        "Message Text" : {
+          "displayName" : "Message Text",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Message Text",
+          "sensitive" : false
+        },
+        "Character Set" : {
+          "displayName" : "Character Set",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Character Set",
+          "sensitive" : false
+        },
+        "Include FlowFile Content as Attachment" : {
+          "displayName" : "Include FlowFile Content as Attachment",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Include FlowFile Content as Attachment",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.slack.PublishSlack",
+      "yieldDuration" : "3 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "unmatched" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-standard-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "0dab3512-0199-1000-4398-09c56dc81091",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "RouteOnAttribute",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 104.0,
+        "y" : -288.0
+      },
+      "properties" : {
+        "Routing Strategy" : "Route to Property name",
+        "file.exists" : "${filename:isNull():not():and(${filename:toLower():endsWith('.csv')})}"
+      },
+      "propertyDescriptors" : {
+        "Routing Strategy" : {
+          "displayName" : "Routing Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Routing Strategy",
+          "sensitive" : false
+        },
+        "file.exists" : {
+          "displayName" : "file.exists",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "file.exists",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 25,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.standard.RouteOnAttribute",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ "failure" ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-aws-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "ecb35e6b-98d4-3a2c-92d3-24d28d76b91b",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "PutS3Object",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 104.0,
+        "y" : -80.0
+      },
+      "properties" : {
+        "FullControl User List" : "${s3.permissions.full.users}",
+        "Owner" : "${s3.owner}",
+        "Resource Transfer Source" : "FLOWFILE_CONTENT",
+        "s3-object-remove-tags-prefix" : "true",
+        "Multipart Upload Max Age Threshold" : "7 days",
+        "canned-acl" : "${s3.permissions.cannedacl}",
+        "Signer Override" : "Default Signature",
+        "server-side-encryption" : "None",
+        "Write ACL User List" : "${s3.permissions.writeacl.users}",
+        "Read ACL User List" : "${s3.permissions.readacl.users}",
+        "Storage Class" : "Standard",
+        "Multipart Part Size" : "5 GB",
+        "use-chunked-encoding" : "true",
+        "Object Key" : "${filename}",
+        "AWS Credentials Provider service" : "863cfdae-854c-319f-ad50-35abe946e632",
+        "Multipart Threshold" : "5 GB",
+        "s3-object-tags-prefix" : "tag-music-flow.",
+        "Bucket" : "#{ingestion.s3.bucket}",
+        "Multipart Upload AgeOff Interval" : "60 min",
+        "use-path-style-access" : "false",
+        "Write Permission User List" : "${s3.permissions.write.users}",
+        "Communications Timeout" : "30 secs",
+        "Region" : "#{aws.region}",
+        "Read Permission User List" : "${s3.permissions.read.users}",
+        "s3-temporary-directory-multipart" : "${java.io.tmpdir}"
+      },
+      "propertyDescriptors" : {
+        "FullControl User List" : {
+          "displayName" : "FullControl User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "FullControl User List",
+          "sensitive" : false
+        },
+        "Owner" : {
+          "displayName" : "Owner",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Owner",
+          "sensitive" : false
+        },
+        "proxy-configuration-service" : {
+          "displayName" : "Proxy Configuration Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "proxy-configuration-service",
+          "sensitive" : false
+        },
+        "Resource Transfer Source" : {
+          "displayName" : "Resource Transfer Source",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Resource Transfer Source",
+          "sensitive" : false
+        },
+        "Cache Control" : {
+          "displayName" : "Cache Control",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Cache Control",
+          "sensitive" : false
+        },
+        "s3-object-remove-tags-prefix" : {
+          "displayName" : "Remove Tag Prefix",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "s3-object-remove-tags-prefix",
+          "sensitive" : false
+        },
+        "Endpoint Override URL" : {
+          "displayName" : "Endpoint Override URL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Endpoint Override URL",
+          "sensitive" : false
+        },
+        "File Resource Service" : {
+          "displayName" : "File Resource Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "File Resource Service",
+          "sensitive" : false
+        },
+        "Multipart Upload Max Age Threshold" : {
+          "displayName" : "Multipart Upload Max Age Threshold",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Upload Max Age Threshold",
+          "sensitive" : false
+        },
+        "custom-signer-class-name" : {
+          "displayName" : "Custom Signer Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-class-name",
+          "sensitive" : false
+        },
+        "canned-acl" : {
+          "displayName" : "Canned ACL",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "canned-acl",
+          "sensitive" : false
+        },
+        "custom-signer-module-location" : {
+          "displayName" : "Custom Signer Module Location",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "custom-signer-module-location",
+          "resourceDefinition" : {
+            "cardinality" : "MULTIPLE",
+            "resourceTypes" : [ "DIRECTORY", "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "Signer Override" : {
+          "displayName" : "Signer Override",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Signer Override",
+          "sensitive" : false
+        },
+        "Content Type" : {
+          "displayName" : "Content Type",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Content Type",
+          "sensitive" : false
+        },
+        "server-side-encryption" : {
+          "displayName" : "Server Side Encryption",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "server-side-encryption",
+          "sensitive" : false
+        },
+        "Write ACL User List" : {
+          "displayName" : "Write ACL User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write ACL User List",
+          "sensitive" : false
+        },
+        "encryption-service" : {
+          "displayName" : "Encryption Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "encryption-service",
+          "sensitive" : false
+        },
+        "Read ACL User List" : {
+          "displayName" : "Read ACL User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Read ACL User List",
+          "sensitive" : false
+        },
+        "Content Disposition" : {
+          "displayName" : "Content Disposition",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Content Disposition",
+          "sensitive" : false
+        },
+        "Storage Class" : {
+          "displayName" : "Storage Class",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Storage Class",
+          "sensitive" : false
+        },
+        "Multipart Part Size" : {
+          "displayName" : "Multipart Part Size",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Part Size",
+          "sensitive" : false
+        },
+        "use-chunked-encoding" : {
+          "displayName" : "Use Chunked Encoding",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "use-chunked-encoding",
+          "sensitive" : false
+        },
+        "Object Key" : {
+          "displayName" : "Object Key",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Object Key",
+          "sensitive" : false
+        },
+        "AWS Credentials Provider service" : {
+          "displayName" : "AWS Credentials Provider service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "AWS Credentials Provider service",
+          "sensitive" : false
+        },
+        "Multipart Threshold" : {
+          "displayName" : "Multipart Threshold",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Threshold",
+          "sensitive" : false
+        },
+        "s3-object-tags-prefix" : {
+          "displayName" : "Object Tags Prefix",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "s3-object-tags-prefix",
+          "sensitive" : false
+        },
+        "SSL Context Service" : {
+          "displayName" : "SSL Context Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "SSL Context Service",
+          "sensitive" : false
+        },
+        "Bucket" : {
+          "displayName" : "Bucket",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Bucket",
+          "sensitive" : false
+        },
+        "Multipart Upload AgeOff Interval" : {
+          "displayName" : "Multipart Upload AgeOff Interval",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Multipart Upload AgeOff Interval",
+          "sensitive" : false
+        },
+        "use-path-style-access" : {
+          "displayName" : "Use Path Style Access",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "use-path-style-access",
+          "sensitive" : false
+        },
+        "Write Permission User List" : {
+          "displayName" : "Write Permission User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write Permission User List",
+          "sensitive" : false
+        },
+        "Communications Timeout" : {
+          "displayName" : "Communications Timeout",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Communications Timeout",
+          "sensitive" : false
+        },
+        "Region" : {
+          "displayName" : "Region",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Region",
+          "sensitive" : false
+        },
+        "Read Permission User List" : {
+          "displayName" : "Read Permission User List",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Read Permission User List",
+          "sensitive" : false
+        },
+        "Expiration Time Rule" : {
+          "displayName" : "Expiration Time Rule",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Expiration Time Rule",
+          "sensitive" : false
+        },
+        "s3-temporary-directory-multipart" : {
+          "displayName" : "Temporary Directory Multipart State",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "s3-temporary-directory-multipart",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 0,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.aws.s3.PutS3Object",
+      "yieldDuration" : "1 sec"
+    }, {
+      "autoTerminatedRelationships" : [ ],
+      "backoffMechanism" : "PENALIZE_FLOWFILE",
+      "bulletinLevel" : "WARN",
+      "bundle" : {
+        "artifact" : "nifi-standard-nar",
+        "group" : "org.apache.nifi",
+        "version" : "2025.9.4.20"
+      },
+      "comments" : "",
+      "componentType" : "PROCESSOR",
+      "concurrentlySchedulableTaskCount" : 1,
+      "executionNode" : "ALL",
+      "groupIdentifier" : "flow-contents-group",
+      "identifier" : "f3631ed9-69da-34ce-af6d-d18cd5ce4dc9",
+      "maxBackoffPeriod" : "10 mins",
+      "name" : "RouteOnAttribute",
+      "penaltyDuration" : "30 sec",
+      "position" : {
+        "x" : 104.0,
+        "y" : -768.0
+      },
+      "properties" : {
+        "Routing Strategy" : "Route to Property name",
+        "created_or_altered" : "${created.or.altered:notNull():and(${created.or.altered:equalsIgnoreCase('yes')})}"
+      },
+      "propertyDescriptors" : {
+        "Routing Strategy" : {
+          "displayName" : "Routing Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Routing Strategy",
+          "sensitive" : false
+        },
+        "created_or_altered" : {
+          "displayName" : "created_or_altered",
+          "dynamic" : true,
+          "identifiesControllerService" : false,
+          "name" : "created_or_altered",
+          "sensitive" : false
+        }
+      },
+      "retriedRelationships" : [ ],
+      "retryCount" : 10,
+      "runDurationMillis" : 25,
+      "scheduledState" : "ENABLED",
+      "schedulingPeriod" : "0 sec",
+      "schedulingStrategy" : "TIMER_DRIVEN",
+      "style" : { },
+      "type" : "org.apache.nifi.processors.standard.RouteOnAttribute",
+      "yieldDuration" : "1 sec"
+    } ],
+    "remoteProcessGroups" : [ ],
+    "scheduledState" : "ENABLED",
+    "statelessFlowTimeout" : "1 min"
+  },
+  "flowEncodingVersion" : "1.0",
+  "latest" : false,
+  "parameterContexts" : {
+    "music-flow-spcs" : {
+      "componentType" : "PARAMETER_CONTEXT",
+      "description" : "All parameter variables for music-flow on SPCS. \n\nTODO: Remove all unwanted variables",
+      "inheritedParameterContexts" : [ ],
+      "name" : "music-flow-spcs",
+      "parameters" : [ {
+        "description" : "",
+        "name" : "aws.region",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "us-west-2"
+      }, {
+        "description" : "The Snowflake Cortex System AI System Prompt",
+        "name" : "cortex_prompt_system_message",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "## System Message\n\nYou are an expert data engineer specializing in Apache Avro schema generation and Snowflake Iceberg table operations. Your task is to analyze CSV file structure and generate both a syntactically valid Avro schema and clean, production-ready Snowflake SQL DDL for table creation/evolution using Snowflake Iceberg syntax.\n\n### Core Requirements\n\n- Generate a complete, valid Apache Avro schema in JSON format\n- Generate clean, well-formatted Snowflake SQL DDL for Iceberg table operations using Snowflake syntax with Jinja2 templating support\n- Use intelligent data type inference from CSV sample data\n- Follow Avro best practices for field naming and nullability\n- Ensure schema compatibility with Apache NiFi Record processors\n- Handle both first-time table creation and schema evolution scenarios\n- Perform semantic field matching for schema evolution\n- Generate complete evolved schemas with ALL fields (existing + new/changed fields), ensuring new fields are nullable\n- **CRITICAL**: Always use Snowflake data types (BIGINT, DOUBLE, STRING, etc.) for all schema operations\n- **CRITICAL**: Always use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n- **CRITICAL**: Always include Jinja2 templating directive and environment variables for dynamic SQL execution\n\n### Schema Evolution Logic\n\n#### Evolution Detection Rules\n\n- When `${schema.evolution.required}` is \"yes\", analyze existing schema against CSV headers\n- Perform semantic field matching to identify:\n  - Exact name matches (case-insensitive)\n  - Semantic equivalents (e.g., \"artist_name\" → \"performer\", \"start_time\" → \"show_time\")\n  - Type changes requiring evolution (e.g., string → double, non-nullable → nullable)\n- Generate evolution-specific Avro schema containing ALL fields (existing + new/changed fields)\n- All newly added fields MUST be nullable for backward compatibility\n- Include field mapping analysis in `schema.analysis` metadata\n\n#### Semantic Field Matching Table\n\n**NEW**: Use this semantic mapping table for field equivalence detection:\n\n| Standard Field | Semantic Equivalents | Data Type | Business Context |\n|---------------|---------------------|-----------|------------------|\n| event_id | show_id, slot_number, performance_id, id | long | Primary identifier |\n| artist_name | dj_performer, performer, headliner, act_name, artist | string | Performer information |\n| stage | main_stage, venue_section, location, venue_area, stage_location, venue | string | Performance location |\n| event_datetime | start_time, time_block, date_time, time_slot, show_time, datetime | string | Event timing |\n| ticket_price | vip_price, admission_cost, ticket_cost, entry_fee, price_tier, price, cost | double | Pricing information |\n| festival_name | event_name, festival, venue_name | string | Event organization |\n| genre | music_genre, category, style, type | string | Classification |\n| capacity | max_attendance, venue_capacity, max_capacity | long | Venue limits |\n| city | location_city, venue_city | string | Geographic location |\n| sponsor | sponsorship, partner, brand | string | Commercial partnerships |\n| ticket_type | pass_type, admission_type, entry_type, ticket_category | string | Ticket classification |\n| quantity | qty, count, number_of_tickets, ticket_count | long | Purchase quantity |\n| unit_price | price_per_ticket, individual_price, single_price | double | Per-unit pricing |\n| total_amount | total_price, final_amount, grand_total, amount_paid | double | Total transaction value |\n| purchase_date | order_date, transaction_date, sale_date, bought_date | string | Transaction timestamp |\n| payment_method | payment_type, pay_method, payment_mode, transaction_type | string | Payment processing method |\n\n#### Evolution Analysis Process\n\n1. **Parse Existing Schema**: Extract field names, types, and nullability from `${existing.schema}` and use provided `${table.name}` and `${table.namespace}` for target table identification\n2. **CSV Header Analysis**: Analyze `${csv.headers}` for new fields using semantic matching\n3. **Type Compatibility Check**: Verify if existing field types can accommodate new data\n4. **Evolution Detection**: Identify fields that require schema changes\n5. **Generate Evolution Schema**: Create complete Avro schema with ALL fields (existing fields + new evolved fields), ensuring all new fields are nullable\n\n### Data Type Mapping Rules\n\n#### Avro Types\n\n- **Integers**: Always use \"long\" (64-bit) instead of \"int\"\n- **Decimals/Floats**: Always use \"double\" instead of \"float\"\n- **Text**: Use \"string\" type\n- **Booleans**: Use \"boolean\" type for true/false values\n- **Dates/Times**: Use \"string\" with logical type annotations when possible\n- **IDs/Keys**: Always use \"long\" type for identifiers\n\n#### Snowflake Data Type Mapping\n\n**CRITICAL**: Always use Snowflake data types for CREATE and ALTER schema operations:\n\n- **Avro \"long\"** → `BIGINT` (for Snowflake Iceberg table creation)\n- **Avro \"double\"** → `DOUBLE` (for Snowflake Iceberg table creation)\n- **Avro \"string\"** → `STRING` (for Snowflake Iceberg table creation)\n- **Avro \"boolean\"** → `BOOLEAN` (for Snowflake Iceberg table creation)\n- **Avro \"int\"** → `INTEGER` (for Snowflake Iceberg table creation)\n- **Avro \"date\"** → `DATE` (for Snowflake Iceberg table creation)\n- **Avro \"timestamp\"** → `TIMESTAMP` (for Snowflake Iceberg table creation)\n\n#### Snowflake Iceberg Type Mapping for Schema Operations\n\n**CRITICAL**: Always use Snowflake data types for CREATE and ALTER schema operations:\n\n- **Long fields** → `BIGINT`\n- **Double fields** → `DOUBLE`  \n- **String fields** → `STRING`\n- **Boolean fields** → `BOOLEAN`\n- **Integer fields** → `INTEGER`\n- **Date fields** → `DATE`\n- **Timestamp fields** → `TIMESTAMP`\n\n**MANDATORY**: Use proper Snowflake Iceberg syntax for all table operations\n\n### Schema Design Rules\n\n#### Nullability Rules\n\n- Make fields nullable by default: `[\"null\", \"type\"]`\n- Only make fields non-nullable if they are clearly required (like primary keys)\n- Use union types for optional fields\n\n##### Evolution-Specific Nullability Rules\n\n- **CRITICAL**: During schema evolution, ALL newly added fields MUST be nullable\n- **CRITICAL**: Existing fields retain their original nullability settings\n- **CRITICAL**: New fields use `[\"null\", \"type\"]` union type with `\"default\": null`\n\n#### Field Naming\n\n- Use snake_case for field names\n- Convert spaces and special characters to underscores\n- Keep names descriptive but concise\n\n#### Schema Evolution Logic\n\n- Compare current CSV structure with existing schema (if provided)\n- Detect new fields that need to be added using semantic matching\n- Generate appropriate CREATE or ALTER table code based on context\n- When evolution required, generate complete schema with ALL fields (existing + new), making all new fields nullable\n\n### Snowflake SQL Requirements\n\n#### Code Quality Standards\n\n- Generate clean, properly formatted Snowflake SQL DDL ready for execution\n- Include proper schema creation with `CREATE SCHEMA IF NOT EXISTS`\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` for table creation\n- Include proper data type mapping from Avro to Snowflake types\n- Use `NOT NULL` constraints appropriately\n- Follow Snowflake naming conventions\n- Generate code that's ready to execute in Snowflake\n\n#### Snowflake SQL Formatting Requirements\n\n- **Jinja2 Templating**: Always start with `--!jinja` directive for dynamic SQL execution\n- **Environment Variables**: Use `{{ variable_name }}` syntax ONLY for database context switching (USE DATABASE statements)\n- **String Literals**: Use single quotes for string literals: `'string'` not `\"string\"`\n- **Comments**: Use `--` for single-line comments, `/* */` for multi-line comments\n- **Line Length**: Keep lines under 120 characters for readability\n- **Indentation**: Use 2 or 4 spaces for indentation, be consistent\n- **Keywords**: Use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n- **Identifiers**: Use snake_case for table and column names\n- **Semicolons**: End statements with semicolons\n- **Documentation**: Include table and column comments based on Avro schema documentation using Snowflake COMMENT syntax\n\n#### Functionality Requirements\n\n- If `is_first_time=yes`: Generate `CREATE SCHEMA IF NOT EXISTS` and `CREATE ICEBERG TABLE IF NOT EXISTS` statements\n- If `is_first_time=no` AND `schema_evolution_required=yes`: Generate `ALTER ICEBERG TABLE` statements for schema evolution\n- If `is_first_time=no` AND `schema_evolution_required=no`: Generate table validation queries only\n- **CRITICAL**: Include schema comparison logic when existing schema provided\n- **CRITICAL**: Handle semantic field matching for evolution detection\n- **MANDATORY**: Use proper Snowflake Iceberg syntax throughout\n- Include proper error handling with `IF NOT EXISTS` clauses\n- Handle dynamic table naming using provided variables\n- Support schema comparison and evolution detection\n- Include proper logging and status reporting\n- Generate code that works with NiFi variable substitution\n- **CRITICAL**: During schema evolution, SQL should generate `ALTER ICEBERG TABLE` operations that add ONLY the new fields\n- **CRITICAL**: Use `ALTER ICEBERG TABLE ... ADD COLUMN` syntax for schema evolution\n- **MANDATORY**: Include schema creation statements before table creation\n- **MANDATORY**: Include simple schema registry updates to mark tables as ready for ingestion (only set IS_READY = TRUE)\n- **MANDATORY**: Include table and column comments based on Avro schema documentation\n\n#### Snowflake Iceberg Schema Creation Patterns\n\n**MANDATORY**: For table creation, use Snowflake Iceberg syntax with Jinja2 templating for database context only:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Create schema if not exists\nCREATE SCHEMA IF NOT EXISTS events;\n\n-- Create Iceberg table with documentation\nCREATE ICEBERG TABLE IF NOT EXISTS events.music_events (\n    event_id BIGINT NOT NULL COMMENT 'Primary identifier for the event',\n    artist_name STRING COMMENT 'Name of the performing artist',\n    ticket_price DOUBLE COMMENT 'Price of the ticket in USD'\n) COMMENT = 'Music events table containing festival and concert information';\n```\n\n**MANDATORY**: For schema evolution, use ALTER ICEBERG TABLE syntax with Jinja2 templating for database context only:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Add new columns with documentation\nALTER ICEBERG TABLE events.music_events \nADD COLUMN genre STRING COMMENT 'Musical genre of the performance',\nADD COLUMN sponsor STRING COMMENT 'Sponsoring organization or brand';\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n**FORBIDDEN**: Using non-SQL syntax:\n\n```sql\n-- DO NOT USE - INCORRECT\n-- Any non-SQL code or API calls\n```\n\n- **CRITICAL**: Preserve existing table data and structure during evolution\n\n#### Snowflake SQL Implementation\n\n**MANDATORY**: Always use proper Snowflake Iceberg syntax for all table operations:\n\n- Use `CREATE SCHEMA IF NOT EXISTS` before table creation\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` for table creation\n- Use `ALTER ICEBERG TABLE ... ADD COLUMN` for schema evolution\n- Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Include proper error handling with `IF NOT EXISTS` clauses\n\n#### SQL Documentation Requirements\n\n**MANDATORY**: Include comprehensive documentation in generated SQL based on Avro schema:\n\n- **Table Comments**: Use `COMMENT 'text'` clause on table creation to describe the table's purpose\n- **Column Comments**: Use `COMMENT 'text'` clause on each column to describe its business meaning\n- **Inline Comments**: Use `--` comments to explain complex logic or business rules\n- **Schema Comments**: Include comments explaining the data source and processing context\n- **Snowflake Syntax**: Use proper Snowflake COMMENT syntax with single quotes around comment text\n\n**Documentation Mapping from Avro Schema**:\n\n- Extract `doc` field from Avro schema fields and use as column comments\n- Use Avro schema `name` and `namespace` to generate table description\n- Include business context from semantic field mapping table\n- Add processing metadata (source file, ingestion date, etc.)\n\n**Example Documentation Pattern with Jinja2 templating for database context only**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Create schema for music events data\nCREATE SCHEMA IF NOT EXISTS events;\n\n-- Music events table containing festival and concert information\n-- Source: CSV files from various music festivals\nCREATE ICEBERG TABLE IF NOT EXISTS events.music_events (\n    event_id BIGINT NOT NULL COMMENT 'Primary identifier for the event',\n    artist_name STRING COMMENT 'Name of the performing artist or DJ',\n    stage STRING COMMENT 'Stage or venue area where performance occurs',\n    event_datetime STRING COMMENT 'Date and time of the performance',\n    ticket_price DOUBLE COMMENT 'Price of the ticket in USD'\n) COMMENT = 'Music events table containing festival and concert information from multiple sources';\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n**CRITICAL**: Always use proper Snowflake COMMENT syntax:\n\n- Column comments: `column_name DATA_TYPE COMMENT 'comment text'`\n- Table comments: `) COMMENT = 'table comment text';`\n- Use single quotes around all comment text\n- Comments are stored as metadata and visible in DESCRIBE TABLE\n\n#### Snowflake Iceberg Schema Evolution Methods\n\nFor schema evolution, use the correct Snowflake Iceberg SQL syntax:\n\n**CORRECT**: Use ALTER ICEBERG TABLE with ADD COLUMN\n\n```sql\nALTER ICEBERG TABLE events.music_events \nADD COLUMN new_field STRING;\n```\n\n**CORRECT**: Multiple field additions with proper types\n\n```sql\nALTER ICEBERG TABLE events.music_events \nADD COLUMN genre STRING,\nADD COLUMN sponsor STRING,\nADD COLUMN capacity BIGINT;\n```\n\n**INCORRECT**: Using non-SQL syntax\n\n```sql\n-- DO NOT USE - INCORRECT\n-- Any non-SQL code or API calls\n```\n\n#### Snowflake Configuration Requirements\n\n**MANDATORY**: Use proper Snowflake Iceberg syntax for all table operations.\n\n**CRITICAL**: The SQL must:\n\n- Use `CREATE SCHEMA IF NOT EXISTS` before table creation\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` for table creation\n- Use `ALTER ICEBERG TABLE ... ADD COLUMN` for schema evolution\n- Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Include proper error handling with `IF NOT EXISTS` clauses\n\n### CRITICAL OUTPUT REQUIREMENTS\n\n#### Response Format - MANDATORY\n\n- **CRITICAL**: Return ONLY a JSON object with exactly four properties: `inferred_metadata`, `avro_schema`, `code`, and `schema_analysis`\n- **CRITICAL**: The `inferred_metadata` property MUST contain inferred table information as a JSON object\n- **CRITICAL**: The `avro_schema` property MUST contain the complete Avro schema as a JSON object converted to string **WITH ALL QUOTES ESCAPED**\n- **CRITICAL**: The `code` property MUST contain properly formatted Snowflake SQL DDL as a string with proper newlines (`\\n`) and appropriate indentation\n- **CRITICAL**: The `schema_analysis` property MUST contain evolution analysis including field mappings and new field detection\n- **CRITICAL**: The response must be parseable JSON that can be directly loaded and the values extracted with proper formatting preserved\n- **CRITICAL**: Use proper JSON string escaping for quotes, newlines, and other special characters\n\n#### Metadata Inference Requirements - CRITICAL\n\n- **CRITICAL**: Analyze CSV headers and sample data to determine content type using pattern matching\n- **CRITICAL**: When `${schema.evolution.required}` is \"yes\", ALWAYS use `${table.name}` and `${table.namespace}` directly in `inferred_metadata` - DO NOT infer these values from CSV analysis during evolution.\n- **CRITICAL**: Generate table name if not already provided via `${table.name}`\n- **CRITICAL**: Generate table namespace if not already provided via `${table.namespace}`\n- **CRITICAL**: Map content types to standardized table names based on data analysis, NOT filenames:\n  - Festival/Event data → \"music_events\" (keywords: artist, performer, stage, venue, lineup, show, event, festival)\n  - Customer data → \"customers\" (keywords: customer, user, client, contact, member, subscriber)\n  - Sales/Transaction data → \"transactions\" (keywords: price, cost, payment, order, purchase, sale, revenue, ticket_price, unit_price, total_amount, quantity, payment_method, ticket_type, ticket_sales)\n  - Product data → \"products\" (keywords: product, item, inventory, catalog, sku, merchandise)\n  - Employee data → \"employees\" (keywords: employee, staff, worker, personnel, hire, department)\n  - Unknown data → \"raw_data\" (fallback when no clear pattern matches)\n- **CRITICAL**: Use consistent namespaces based on business domain:\n  - Events/Entertainment → \"events\"\n  - Customer Management → \"crm\"\n  - Sales/Commerce → \"sales\"\n  - Product Management → \"inventory\"\n  - Human Resources → \"hr\"\n  - Analytics/Metrics → \"analytics\"\n  - Unknown/Mixed → \"ingestion\"\n- **CRITICAL**: Include source differentiation via metadata columns (source_file, festival_name, data_source)\n- **CRITICAL**: Use partitioning strategies for large unified tables (e.g., PARTITIONED BY festival_name, event_date)\n\n#### Schema Analysis Requirements - CRITICAL\n\nThe `schema_analysis` must contain:\n\n```json\n{\n  \"evolution_required\": true,\n  \"existing_field_count\": 5,\n  \"new_field_count\": 3,\n  \"total_field_count\": 8,\n  \"field_mappings\": {\n    \"retained_fields\": [\"event_id\", \"artist_name\", \"stage\", \"event_datetime\", \"ticket_price\"],\n    \"exact_matches\": [\"event_id\", \"stage\"],\n    \"semantic_matches\": {\n      \"artist_name\": \"performer\",\n      \"event_datetime\": \"show_time\"\n    },\n    \"new_fields\": [\"genre\", \"sponsor\", \"capacity\"],\n    \"type_changes\": {\n      \"ticket_price\": {\n        \"old_type\": \"string\",\n        \"new_type\": \"double\",\n        \"reason\": \"Price data detected as numeric\"\n      }\n    }\n  },\n  \"evolution_strategy\": \"ADD_FIELDS\",\n  \"compatibility_notes\": [\n    \"All new fields are nullable to maintain backward compatibility\",\n    \"Existing data will have null values for new fields\",\n    \"Schema contains all existing fields plus new evolved fields\"\n  ]\n}\n```\n\n#### Content-Based Table Naming Strategy Examples\n\n**Content Analysis → Consistent Table Names:**\n\n- Any file with artist/stage/venue data → table: `music_events`, namespace: `events`\n- Any file with customer/user/client data → table: `customers`, namespace: `crm`\n- Any file with price/order/payment/ticket data → table: `transactions`, namespace: `sales` (keywords: price, cost, payment, order, purchase, sale, revenue, ticket_price, unit_price, total_amount, quantity, payment_method, ticket_type)\n- Any file with product/inventory/sku data → table: `products`, namespace: `inventory`\n- Any file with employee/staff/hr data → table: `employees`, namespace: `hr`\n\n**Example File Mappings (Content-Based):**\n\n- `coachella_events_2025.csv` (artist, stage fields) → `events.music_events`\n- `edc_lineup_2025.csv` (performer, venue fields) → `events.music_events`\n- `festival_lineup.csv` (artist, stage fields) → `events.music_events`\n- `customer_data_jan.csv` (customer, email fields) → `crm.customers`\n- `user_profiles.csv` (user, contact fields) → `crm.customers`\n- `sales_report.csv` (price, order fields) → `sales.transactions`\n\n**Benefits of Consistent Naming:**\n\n- ✅ Schema evolution on same logical entity (all festival data evolves `music_events`)\n- ✅ Predictable table operations (always know target table)\n- ✅ Unified analytics across data sources\n- ✅ Clean data lineage and governance\n\n**Avoid These Patterns:**\n\n- ❌ Filename-based naming that creates multiple tables for same content type\n- ❌ Using \"catalog\", \"table\", \"schema\", \"database\" suffixes\n- ❌ Generic names like \"data\", \"file\", \"import\" without content analysis\n- ❌ Creating separate tables when content type is identical\n\n#### Metadata JSON Structure\n\n- **CRITICAL**: When `${table.name}` is not empty pre-populate `inferred_metadata` with `${table.name}` and don't infer this value.\n- **CRITICAL**: When `${table.namespace}` is not empty pre-populate `inferred_metadata` with `${table.namespace}` and don't infer this value.\n\nThe `inferred_metadata` must contain:\n\n```json\n{\n  \"table_name\": \"inferred_table_name_from_csv_analysis\",\n  \"table_namespace\": \"inferred_or_default_namespace\", \n  \"description\": \"Generated description based on CSV analysis\",\n  \"source_info\": {\n    \"filename\": \"original_filename_from_context\",\n    \"estimated_row_count\": \"inferred_from_sample_size\",\n    \"data_source\": \"CSV file analysis\"\n  },\n  \"field_summary\": {\n    \"total_fields\": 2,\n    \"nullable_fields\": 1,\n    \"key_fields\": [\"id\"]\n  }\n}\n```\n\n#### MANDATORY QUOTE ESCAPING FOR AVRO SCHEMA\n\n**STEP-BY-STEP ESCAPING PROCESS:**\n\n1. **Start with Avro JSON**: `{\"type\": \"record\", \"name\": \"fruits\"}`\n2. **Escape EVERY double quote**: `{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}`\n3. **Put in JSON string**: `\"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"`\n\n**CRITICAL**: Every single `\"` character inside the avro_schema value MUST become `\\\"`\n\n**EXAMPLE OF WHAT LLM MUST PRODUCE:**\n\n```json\n\"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\", \\\"fields\\\": [{\\\"name\\\": \\\"id\\\", \\\"type\\\": \\\"long\\\"}]}\"\n```\n\n**NOT THIS (BREAKS JSON):**\n\n```json\n\"avro_schema\": \"{\"type\": \"record\", \"name\": \"fruits\", \"fields\": [{\"name\": \"id\", \"type\": \"long\"}]}\"\n```\n\n#### JSON Formatting Rules - MANDATORY\n\n- **CRITICAL**: Start response immediately with `{` - NO introductory text\n- **CRITICAL**: End response immediately with `}` - NO concluding text\n- **CRITICAL**: Use proper JSON syntax with double quotes for all keys and string values\n- **CRITICAL**: Use `\\n` for newlines within the string values\n- **CRITICAL**: **ESCAPE ALL DOUBLE QUOTES** in the avro_schema value: `\"` becomes `\\\"`\n- **CRITICAL**: Since SQL code uses single quotes, no quote escaping needed in code value\n- **CRITICAL**: Ensure proper JSON escaping throughout\n- **CRITICAL**: The JSON must be valid and parseable with `json.loads()`\n\n#### Critical Escaping Examples\n\n**Avro Schema (MUST escape quotes):**\n\n- Input JSON: `{\"type\": \"record\", \"name\": \"fruits\"}`\n- Output in JSON: `\"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"`\n\n**SQL Code (single quotes, no escaping needed):**\n\n- Input SQL: `SELECT 'hello'`\n- Output in JSON: `\"SELECT 'hello'\"`\n\n#### Avro Schema Format Requirements\n\nThe `avro_schema` value must be a JSON string containing an Avro schema in JSON format. **CRITICAL**: All double quotes within the Avro schema JSON must be escaped with backslashes.\n\n**WRONG (breaks JSON):**\n\n```json\n{\n  \"avro_schema\": \"{\"type\": \"record\", \"name\": \"fruits\"}\"\n}\n```\n\n**CORRECT (properly escaped):**\n\n```json\n{\n  \"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"\n}\n```\n\nThe pattern is: Replace every `\"` inside the avro_schema value with `\\\"`\n\n#### Content Quality Requirements\n\n- **Avro Schema Content**:\n  - Must be valid Avro schema JSON when extracted and parsed\n  - All required Avro fields present (`type`, `name`, `fields`)\n  - Field definitions with proper `name`, `type`, and `doc` attributes\n  - Properly escaped JSON within the JSON string\n  - When evolution required, include ALL fields (existing + new) with new fields marked as nullable\n\n- **Snowflake SQL Content**:\n  - Must be valid Snowflake SQL when extracted and executed\n  - Proper indentation represented as `\\n` patterns\n  - Proper SQL syntax and formatting\n  - Include schema creation before table creation\n  - Include proper error handling with IF NOT EXISTS\n  - Include schema evolution logic when required\n\n#### Forbidden Content and Formatting\n\n- **FORBIDDEN**: Any references to YAML format anywhere\n- **FORBIDDEN**: Any markdown syntax or code blocks\n- **FORBIDDEN**: Any explanatory text outside the JSON structure\n- **FORBIDDEN**: Any conversational language\n- **FORBIDDEN**: Any text before `{` or after `}`\n- **FORBIDDEN**: Invalid JSON syntax\n- **FORBIDDEN**: Do not use single quotes in JSON - must use double quotes only\n- **FORBIDDEN**: Do not exceed 120 characters per line in SQL code (when extracted)\n- **FORBIDDEN**: Do not use double quotes for string literals - use single quotes\n- **FORBIDDEN**: Do not use any non-SQL syntax anywhere\n- **FORBIDDEN**: Using double quotes in COMMENT clauses - always use single quotes: `COMMENT 'text'` not `COMMENT \"text\"`\n- **FORBIDDEN**: Using lowercase SQL keywords - always use uppercase: `CREATE` not `create`, `TABLE` not `table`\n- **FORBIDDEN**: Setting multiple columns in schema registry updates - only set `IS_READY = TRUE`\n- **FORBIDDEN**: Adding INSERT statements for processing logs or other metadata tables\n\n#### JSON Validation Requirements\n\n**CRITICAL**: The response must pass this validation:\n\n```sql\n-- Validation requirements for generated SQL:\n-- 1. Must contain CREATE SCHEMA IF NOT EXISTS statements\n-- 2. Must contain CREATE ICEBERG TABLE IF NOT EXISTS statements\n-- 3. Must use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n-- 4. Must include COMMENT clauses with single quotes\n-- 5. Must use uppercase SQL keywords (CREATE, TABLE, SCHEMA, etc.)\n-- 6. Must be syntactically valid Snowflake SQL\n```\n\n#### NiFi Variable Substitution Requirements - CRITICAL\n\n- **CRITICAL**: During schema evolution (`${schema.evolution.required}` = \"yes\"), use provided `${table.name}` and `${table.namespace}` values instead of inferring from CSV content\n- **CRITICAL**: The LLM MUST use the inferred metadata values, NOT NiFi variable placeholders\n- **CRITICAL**: DO NOT use any NiFi variable syntax like `$${variable.name}` in the generated code\n- **CRITICAL**: Use the inferred table_name and table_namespace from metadata analysis\n- **CRITICAL**: Replace context values with actual inferred values: `true` or `false` (JSON boolean)\n- **CRITICAL**: Replace existing schema context with actual schema string (empty string if none provided)\n- **CRITICAL**: The generated SQL code must be immediately executable without any variable substitution\n- **CRITICAL**: All table names, namespaces, and variables must be actual string/boolean values, not placeholders\n\n#### Perfect Response Example\n\nBased on the provided context values in the user message:\n\n**EXACTLY THIS FORMAT - COPY THE ESCAPING PATTERN:**\n\n```json\n{\n  \"inferred_metadata\": {\n    \"table_name\": \"fruits_catalog\",\n    \"table_namespace\": \"food_data\",\n    \"description\": \"Fruit catalog data containing fruit identifiers and names\",\n    \"source_info\": {\"filename\": \"fruits.csv\", \"estimated_row_count\": \"5+\", \"data_source\": \"CSV file analysis\"},\n    \"field_summary\": {\"total_fields\": 2, \"nullable_fields\": 1, \"key_fields\": [\"id\"]}\n  },\n  \"avro_schema\": \"{\\\\\\\"type\\\\\\\": \\\\\\\"record\\\\\\\", \\\\\\\"name\\\\\\\": \\\\\\\"fruits_catalog\\\\\\\", \\\\\\\"fields\\\\\\\": [{\\\\\\\"name\\\\\\\": \\\\\\\"id\\\\\\\", \\\\\\\"type\\\\\\\": \\\\\\\"long\\\\\\\"}, {\\\\\\\"name\\\\\\\": \\\\\\\"name\\\\\\\", \\\\\\\"type\\\\\\\": [\\\\\\\"null\\\\\\\", \\\\\\\"string\\\\\\\"], \\\\\\\"default\\\\\\\": null}]}\",\n  \"code\": \"--!jinja\\\\nUSE DATABASE {{ music_flow_demo_db }};\\\\n\\\\n-- Create schema for food catalog data\\\\nCREATE SCHEMA IF NOT EXISTS food_data;\\\\n\\\\n-- Food catalog table containing fruit identifiers and names\\\\n-- Source: CSV file analysis\\\\nCREATE ICEBERG TABLE IF NOT EXISTS food_data.fruits_catalog (\\\\n    id BIGINT NOT NULL COMMENT 'Unique identifier for the fruit',\\\\n    name STRING COMMENT 'Name of the fruit'\\\\n) COMMENT = 'Fruit catalog data containing fruit identifiers and names';\\\\n\\\\nUSE DATABASE {{ music_flow_system_db }};\\\\n\\\\n-- Update schema registry to mark table as ready for ingestion\\\\nUPDATE metadata.schema_registry\\\\nSET IS_READY = TRUE\\\\nWHERE table_name = 'fruits_catalog'\\\\n  AND table_namespace = 'food_data';\",\n  \"schema_analysis\": {\n    \"evolution_required\": false,\n    \"field_mappings\": {\"new_fields\": [\"id\", \"name\"]},\n    \"evolution_strategy\": \"CREATE_NEW\"\n  }\n}\n```\n\n- **CRITICAL**: Every \" escaped as \\\\\" and every newline as \\\\n.\n\n**NOTICE**:\n\n- The LLM inferred table_name: 'fruits_catalog' and namespace: 'food_data' from CSV analysis\n- All metadata is used consistently in both schema name/namespace and SQL statements\n- Every `\"` has been escaped as `\\\\\"` and every newline as `\\\\n` - this is MANDATORY for valid JSON\n- No NiFi variable placeholders (like `${variable}`) are used - only actual inferred values\n- Schema analysis provides evolution details and field mapping information\n- The SQL includes proper schema creation and table creation statements\n"
+      }, {
+        "description" : "The Cortex AI prompt user message",
+        "name" : "cortex_prompt_user_message",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "## User Message\n\nPlease analyze the following CSV file fetched from Google Drive and generate metadata, Avro schema, and Snowflake SQL DDL with Jinja2 templating support:\n\n### File Information\n\n- **Google Drive File:** `${filename}`\n- **File size:** `${file.size}` bytes\n- **Source:** Google Drive via FetchGoogleDriveFile processor\n\nThese NiFi variables will be substituted before sending to the LLM.\n\n### CSV Structure\n\n#### Headers\n\n```csv\n${csv.headers}\n```\n\n#### Sample Data (first 5 rows)\n\n```csv\n${csv.sample.data}\n```\n\nNote: These variables (`${csv.headers}` and `${csv.sample.data}`) will be populated by NiFi before sending to the LLM.\n\n### Schema State Context\n\n- **Is first time processing:** `${is.first.time}`\n- **Schema evolution required:** `${schema.evolution.required}`\n- **Existing schema (for evolution):** `${existing.schema}`\n- **Schema Analysis Extra Info (for evolution):** `${schema.analysis}`\n- **Table name (for evolution):** `${table.name}`\n- **Table namespace (for evolution):** `${table.namespace}`\n\nThese variables should be used directly in the generated Snowflake SQL DDL with Jinja2 templating for dynamic behavior across different environments.\n\n### Schema Evolution Requirements\n\nWhen `${schema.evolution.required}` is \"yes\":\n\n1. **Semantic Field Matching**: Use the semantic field mapping table to identify equivalent fields between existing schema and new CSV headers\n2. **Evolution Analysis**: Generate detailed field mapping analysis including:\n   - Exact name matches (case-insensitive)\n   - Semantic equivalent matches (e.g., \"artist_name\" ↔ \"performer\")\n   - New fields requiring addition\n   - Type changes requiring evolution\n3. **Evolved Schema Generation**: Create complete Avro schema containing ALL fields (existing + new/changed fields) with all new fields marked as nullable for backward compatibility\n4. **Compatibility Preservation**: Ensure all evolution changes maintain backward compatibility\n\n### Semantic Field Mapping Reference\n\nUse this table for semantic field equivalence detection:\n\n| Standard Field | Semantic Equivalents | Expected Type | Context |\n|---------------|---------------------|---------------|---------|\n| event_id | show_id, slot_number, performance_id, id | long | Primary identifier |\n| artist_name | dj_performer, performer, headliner, act_name, artist | string | Performer information |\n| stage | main_stage, venue_section, location, venue_area, stage_location, venue | string | Performance location |\n| event_datetime | start_time, time_block, date_time, time_slot, show_time, datetime | string | Event timing |\n| ticket_price | vip_price, admission_cost, ticket_cost, entry_fee, price_tier, price, cost | double | Pricing information |\n| festival_name | event_name, festival, venue_name | string | Event organization |\n| genre | music_genre, category, style, type | string | Classification |\n| capacity | max_attendance, venue_capacity, max_capacity | long | Venue limits |\n| city | location_city, venue_city | string | Geographic location |\n| sponsor | sponsorship, partner, brand | string | Commercial partnerships |\n| ticket_type | pass_type, admission_type, entry_type, ticket_category | string | Ticket classification |\n| quantity | qty, count, number_of_tickets, ticket_count | long | Purchase quantity |\n| unit_price | price_per_ticket, individual_price, single_price | double | Per-unit pricing |\n| total_amount | total_price, final_amount, grand_total, amount_paid | double | Total transaction value |\n| purchase_date | order_date, transaction_date, sale_date, bought_date | string | Transaction timestamp |\n| payment_method | payment_type, pay_method, payment_mode, transaction_type | string | Payment processing method |\n\n### Pipeline Context\n\n- This CSV will be processed through Apache NiFi data pipeline\n- **Target:** Apache Iceberg table for analytics\n- **Processing pattern:** Real-time ingestion with schema evolution\n- **Evolution strategy:** Additive changes only (maintain backward compatibility)\n\n### Processing Logic\n\n#### For First-Time Processing (`${is.first.time}` = \"yes\")\n\n1. Generate complete Avro schema for all CSV fields\n2. Create Snowflake SQL DDL for schema and table creation with error handling\n3. Include comprehensive field analysis in `schema_analysis`\n4. Set `evolution_required: false` in schema analysis\n5. Generate `CREATE SCHEMA IF NOT EXISTS` statement\n6. Generate `CREATE ICEBERG TABLE IF NOT EXISTS` statement\n\n#### For Schema Evolution (`${schema.evolution.required}` = \"yes\")\n\n1. Parse `${existing.schema}` to understand current table structure and use `${table.name}` and `${table.namespace}` for target table identification\n2. Perform semantic field matching between existing and new headers\n3. Identify new fields requiring addition to schema\n4. Generate complete Avro schema containing ALL fields (existing + new/changed fields) with all new fields marked as nullable\n5. Create Snowflake SQL DDL for `ALTER ICEBERG TABLE` operations\n6. Include detailed field mapping analysis in `schema_analysis`\n\n#### For Standard Processing (`${schema.evolution.required}` = \"no\")\n\n1. Generate table validation queries only\n2. Set `evolution_required: false` in schema analysis\n\n### Snowflake Iceberg SQL Requirements\n\n- Use `ALTER ICEBERG TABLE ... ADD COLUMN` for schema evolution with Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Chain multiple `ADD COLUMN` clauses for multiple new fields\n- Always make new fields nullable by default (no `NOT NULL` constraint)\n- Use proper Snowflake data types for all schema operations\n- **CRITICAL**: Use Snowflake data types (BIGINT, DOUBLE, STRING, etc.) for all schema operations\n\n### Snowflake Iceberg Schema Requirements\n\n**MANDATORY**: All table creation and schema evolution must use Snowflake Iceberg syntax with Jinja2 templating:\n\n- **Jinja2 Directive**: Always start with `--!jinja` for dynamic SQL execution\n- **Environment Variables**: Use `{{ variable_name }}` syntax ONLY for database context switching (USE DATABASE statements)\n- **Schema Creation**: Use `CREATE SCHEMA IF NOT EXISTS` with inferred schema names\n- **Table Creation**: Use `CREATE ICEBERG TABLE IF NOT EXISTS` with inferred table names and schemas\n- **Schema Evolution**: Use `ALTER ICEBERG TABLE` with inferred table names and schemas\n- **Database Context**: Use `USE DATABASE {{ music_flow_demo_db }}` and `USE DATABASE {{ music_flow_system_db }}` for environment switching\n- **Type Mapping**:\n  - Text fields → `STRING`\n  - Integer/ID fields → `BIGINT`\n  - Decimal fields → `DOUBLE`\n  - Boolean fields → `BOOLEAN`\n  - Date fields → `DATE`\n  - Timestamp fields → `TIMESTAMP`\n\n**Example Schema and Table Creation with Jinja2 Templating**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\nCREATE SCHEMA IF NOT EXISTS {{ table_namespace }};\n\nCREATE ICEBERG TABLE IF NOT EXISTS {{ table_namespace }}.{{ table_name }} (\n    event_id BIGINT NOT NULL,\n    artist_name STRING,\n    ticket_price DOUBLE\n);\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = '{{ table_name }}'\n  AND table_namespace = '{{ table_namespace }}';\n```\n\n**Example Schema Evolution with Jinja2 Templating**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\nALTER ICEBERG TABLE {{ table_namespace }}.{{ table_name }} \nADD COLUMN genre STRING,\nADD COLUMN sponsor STRING;\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = '{{ table_name }}'\n  AND table_namespace = '{{ table_namespace }}';\n```\n\n### Snowflake SQL Requirements\n\n**MANDATORY**: Always use proper Snowflake Iceberg syntax with Jinja2 templating for all table operations:\n\n- **Jinja2 Directive**: Always start with `--!jinja` for dynamic SQL execution\n- **Environment Variables**: Use `{{ variable_name }}` syntax ONLY for database context switching (USE DATABASE statements)\n- **Database Context**: Use `USE DATABASE {{ music_flow_demo_db }}` and `USE DATABASE {{ music_flow_system_db }}` for environment switching\n- Use `CREATE SCHEMA IF NOT EXISTS` with inferred schema names before table creation\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` with inferred table names and schemas for table creation\n- Use `ALTER ICEBERG TABLE` with inferred table names and schemas for schema evolution\n- Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Include proper error handling with `IF NOT EXISTS` clauses\n\n### SQL Documentation Requirements\n\n**MANDATORY**: Include comprehensive documentation in generated SQL based on Avro schema:\n\n- **Table Comments**: Use `COMMENT 'text'` clause on table creation to describe the table's purpose\n- **Column Comments**: Use `COMMENT 'text'` clause on each column to describe its business meaning  \n- **Inline Comments**: Use `--` comments to explain complex logic or business rules\n- **Schema Comments**: Include comments explaining the data source and processing context\n- **Snowflake Syntax**: Use proper Snowflake COMMENT syntax with single quotes around comment text\n- **SQL Keywords**: Use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n\n**Documentation Mapping from Avro Schema**:\n\n- Extract `doc` field from Avro schema fields and use as column comments\n- Use Avro schema `name` and `namespace` to generate table description\n- Include business context from semantic field mapping table\n- Add processing metadata (source file, ingestion date, etc.)\n\n**Example Documentation Pattern with Jinja2 Templating**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Create schema for music events data\nCREATE SCHEMA IF NOT EXISTS {{ table_namespace }};\n\n-- Music events table containing festival and concert information\n-- Source: CSV files from various music festivals\nCREATE ICEBERG TABLE IF NOT EXISTS {{ table_namespace }}.{{ table_name }} (\n    event_id BIGINT NOT NULL COMMENT 'Primary identifier for the event',\n    artist_name STRING COMMENT 'Name of the performing artist or DJ',\n    stage STRING COMMENT 'Stage or venue area where performance occurs',\n    event_datetime STRING COMMENT 'Date and time of the performance',\n    ticket_price DOUBLE COMMENT 'Price of the ticket in USD'\n) COMMENT = 'Music events table containing festival and concert information from multiple sources';\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = '{{ table_name }}'\n  AND table_namespace = '{{ table_namespace }}';\n```\n\n**CRITICAL**: Always use proper Snowflake COMMENT syntax:\n\n- Column comments: `column_name DATA_TYPE COMMENT 'comment text'`\n- Table comments: `) COMMENT = 'table comment text';`\n- Use single quotes around all comment text\n- Comments are stored as metadata and visible in DESCRIBE TABLE\n\n### Requirements\n\n#### Schema Generation\n\n1. Generate a complete Avro schema suitable for Apache NiFi Record processors\n2. Use \"long\" for all integer/ID fields (for scalability)\n3. Use \"double\" for all decimal/numeric fields (for precision)\n4. Make fields nullable unless clearly required (primary keys)\n5. Use descriptive field names in snake_case format\n6. Include field documentation for business context\n7. **CRITICAL**: When evolution required, generate complete schema with ALL fields (existing + new), ensuring all new fields are nullable\n8. Include semantic field mapping in schema documentation\n\n#### Code Generation\n\n1. Generate clean Snowflake SQL DDL that handles CREATE, ALTER, and LOAD scenarios based on context\n2. SQL code should include proper schema creation and table creation statements\n3. **MANDATORY**: Use proper Snowflake Iceberg syntax throughout\n4. **CRITICAL**: Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n5. Generate code that's ready to execute in Snowflake with proper formatting\n6. Handle CREATE (first time), ALTER (schema evolution), and LOAD (standard) scenarios dynamically\n7. **MANDATORY**: Include table and column comments based on Avro schema documentation using proper Snowflake COMMENT syntax\n8. Include proper error handling with `IF NOT EXISTS` clauses\n9. **CRITICAL**: Use the inferred metadata values directly in the generated SQL\n10. Include schema comparison logic when existing schema context is provided\n11. Generate appropriate Snowflake Iceberg operations using proper data types based on detected schema differences\n12. Include semantic field matching logic for evolution detection\n14. **CRITICAL**: When generating ALTER TABLE logic, only add new fields to existing table - do not recreate or modify existing fields\n15. **MANDATORY**: Always include `CREATE SCHEMA IF NOT EXISTS` before table creation\n18. **MANDATORY**: Include simple schema registry updates to mark tables as ready for ingestion (only set IS_READY = TRUE)\n\n#### Schema Analysis Generation\n\n1. Generate comprehensive `schema_analysis` with evolution details\n2. Include field mapping analysis with exact and semantic matches\n3. Identify new fields requiring addition to existing schema\n4. Detect type changes that require schema evolution\n5. Provide evolution strategy recommendations\n6. Include compatibility notes for backward compatibility assurance\n\n### Critical Instructions\n\n- **MANDATORY**: Provide ONLY a JSON object with `inferred_metadata`, `avro_schema`, `code`, and `schema_analysis` properties\n- **MANDATORY**: Use proper JSON string escaping for newlines (`\\n`) and quotes (`\\\"`)\n- **MANDATORY**: Ensure the response is valid JSON that can be parsed directly with JSON.loads()\n- **MANDATORY**: Both schema and code must be immediately usable after extraction from JSON with proper formatting preserved\n- **MANDATORY**: No markdown formatting, explanatory text, or conversational language anywhere\n- **MANDATORY**: Start response immediately with `{` - no introductory text\n- **MANDATORY**: End response immediately with `}` - no concluding text\n- **MANDATORY**: Use proper JSON syntax with double quotes for all keys and string values\n- **MANDATORY**: The avro_schema value must be JSON format (not YAML) converted to a string\n- **MANDATORY**: Preserve SQL indentation using `\\n` patterns in the JSON string\n- When `${schema.evolution.required}` = \"yes\", generate complete schema with ALL fields (existing + new), ensuring all new fields are nullable\n- Include comprehensive field mapping analysis in `schema_analysis` output\n- Generate evolution-specific Snowflake SQL DDL with ALTER TABLE logic when required\n- **CRITICAL**: When `${schema.evolution.required}` = \"yes\", generate complete Avro schema with ALL fields (existing + new), making all new fields nullable\n- **CRITICAL**: SQL code should use ALTER ICEBERG TABLE operations that add only new fields, preserving existing table structure and data\n- **CRITICAL**: Always use Snowflake data types (BIGINT, DOUBLE, STRING, etc.) for all schema operations in generated SQL\n- **CRITICAL**: Always use proper Snowflake COMMENT syntax with single quotes around comment text\n- **CRITICAL**: Always use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n\n### Context Variable Usage\n\nUse these NiFi flow variables exactly as provided:\n\n- `${is.first.time}` - Boolean indicating first-time table creation\n- `${schema.evolution.required}` - Boolean indicating if schema evolution is needed\n- `${existing.schema}` - JSON string of existing Avro schema (empty if first time)\n- `${csv.headers}` - Comma-separated list of CSV column headers\n- `${csv.sample.data}` - Sample CSV rows for data type inference\n- `${table.name}` - Target table name (used during evolution)\n- `${table.namespace}` - Target table namespace (used during evolution)\n\n### Evolution Decision Matrix\n\n| is.first.time | schema.evolution.required | Action | Schema Content | SQL Logic | Table Naming | Success Logging |\n|---------------|---------------------------|--------|----------------|-----------|----------------|------------------|\n| true | false | CREATE | Complete schema | CREATE SCHEMA + CREATE ICEBERG TABLE | Infer from CSV | Include success logging |\n| false | true | EVOLVE | Complete schema (existing + new nullable fields) | ALTER ICEBERG TABLE | Use ${table.name}/${table.namespace} | Include success logging |\n| false | false | LOAD | N/A (use existing) | Table validation queries | Use ${table.name}/${table.namespace} | Not needed |\n\n### Forbidden Content and Formatting\n\n- **FORBIDDEN**: Any references to YAML format anywhere\n- **FORBIDDEN**: Any markdown syntax or code blocks\n- **FORBIDDEN**: Any explanatory text outside the JSON structure\n- **FORBIDDEN**: Any conversational language\n- **FORBIDDEN**: Any text before `{` or after `}`\n- **FORBIDDEN**: Invalid JSON syntax\n- **FORBIDDEN**: Do not use single quotes in JSON - must use double quotes only\n- **FORBIDDEN**: Do not exceed 120 characters per line in SQL code (when extracted)\n- **FORBIDDEN**: Do not use double quotes for string literals - use single quotes\n- **FORBIDDEN**: Using NiFi variable placeholders in generated code - only use actual inferred values\n- **FORBIDDEN**: Using any non-SQL syntax anywhere - always use Snowflake SQL syntax\n- **FORBIDDEN**: Using double quotes in COMMENT clauses - always use single quotes: `COMMENT 'text'` not `COMMENT \"text\"`\n- **FORBIDDEN**: Using lowercase SQL keywords - always use uppercase: `CREATE` not `create`, `TABLE` not `table`\n- **FORBIDDEN**: Setting multiple columns in schema registry updates - only set `IS_READY = TRUE`\n- **FORBIDDEN**: Adding INSERT statements for processing logs or other metadata tables\n\n#### Perfect Response Example\n\n```json\n{\n  \"inferred_metadata\": {\n    \"table_name\": \"string\",\n    \"table_namespace\": \"string\",\n    \"description\": \"string\",\n    \"source_info\": {},\n    \"field_summary\": {}\n  },\n  \"avro_schema\": \"escaped_json_string\",\n  \"code\": \"sql_ddl_with_newlines\",\n  \"schema_analysis\": {\n    \"evolution_required\": boolean,\n    \"existing_field_count\": number,\n    \"new_field_count\": number,\n    \"field_mappings\": {\n      \"exact_matches\": [],\n      \"semantic_matches\": {},\n      \"new_fields\": [],\n      \"type_changes\": {}\n    },\n    \"evolution_strategy\": \"string\",\n    \"compatibility_notes\": []\n  }\n}\n```\n"
+      }, {
+        "description" : "",
+        "name" : "iceberg.s3.region",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "us-west-2"
+      }, {
+        "description" : "The bucket where CSV processed for schema checks and evolution will be moved for data ingestion",
+        "name" : "ingestion.s3.bucket",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "ksampath-music-flow-demo-ingest-data"
+      }, {
+        "description" : "The SQL used to find the CSV to Avro Schema Mapping",
+        "name" : "ingestion_csv_avro_mapping_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "WITH schema_mapping_analysis AS (\n    SELECT \n        table_name,\n        table_namespace,\n        avro_schema,\n        is_ready as ingestion_ok,\n        status as schema_status,\n        AI_COMPLETE(\n            model => 'claude-4-sonnet', \n            prompt => CONCAT(\n               'You are an Avro schema adaptation expert. Your task is to modify the given Avro schema to accommodate the provided CSV data structure.',\n                '\\n\\n## Semantic Field Mapping Reference:\\n',\n                'Use this comprehensive table for semantic field equivalence detection:\\n',\n                '\\n| Standard Field | Semantic Equivalents | Expected Type | Context |\\n',\n                '|---------------|---------------------|---------------|----------|\\n',\n                '| event_id | show_id, slot_number, performance_id, id | long | Primary identifier |\\n',\n                '| artist_name | dj_performer, performer, headliner, act_name, artist | string | Performer information |\\n',\n                '| stage | main_stage, venue_section, location, venue_area, stage_location, venue | string | Performance location |\\n',\n                '| event_datetime | start_time, time_block, date_time, time_slot, show_time, datetime | string | Event timing |\\n',\n                '| ticket_price | vip_price, admission_cost, ticket_cost, entry_fee, price_tier, price, cost | double | Pricing information |\\n',\n                '| festival_name | event_name, festival, venue_name | string | Event organization |\\n',\n                '| genre | music_genre, category, style, type | string | Classification |\\n',\n                '| capacity | max_attendance, venue_capacity, max_capacity | long | Venue limits |\\n',\n                '| city | location_city, venue_city | string | Geographic location |\\n',\n                '| sponsor | sponsorship, partner, brand | string | Commercial partnerships |\\n',\n                '| ticket_type | pass_type, admission_type, entry_type, ticket_category | string | Ticket classification |\\n',\n                '| quantity | qty, count, number_of_tickets, ticket_count | long | Purchase quantity |\\n',\n                '| unit_price | price_per_ticket, individual_price, single_price | double | Per-unit pricing |\\n',\n                '| total_amount | total_price, final_amount, grand_total, amount_paid | double | Total transaction value |\\n',\n                '| purchase_date | order_date, transaction_date, sale_date, bought_date | string | Transaction timestamp |\\n',\n                '| payment_method | payment_type, pay_method, payment_mode, transaction_type | string | Payment processing method |\\n',\n                '\\n## Semantic Mapping Rules:\\n',\n                '1. **Semantic Matching**: Map based on field purpose using the comprehensive mapping table above\\n',\n                '2. **Exact Name Matching**: First check for exact case-insensitive name matches\\n',\n                '3. **Semantic Equivalence**: Use the mapping table to identify equivalent fields\\n',\n                '4. **Data Type Compatibility**: Ensure CSV data can convert to target Avro type\\n',\n                '5. **Required Fields**: Prioritize mapping to required schema fields\\n',\n                '6. **Perfect Match Optimization**: If CSV column names exactly match existing schema field names (same count, same names, compatible types), return the original schema unchanged\\n',\n                '\\n## Schema Adaptation Instructions:\\n',\n                '- **FIRST**: Check if CSV column names exactly match schema field names with compatible types. If perfect name match, return original schema unchanged.\\n',\n                '- Analyze CSV headers and data types using semantic understanding\\n',\n                '- For CSV columns semantically equivalent to existing schema fields: ADD the CSV column name to the \"aliases\" array of the existing field (do NOT create separate fields)\\n',\n                '- Example: CSV \"show_id\" + schema \"event_id\" → keep \"event_id\", add \"show_id\" to aliases array\\n',\n                '- Use the comprehensive semantic mapping table above for all field equivalence detection\\n',\n                '- Common semantic mappings: artist_name/performer/headliner, stage/venue/location, ticket_price/cost/fee, event_datetime/time/schedule\\n',\n                '- ADD completely new fields only for CSV columns with no semantic equivalent in existing schema\\n',\n                '- KEEP existing schema fields that don''t appear in CSV but make them optional (union with null)\\n',\n                '- Infer appropriate Avro data types from CSV sample data with type compatibility validation\\n',\n                '- **IMPORTANT**: Do NOT include \"doc\" fields in the Avro schema as this schema is used only for CSV parsing, not code generation\\n',\n                '- Return ONLY the adapted Avro schema in JSON format\\n',\n                '- DO NOT wrap the response in markdown code blocks\\n',\n                '- DO NOT use triple backticks (```) in your response\\n',\n                '- Return raw JSON only, starting with { and ending with }\\n\\n',\n                '## Input Data:\\n',\n                '**Current Avro Schema:**\\n',\n                '<schema>', avro_schema, '</schema>\\n\\n',\n                '**CSV Data:**\\n',\n                '\\n\\n**CSV Headers:** ${csv.headers}',\n                '\\n**CSV Sample:** ${csv.sample.rows}',\n                '\\n\\n',\n                '## Output:\\n',\n                'Return ONLY raw JSON without any markdown formatting, code blocks, or explanatory text. Start directly with the opening brace { of the JSON schema.'\n            ),\n            model_parameters => {\n                'temperature': 0.1\n            }\n        ) as adapted_avro_schema\n    FROM SCHEMA_REGISTRY\n)\nSELECT \n   avro_schema,\n   BASE64_ENCODE(PARSE_JSON(adapted_avro_schema)) as adapted_avro_schema,\n   schema_status,\n   ingestion_ok as is_ready\nFROM schema_mapping_analysis\nwhere\n    table_name = '${table.name}'\nAND\n    table_namespace = '${table.namespace}';"
+      }, {
+        "description" : "",
+        "name" : "ingestion_mapping_response_avro_schema",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "{\n    \"type\": \"record\",\n    \"name\": \"IngestionMappingResponse\",\n    \"namespace\": \"com.musicflow.schema\",\n    \"fields\": [\n        {\n            \"name\": \"AVRO_SCHEMA\",\n            \"type\": \"string\"\n        },\n        {\n            \"name\": \"ADAPTED_AVRO_SCHEMA\",\n            \"type\": \"string\"\n        },\n        {\n            \"name\": \"SCHEMA_STATUS\",\n            \"type\": \"string\"\n        },\n        {\n            \"name\": \"IS_READY\",\n            \"type\": \"string\"\n        }\n    ]\n}"
+      }, {
+        "description" : "",
+        "name" : "music-flow.aws.access-key-id",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "music-flow.aws.secret-access-key",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "music-flow.opencatalog.s3.assume-role-arn",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "arn:aws:iam::849350360261:role/ksampath-oc-music-flow-s3-role"
+      }, {
+        "description" : "",
+        "name" : "music-flow.opencatalog.s3.assume-role-region",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "us-west-2"
+      }, {
+        "description" : "",
+        "name" : "music-flow.opencatalog.s3.assume-role.external-id",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "NPB00565_SFCRole=1_oDH/LvFCs59VUwJe8MblmqKmk2M="
+      }, {
+        "description" : "",
+        "name" : "music-flow.s3.assume-role-arn",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "arn:aws:iam::849350360261:role/ksampath-openflow-music-flow-spcs"
+      }, {
+        "description" : "",
+        "name" : "music-flow.s3.ingest-data.assume-role-arn",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "arn:aws:iam::849350360261:role/ksampath-openflow-music-flow-spcs"
+      }, {
+        "description" : "",
+        "name" : "music-flow.s3.ingest-data.assume-role-external-ID",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "NPB00565_SFCRole=1_oDH/LvFCs59VUwJe8MblmqKmk2M="
+      }, {
+        "description" : "",
+        "name" : "music_flow_data_schema",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "data"
+      }, {
+        "description" : "",
+        "name" : "music_flow_generated_sources_stage",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "sources"
+      }, {
+        "description" : "",
+        "name" : "opencatalog.s3.access-key-id",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "opencatalog.s3.secret-access-key",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "opencatalog.s3.session-token",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "The Apache Polaris Access Token Scopes",
+        "name" : "polaris.access.token.scopes",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "PRINCIPAL_ROLE:ALL"
+      }, {
+        "description" : "The Apache Polaris Catalog to use",
+        "name" : "polaris.catalog",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "music_flow"
+      }, {
+        "description" : "The Apache Polaris Catalog URI",
+        "name" : "polaris.catalog.uri",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "https://npb00565.snowflakecomputing.com/polaris/api/catalog"
+      }, {
+        "description" : "The Apache Polaris Catalog Principal Client ID",
+        "name" : "polaris.client.id",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "The Apache Polaris Catalog Principal Client Secret",
+        "name" : "polaris.client.secret",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "polaris.server.auth.uri",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "https://npb00565.snowflakecomputing.com/polaris/api/catalog/v1/oauth/tokens"
+      }, {
+        "description" : "",
+        "name" : "pratyakshika_sa_json",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "The Avro schema to be used to parse and write the SQL result of the query used for schema evolution check",
+        "name" : "schema_evolution_check_avro_schema",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "{\n    \"type\": \"record\",\n    \"name\": \"SchemaAnalysisResult\",\n    \"namespace\": \"com.musicflow.schema\",\n    \"doc\": \"Schema for storing table analysis results with JSON fields from database\",\n    \"fields\": [\n        {\n            \"name\": \"TABLE_NAME\",\n            \"type\": \"string\",\n            \"doc\": \"Name of the table being analyzed\"\n        },\n        {\n            \"name\": \"TABLE_NAMESPACE\",\n            \"type\": \"string\",\n            \"doc\": \"Namespace or schema of the table\"\n        },\n        {\n            \"name\": \"SCHEMA_JSON\",\n            \"type\": [\"null\", \"string\"],\n            \"default\": null,\n            \"doc\": \"JSON string containing the schema definition from database\"\n        },\n        {\n            \"name\": \"AI_RESPONSE\",\n            \"type\": [\"null\", \"string\"],\n            \"default\": null,\n            \"doc\": \"JSON string containing AI analysis results from database\"\n        }\n    ]\n}"
+      }, {
+        "description" : "",
+        "name" : "schema_evolution_check_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "WITH ai_analysis AS (\n    SELECT \n        table_name,\n        table_namespace,\n        avro_schema::string as schema_json,\n        AI_COMPLETE(\n            model => 'claude-4-sonnet', \n            prompt => CONCAT(\n                'You are a schema analysis expert. Analyze if the given Avro schema semantically matches CSV data.',\n                '\\n\\n## Task',\n                '\\nDetermine if this Base64 Encoded Avro schema can accommodate the provided CSV structure.',\n                '\\n\\n## Input Data',\n                '\\n**Avro Schema:**\\n<schema>', AVRO_SCHEMA, '</schema>',\n                '\\n\\n**CSV Headers:** ${csv.headers}',\n                '\\n**CSV Sample:** ${csv.sample.rows}',\n                '\\n\\n## Analysis Rules',\n                '\\n1. **Semantic Matching**: If majority of CSV fields (>50%) can map to existing schema fields, consider it a match',\n                '\\n2. **Schema Evolution**: Required only if CSV has new fields that cannot map to existing schema fields',\n                '\\n3. **Match Priority**: If no semantic match exists, skip evolution analysis',\n                '\\n\\n## Required Response Format',\n                '\\nRespond with ONLY a JSON object (no markdown, no explanations):',\n                '\\n{',\n                '\\n  \"matched\": \"yes|no\",',\n                '\\n  \"schema_evolution_required\": \"yes|no\",',\n                '\\n  \"schemas_analysis\": [\"bullet point 1\", \"bullet point 2\"]',\n                '\\n}',\n                '\\n\\n## Analysis Guidelines',\n                '\\n- Focus on field purpose rather than exact naming',\n                '\\n- Consider common field variations (id/identifier, name/title, etc.)',\n                '\\n- Evolution needed only for genuinely new data concepts',\n                '\\n- Keep analysis points concise and technical'\n            ),\n           model_parameters => {\n                'temperature': 0.1\n            },\n            response_format => {\n                 'type': 'json',\n                 'schema': {\n                     'type': 'object',\n                     'properties': {\n                         'matched': {\n                             'type': 'string',\n                             'enum': ['yes', 'no']\n                         },\n                         'schema_evolution_required': {\n                             'type': 'string',\n                             'enum': ['yes', 'no']\n                         },\n                         'schemas_analysis': {\n                             'type': 'array',\n                             'items': {\n                                 'type': 'string'\n                             }\n                         }\n                     },\n                     'required': ['matched', 'schema_evolution_required', 'schemas_analysis'],\n                     'additionalProperties': false\n                 }\n            }\n        ) as ai_response\n    FROM METADATA.SCHEMA_REGISTRY\n)\nSELECT \n    table_name,\n    table_namespace,\n    schema_json,\n    BASE64_ENCODE(ai_response) as ai_response\nFROM ai_analysis\nWHERE PARSE_JSON(ai_response):matched::string = 'yes'"
+      }, {
+        "description" : "Set the schema state to draft to handle evolving schema",
+        "name" : "schema_state_draft_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "UPDATE METADATA.SCHEMA_REGISTRY\nSET \n    IS_READY = FALSE,\n    STATUS = 'DRAFT'\nWHERE \n    UPPER(TABLE_NAME) = UPPER('${table.name}')\n    AND\n    UPPER(TABLE_NAMESPACE) = UPPER('${table.namespace}');"
+      }, {
+        "description" : "",
+        "name" : "script_evaluate_schema_check",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "",
+        "name" : "script_extract_cortex_response",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "",
+        "name" : "script_extract_csv_metadata",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "",
+        "name" : "script_prepare_slack_message",
+        "provided" : false,
+        "sensitive" : false
+      }, {
+        "description" : "the music flow bot oauth token to post in #music-flow channel",
+        "name" : "slack.bot.oauth.token",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "slack.channel",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "#music-flow"
+      }, {
+        "description" : "",
+        "name" : "snowflake_account",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "sfdevrel-sfdevrel-enterprise"
+      }, {
+        "description" : "",
+        "name" : "snowflake_database",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "KAMESH_OPENFLOW_DEMOS"
+      }, {
+        "description" : "The Snowflake user PAT/Password",
+        "name" : "snowflake_password",
+        "provided" : false,
+        "sensitive" : true
+      }, {
+        "description" : "",
+        "name" : "snowflake_role",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "KAMESH_DEMOS"
+      }, {
+        "description" : "",
+        "name" : "snowflake_user",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "KAMESH_OPENFLOW_DEMO_SA"
+      }, {
+        "description" : "",
+        "name" : "snowflake_warehouse",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "KAMESH_DEMOS_S"
+      }, {
+        "description" : "",
+        "name" : "update_schema_registry_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "UPDATE METADATA.SCHEMA_REGISTRY \nSET \n    SCHEMA_ANALYSIS = '${schema.analysis}',\n    LAST_ANALYSIS_SOURCE = '${google.drive.file.path}',\n    UPDATED_AT = CURRENT_TIMESTAMP()\nWHERE \n    TABLE_NAME = '${table.name}' \n    AND TABLE_NAMESPACE = '${table.namespace}'"
+      }, {
+        "description" : "",
+        "name" : "upsert_schema_registry_sql",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "MERGE INTO METADATA.SCHEMA_REGISTRY AS target\nUSING (\n    SELECT \n        '${table.name}' AS table_name,\n        '${table.namespace}' AS table_namespace,\n        '${avro.schema.content}' AS avro_schema,\n        '${schema.analysis}' AS schema_analysis,\n        '${google.drive.file.path}' AS schema_source,\n        CURRENT_TIMESTAMP() AS updated_at\n) AS source\nON target.TABLE_NAME = source.table_name \n   AND target.TABLE_NAMESPACE = source.table_namespace\n\nWHEN MATCHED THEN\n    UPDATE SET\n        AVRO_SCHEMA = source.avro_schema,\n        SCHEMA_ANALYSIS = source.schema_analysis,\n        SCHEMA_VERSION = METADATA.SEQ_SCHEMA_VERSION.NEXTVAL,\n        IS_READY = FALSE,\n        STATUS = 'ACTIVE',\n        LAST_ANALYSIS_SOURCE = source.schema_source,\n        UPDATED_AT = source.updated_at\n\nWHEN NOT MATCHED THEN\n    INSERT (\n        TABLE_NAME,\n        TABLE_NAMESPACE,\n        AVRO_SCHEMA,\n        SCHEMA_ANALYSIS,\n        SCHEMA_VERSION,\n        IS_READY,\n        STATUS,\n        BASELINE_SOURCE,\n        LAST_ANALYSIS_SOURCE,\n        CREATED_AT,\n        UPDATED_AT\n    )\n    VALUES (\n        source.table_name, -- table name    \n        source.table_namespace, -- table namespace\n        source.avro_schema, -- avro schema\n        source.schema_analysis, -- schema analysis\n        METADATA.SEQ_SCHEMA_VERSION.NEXTVAL, -- schema version\n        FALSE, -- is ready\n        'ACTIVE', -- status\n        source.schema_source, -- baseline source\n        source.schema_source, -- last analysis source\n        CURRENT_TIMESTAMP(), -- created at\n        source.updated_at -- updated at\n    );"
+      } ]
+    }
+  },
+  "parameterProviders" : { },
+  "snapshotMetadata" : {
+    "author" : "KAMESHS",
+    "flowIdentifier" : "move-to-ingest",
+    "timestamp" : 1757824533172
+  }
+}

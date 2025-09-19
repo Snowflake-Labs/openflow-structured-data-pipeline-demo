@@ -1,0 +1,8 @@
+UPDATE METADATA.SCHEMA_REGISTRY
+SET 
+    IS_READY = FALSE,
+    STATUS = 'DRAFT'
+WHERE 
+    UPPER(TABLE_NAME) = UPPER('${table.name}')
+    AND
+    UPPER(TABLE_NAMESPACE) = UPPER('${table.namespace}');

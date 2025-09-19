@@ -1,0 +1,455 @@
+# =============================================================================
+# OPENCATALOG TASKS
+# =============================================================================
+# This file contains all OpenCatalog-related tasks for the MusicFlow Demo project
+
+version: "3"
+
+tasks:
+  env_check:
+    desc: "Check if the environment is set up"
+    silent: true
+    cmds:
+      - |
+        echo "Demo Dir: {{.DEMO_DIR}}"
+        echo "Work Dir: {{.WORK_DIR}}"
+      - |
+        if [ -z "{{.OPENCATALOG_CONNECTION_NAME}}" ]; then
+            echo "OPENCATALOG_CONNECTION_NAME is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_API_URL}}" ]; then
+            echo "OPENCATALOG_API_URL is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_CATALOG_NAME}}" ]; then
+            echo "OPENCATALOG_CATALOG_NAME is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_CATALOG_NAMESPACE}}" ]; then
+            echo "OPENCATALOG_CATALOG_NAMESPACE is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_STORAGE_AWS_ROLE_NAME}}" ]; then
+            echo "OPENCATALOG_STORAGE_AWS_ROLE_NAME is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_STORAGE_AWS_EXTERNAL_ID}}" ]; then
+            echo "OPENCATALOG_STORAGE_AWS_EXTERNAL_ID is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_STORAGE_AWS_REGION}}" ]; then
+            echo "OPENCATALOG_STORAGE_AWS_REGION is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_STORAGE_BUCKET_NAME}}" ]; then
+            echo "OPENCATALOG_STORAGE_BUCKET_NAME is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_ADMIN_USER_NAME}}" ]; then
+            echo "OPENCATALOG_ADMIN_USER_NAME is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_CONNECTION_NAME}}" ]; then
+            echo "OPENCATALOG_CONNECTION_NAME is not set"
+            exit 1
+        fi
+        if [ -z "{{.OPENCATALOG_PRIVATE_KEY_PASSPHRASE}}" ]; then   
+            echo "OPENCATALOG_PRIVATE_KEY_PASSPHRASE is not set"
+            exit 1
+        fi
+        if [ -z "{{.SNOWFLAKE_MUSIC_FLOW_DATABASE}}" ]; then
+            echo "SNOWFLAKE_MUSIC_FLOW_DATABASE is not set"
+            exit 1
+        fi
+
+  # =============================================================================
+  # OPENCATALOG AWS s3 STORAGE TASKS
+  # =============================================================================
+  create_s3_bucket:
+    desc: "Create S3 bucket"
+    silent: true
+    cmds:
+      - |
+        aws s3api create-bucket --bucket "{{.OPENCATALOG_STORAGE_BUCKET_NAME}}" \
+        --region "{{.OPENCATALOG_STORAGE_AWS_REGION}}" \
+        --create-bucket-configuration LocationConstraint="{{.OPENCATALOG_STORAGE_AWS_REGION}}"
+
+  create_iam_role:
+    desc: "Create IAM trust policy"
+    silent: true
+    deps:
+      - catalog_info
+    vars:
+      AWS_ACCOUNT_ID:
+        sh: |
+          aws sts get-caller-identity --query 'Account' --output text
+      AWS_ACCOUNT_ARN:
+        sh: |
+          aws sts get-caller-identity --query 'Arn' --output text
+      OPENCATALOG_AWS_USER_ARN:
+        sh: |
+          jq -r '.storageConfigInfo.userArn' "${WORK_DIR}/catalog-info.json"
+      OPENCATALOG_SNOWFLAKE_EXT_VOL_USER_ARN:
+        sh: |
+          snow sql -q "desc external volume {{.USER}}_openflow_music_flow" --format=json \
+            | jq -r '.[]|select(.property == "STORAGE_LOCATION_1")|.property_value|fromjson|.STORAGE_AWS_IAM_USER_ARN'
+    cmds:
+      - |
+        tee "{{.WORK_DIR}}/trust-policy.json" &>/dev/null <<EOF
+        {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+            "Effect": "Allow",
+            "Action": "sts:AssumeRole",
+            "Principal": {
+                "AWS": [
+                "{{.AWS_ACCOUNT_ARN}}",
+                "{{.OPENCATALOG_AWS_USER_ARN}}",
+                "{{.OPENCATALOG_SNOWFLAKE_EXT_VOL_USER_ARN}}"
+                ]
+            },
+            "Condition": {
+                "StringEquals": {
+                "sts:ExternalId": "{{.OPENCATALOG_STORAGE_AWS_EXTERNAL_ID}}"
+                }
+            }
+            }
+        ]
+        }
+        EOF
+      - |
+        aws iam create-role \
+         --no-cli-pager \
+         --role-name "{{.OPENCATALOG_STORAGE_AWS_ROLE_NAME}}" \
+         --assume-role-policy-document "file://{{.WORK_DIR}}/trust-policy.json" && echo "IAM role created"
+  attach_iam_policy_to_role:
+    desc: "Create IAM policy"
+    silent: true
+    vars:
+      AWS_ACCOUNT_ID:
+        sh: |
+          aws sts get-caller-identity --query 'Account' --output text
+    cmds:
+      - |
+        tee "{{.WORK_DIR}}/s3-access-policy.json" &>/dev/null <<EOF
+        {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:GetObjectVersion",
+                "s3:DeleteObject",
+                "s3:DeleteObjectVersion"
+            ],
+            "Resource": "arn:aws:s3:::{{.OPENCATALOG_STORAGE_BUCKET_NAME}}/*"
+            },
+            {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws:s3:::{{.OPENCATALOG_STORAGE_BUCKET_NAME}}",
+            "Condition": {
+                "StringLike": {
+                "s3:prefix": [
+                    "*"
+                ]
+                }
+            }
+            }
+        ]
+        }
+        EOF
+      - |
+        aws iam create-policy \
+        --policy-name "{{.OPENCATALOG_STORAGE_AWS_ROLE_POLICY_NAME}}" \
+        --policy-document "file://{{.WORK_DIR}}/s3-access-policy.json" && echo "IAM policy created" || echo "IAM Policy already exists"
+      - |
+        aws iam attach-role-policy \
+        --role-name "{{.OPENCATALOG_STORAGE_AWS_ROLE_NAME}}" \
+        --policy-arn "arn:aws:iam::{{.AWS_ACCOUNT_ID}}:policy/{{.OPENCATALOG_STORAGE_AWS_ROLE_POLICY_NAME}}" && echo "IAM policy attached to role"
+
+  # =============================================================================
+  # OPENCATALOG SETUP TASKS
+  # =============================================================================
+  install_cli:
+    desc: "Install Polaris CLI for OpenCatalog management (commit 52e30f0)"
+    cmds:
+      - |
+        cd ${WORK_DIR}
+        if [ ! -d "polaris" ]; then
+            echo "Cloning Polaris repository..."
+            git clone https://github.com/apache/polaris.git
+        else
+            echo "Polaris directory exists, updating..."
+        fi
+        cd polaris
+        echo "Fetching latest changes..."
+        git fetch origin
+        echo "Checking out commit 52e30f0..."
+        git checkout 52e30f0
+        echo "Verifying commit..."
+        git rev-parse HEAD
+        echo "Polaris CLI checked out to commit 52e30f0"
+        export PATH="$PATH:${WORK_DIR}/polaris"
+        echo "Polaris CLI installed. Add to your shell profile:"
+        echo "export PATH=\"\$PATH:${WORK_DIR}/polaris\""
+      - |
+        cd ${DEMO_DIR}
+        polaris --version || true
+
+  create_catalog:
+    desc: "Create music flow demo catalog in OpenCatalog"
+    silent: true
+    cmds:
+      - |
+        polaris \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+            catalogs create "{{.OPENCATALOG_CATALOG_NAME}}" \
+            --type="INTERNAL" \
+            --storage-type="S3" \
+            --role-arn="{{.OPENCATALOG_STORAGE_AWS_ROLE_ARN}}" \
+            --external-id="{{.OPENCATALOG_STORAGE_AWS_EXTERNAL_ID}}" \
+            --region="{{.OPENCATALOG_STORAGE_AWS_REGION}}" \
+            --default-base-location="s3://{{.OPENCATALOG_STORAGE_BUCKET_NAME}}"
+
+  create_principal_roles_and_grants:
+    desc: "Create service principal in OpenCatalog"
+    silent: true
+    cmds:
+      - |
+        polaris \
+        --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+        --access-token="{{.ACCESS_TOKEN}}" \
+        principals create "{{.OPENCATALOG_ADMIN_USER_NAME}}" | jq -r . > "{{.WORK_DIR}}/principal.json" && echo "Principal created"
+      - |
+        polaris \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+            principal-roles create "{{.OPENCATALOG_CATALOG_NAME}}_admin" && echo "Principal role created"
+      - |
+        polaris \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+            principal-roles grant \
+            --principal "{{.OPENCATALOG_ADMIN_USER_NAME}}" \
+            "{{.OPENCATALOG_CATALOG_NAME}}_admin" && echo "Principal role granted to principal"
+      - |
+        polaris \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+            catalog-roles create \
+            --catalog "{{.OPENCATALOG_CATALOG_NAME}}" \
+            "{{.OPENCATALOG_CATALOG_NAME}}_catalog_admin" && echo "Catalog role created"
+      - |
+        polaris \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+            catalog-roles grant \
+            --catalog "{{.OPENCATALOG_CATALOG_NAME}}" \
+            --principal-role "{{.OPENCATALOG_CATALOG_NAME}}_admin" \
+            "{{.OPENCATALOG_CATALOG_NAME}}_catalog_admin" && echo "Catalog role granted to principal role"
+      - |
+        polaris \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+            privileges catalog grant \
+            --catalog "{{.OPENCATALOG_CATALOG_NAME}}" \
+            --catalog-role "{{.OPENCATALOG_CATALOG_NAME}}_catalog_admin" \
+            CATALOG_MANAGE_CONTENT \
+            && echo "Catalog privileges granted to catalog role"
+
+  catalog_info:
+    desc: "Get catalog info"
+    silent: true
+    vars:
+      JWT_TOKEN:
+        sh:
+          PRIVATE_KEY_PASSPHRASE="{{.OPENCATALOG_PRIVATE_KEY_PASSPHRASE}}" snow connection generate-jwt -c
+          "{{.OPENCATALOG_CONNECTION_NAME}}"
+      ACCESS_TOKEN:
+        sh: |
+          http --timeout=15 --ignore-stdin --form \
+          POST "{{ .OPENCATALOG_API_URL }}/polaris/api/catalog/v1/oauth/tokens" \
+          Accept:application/json \
+          scope="session:role:POLARIS_ACCOUNT_ADMIN" \
+          grant_type="client_credentials" \
+          client_secret="{{.JWT_TOKEN}}" | jq -r .access_token
+    cmds:
+      - |
+        polaris \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+            catalogs list | jq --arg catalog_name "{{.OPENCATALOG_CATALOG_NAME}}" \
+            '. | select(.name==$catalog_name)' > "{{.WORK_DIR}}/catalog-info.json"
+
+  setup:
+    desc: "Complete OpenCatalog setup (all steps). Pass USE_SNOWFLAKE_ROLE=<ROLE> in the task call"
+    silent: true
+    vars:
+      JWT_TOKEN:
+        sh:
+          PRIVATE_KEY_PASSPHRASE="{{.OPENCATALOG_PRIVATE_KEY_PASSPHRASE}}" snow connection generate-jwt -c
+          "{{.OPENCATALOG_CONNECTION_NAME}}"
+      ACCESS_TOKEN:
+        sh: |
+          http --timeout=15 --ignore-stdin --form \
+          POST "{{ .OPENCATALOG_API_URL }}/polaris/api/catalog/v1/oauth/tokens" \
+          Accept:application/json \
+          scope="session:role:POLARIS_ACCOUNT_ADMIN" \
+          grant_type="client_credentials" \
+          client_secret="{{.JWT_TOKEN}}" | jq -r .access_token
+    cmds:
+      - task: create_catalog
+        vars:
+          ACCESS_TOKEN: "{{.ACCESS_TOKEN}}"
+      - task: create_principal_roles_and_grants
+        vars:
+          ACCESS_TOKEN: "{{.ACCESS_TOKEN}}"
+      - "echo 'OpenCatalog setup completed successfully!'"
+
+  setup_snowflake_integration:
+    desc: "Setup Snowflake OpenCatalog integration. Pass USE_SNOWFLAKE_ROLE=<ROLE> in the task call."
+    silent: false
+    deps:
+      - catalog_info
+    vars:
+      SQL_DIR: "{{.DEMO_DIR}}/infra"
+      NEW_OPENCATALOG_CLIENT_ID:
+        sh: |
+          cat {{.WORK_DIR}}/principal.json | jq -r ".clientId" || echo "clientId not found"
+      NEW_OPENCATALOG_CLIENT_SECRET:
+        sh: |
+          cat {{.WORK_DIR}}/principal.json | jq -r ".clientSecret" || echo "clientSecret not found"
+      ALLOWED_SCOPES: "PRINCIPAL_ROLE:ALL"
+      RUN_SNOWFLAKE_USER:
+        sh: |
+          snow sql -q 'select current_user() as CURRENT_USER' \
+          --format=json  | jq -r '.[0].CURRENT_USER'
+    cmds:
+      - |
+        sed  -i.bak \
+            -e 's|^OPENCATALOG_CLIENT_ID=.*$|OPENCATALOG_CLIENT_ID="{{.NEW_OPENCATALOG_CLIENT_ID}}"|' \
+            -e 's|^OPENCATALOG_CLIENT_SECRET=.*$|OPENCATALOG_CLIENT_SECRET="{{.NEW_OPENCATALOG_CLIENT_SECRET}}"|' \
+            "{{.DEMO_DIR}}/.env"
+      - |
+        snow sql --filename "{{.SQL_DIR}}/opencatalog.sql" \
+        --variable SNOWFLAKE_ROLE="{{.USE_SNOWFLAKE_ROLE}}" \
+        --variable SNOWFLAKE_USER="{{.RUN_SNOWFLAKE_USER}}" \
+        --variable SNOWFLAKE_ROLE2="{{.SNOWFLAKE_OPENFLOW_DEMO_ROLE}}" \
+        --variable ALLOWED_SCOPES="{{.ALLOWED_SCOPES}}" \
+        --variable OPENCATALOG_CLIENT_ID="{{.NEW_OPENCATALOG_CLIENT_ID}}" \
+        --variable OPENCATALOG_CLIENT_SECRET="{{.NEW_OPENCATALOG_CLIENT_SECRET}}"
+      - "echo 'Snowflake integration setup completed successfully!'"
+
+  configure_storage:
+    desc: "Configure OpenCatalog storage. Pass USE_SNOWFLAKE_ROLE=<ROLE> in the task call."
+    deps:
+      - catalog_info
+    cmds:
+      - task: create_s3_bucket
+      - task: create_iam_role
+      - task: attach_iam_policy_to_role
+
+  check_snowflake_integration:
+    desc: "Check Snowflake integration.Pass USE_SNOWFLAKE_ROLE=<ROLE> in the task call."
+    cmds:
+      - |
+        snow sql --query "SELECT SYSTEM\$VERIFY_EXTERNAL_VOLUME('{{.USER}}_openflow_music_flow')"
+      - |
+        snow sql --query "SELECT SYSTEM\$CATALOG_LINK_STATUS('{{.SNOWFLAKE_MUSIC_FLOW_DATABASE}}')"
+
+  # =============================================================================
+  # OPENCATALOG CLEANUP TASKS
+  # =============================================================================
+
+  cleanup_resources:
+    desc: "Clean up OpenCatalog resources"
+    silent: false
+    vars:
+      JWT_TOKEN:
+        sh:
+          PRIVATE_KEY_PASSPHRASE="{{.OPENCATALOG_PRIVATE_KEY_PASSPHRASE}}" snow connection generate-jwt -c
+          "{{.OPENCATALOG_CONNECTION_NAME}}"
+      ACCESS_TOKEN:
+        sh: |
+          http --timeout=15 --ignore-stdin --form \
+          POST "{{ .OPENCATALOG_API_URL }}/polaris/api/catalog/v1/oauth/tokens" \
+          Accept:application/json \
+          scope="session:role:POLARIS_ACCOUNT_ADMIN" \
+          grant_type="client_credentials" \
+          client_secret="{{.JWT_TOKEN}}" | jq -r ".access_token"
+    cmds:
+      - |
+        polaris \
+        --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+        --access-token="{{.ACCESS_TOKEN}}" \
+        privileges catalog revoke \
+        --catalog "{{.OPENCATALOG_CATALOG_NAME}}" \
+        --catalog-role "{{.OPENCATALOG_CATALOG_NAME}}_catalog_admin"  \
+        CATALOG_MANAGE_CONTENT 2>/dev/null && echo "Revoked Catalog privileges"  || echo "Catalog privileges not found or already revoked"
+      - |
+        polaris \
+        --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+        --access-token="{{.ACCESS_TOKEN}}" \
+        catalog-roles revoke \
+        --catalog "{{.OPENCATALOG_CATALOG_NAME}}" \
+        --principal-role "{{.OPENCATALOG_CATALOG_NAME}}_admin" "{{.OPENCATALOG_CATALOG_NAME}}_catalog_admin" \
+        2>/dev/null && echo "Removed Principal from Catalog roles"  || echo "Principal role not associated with catalog role or already revoked"
+      - |
+        polaris \
+        --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+        --access-token="{{.ACCESS_TOKEN}}" \
+        catalog-roles delete \
+        --catalog "{{.OPENCATALOG_CATALOG_NAME}}" "{{.OPENCATALOG_CATALOG_NAME}}_catalog_admin" \
+        2>/dev/null && echo "Catalog role deleted"  || echo "Catalog role not found or already deleted"
+      - |
+        polaris \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+            principal-roles revoke --principal "{{.OPENCATALOG_ADMIN_USER_NAME}}" \
+            "{{.OPENCATALOG_CATALOG_NAME}}_admin" \
+            2>/dev/null && echo "Revoke Principal roles"  || echo "Principal role associated with principal  not found or already revoked"
+      - |
+        polaris  \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+             principal-roles delete "{{.OPENCATALOG_CATALOG_NAME}}_admin" \
+            2>/dev/null && echo "Principal role deleted"  || echo "Principal role not found or already deleted"
+      - |
+        polaris \
+            --base-url="{{.OPENCATALOG_API_URL}}/polaris" \
+            --access-token="{{.ACCESS_TOKEN}}" \
+            principals delete "{{.OPENCATALOG_ADMIN_USER_NAME}}" \
+            &2>/dev/null && echo "Principal deleted"  || echo "Principal not found or already deleted"
+
+  cleanup_snowflake_integration:
+    desc: "Clean up Snowflake catalog integration"
+    vars:
+      SNOWFLAKE_ROLE:
+        sh: |
+          snow sql -q 'select current_role() as CURRENT_ROLE' \
+          --format=json  | jq -r '.[0].CURRENT_ROLE'
+    cmds:
+      - |
+        snow sql --stdin <<EOF
+        USE ROLE {{.SNOWFLAKE_ROLE}};
+        DROP DATABASE IF EXISTS {{.SNOWFLAKE_MUSIC_FLOW_DATABASE}};
+        DROP EXTERNAL VOLUME IF EXISTS {{.USER}}_openflow_music_flow;
+        DROP CATALOG INTEGRATION IF EXISTS music_flow_demo_catalog_rw;
+        EOF
+
+  cleanup:
+    desc: "Complete OpenCatalog cleanup (all steps)"
+    deps:
+      - cleanup_resources
+      - cleanup_snowflake_integration
+    cmds:
+      - "echo 'OpenCatalog cleanup completed!'"

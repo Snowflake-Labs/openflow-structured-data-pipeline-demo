@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings>
+    <settings defaultResolver="chain" />
+    <resolvers>
+        <chain name="chain" returnFirst="true">
+            <!-- Red Hat Maven Repository -->
+            <ibiblio name="redhat"
+                root="https://maven.repository.redhat.com/ga/"
+                m2compatible="true"
+                checkmodified="true"
+                changingPattern=".*-SNAPSHOT" />
+
+            <!-- Maven Central -->
+            <ibiblio name="central"
+                root="https://repo1.maven.org/maven2"
+                m2compatible="true"
+                checkmodified="true"
+                changingPattern=".*-SNAPSHOT" />
+
+            <!-- MvnRepository -->
+            <ibiblio name="mvnrepository"
+                root="https://mvnrepository.com/artifact"
+                m2compatible="true"
+                checkmodified="true"
+                changingPattern=".*-SNAPSHOT" />
+
+            <!-- Additional repositories for better coverage -->
+            <ibiblio name="spring"
+                root="https://repo.spring.io/release"
+                m2compatible="true" />
+
+            <ibiblio name="spring-milestones"
+                root="https://repo.spring.io/milestone"
+                m2compatible="true" />
+        </chain>
+    </resolvers>
+</ivysettings>
