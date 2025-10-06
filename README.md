@@ -115,7 +115,7 @@ Before setting up the MusicFlow demo, you need to configure Snowflake OpenCatalo
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd music-flow
+cd openflow-structured-data-pipeline-demo
 
 # Install Python dependencies using uv
 uv sync
