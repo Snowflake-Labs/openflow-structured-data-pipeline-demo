@@ -964,6 +964,11 @@ dependencies = [
     { name = "snowflake-snowpark-python" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "pip-licenses" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "awscli-local", specifier = ">=0.22.2" },
@@ -978,6 +983,9 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.1.1" },
     { name = "snowflake-snowpark-python", specifier = ">=1.37.0" },
 ]
+
+[package.metadata.requires-dev]
+dev = [{ name = "pip-licenses", specifier = ">=5.5.0" }]
 
 [[package]]
 name = "packaging"
@@ -1044,12 +1052,36 @@ wheels = [
 ]
 
 [[package]]
+name = "pip-licenses"
+version = "5.5.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "prettytable" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d6/03/627620aa09aa51d6e9fc1f996c535caa2ade11b9cb161fbb0e71fb2fa608/pip_licenses-5.5.0.tar.gz", hash = "sha256:2473e7afd02a0c21460758f70fd2bb3b3c080c5150713dd33baa9493dc1563a5", size = 45467, upload-time = "2025-10-19T00:29:54.552Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/35/a2/90d93f85d13bfcc19e63227bcede9e147c1c4d9260183f759ccd343b80e7/pip_licenses-5.5.0-py3-none-any.whl", hash = "sha256:ae1869436d13ee487088d29e71fc5821950062ad25ec28b6a1a443e0add6d8e8", size = 21581, upload-time = "2025-10-19T00:29:53.11Z" },
+]
+
+[[package]]
 name = "platformdirs"
 version = "4.3.8"
 source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/fe/8b/3c73abc9c759ecd3f1f7ceff6685840859e8070c4d947c93fae71f6a0bf2/platformdirs-4.3.8.tar.gz", hash = "sha256:3d512d96e16bcb959a814c9f348431070822a6496326a4be0911c40b5a74c2bc", size = 21362, upload-time = "2025-05-07T22:47:42.121Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/fe/39/979e8e21520d4e47a0bbe349e2713c0aac6f3d853d0e5b34d76206c439aa/platformdirs-4.3.8-py3-none-any.whl", hash = "sha256:ff7059bb7eb1179e2685604f4aaf157cfd9535242bd23742eadc3c13542139b4", size = 18567, upload-time = "2025-05-07T22:47:40.376Z" },
+]
+
+[[package]]
+name = "prettytable"
+version = "3.16.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "wcwidth" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/99/b1/85e18ac92afd08c533603e3393977b6bc1443043115a47bb094f3b98f94f/prettytable-3.16.0.tar.gz", hash = "sha256:3c64b31719d961bf69c9a7e03d0c1e477320906a98da63952bc6698d6164ff57", size = 66276, upload-time = "2025-03-24T19:39:04.008Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/02/c7/5613524e606ea1688b3bdbf48aa64bafb6d0a4ac3750274c43b6158a390f/prettytable-3.16.0-py3-none-any.whl", hash = "sha256:b5eccfabb82222f5aa46b798ff02a8452cf530a352c31bddfa29be41242863aa", size = 33863, upload-time = "2025-03-24T19:39:02.359Z" },
 ]
 
 [[package]]

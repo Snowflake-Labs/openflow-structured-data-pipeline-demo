@@ -17,3 +17,8 @@ dependencies = [
     "python-dotenv>=1.1.1",
     "snowflake-snowpark-python>=1.37.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pip-licenses>=5.5.0",
+]
