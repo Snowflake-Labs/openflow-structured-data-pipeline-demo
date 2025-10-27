@@ -310,12 +310,67 @@ CREATE ICEBERG TABLE "events"."music_events" (
 
 ### 🚀 **Live Demo Commands**
 
-- Copy file e.g. `soundwave_events_2025.csv` to Google Shared Drive folder
-- Wait for the pipeline to process the file, generate SQL DDL files and move the file to the data ingestion bucket.
-- Run the `create_schema` task to create the table or `evolve_schema` task to evolve the schema.
-- Watch the rows form CSV loaded into Iceberg table
+This demo showcases three key scenarios using different CSV files:
 
-> **NOTE**: Each milestone in pipeline will have notifications sent to Slack channel.
+#### 1. Create Schema (Initial Table Creation)
+
+```bash
+# Copy the first CSV file to Google Shared Drive folder
+# File: soundwave_events_2025.csv
+# This will trigger schema analysis and table creation
+
+# Wait for the pipeline to process the file and generate SQL DDL files
+# The file will be automatically moved to the data ingestion bucket
+
+# Create the Iceberg table with the detected schema
+export TABLE_NAMESPACE="events"
+export TABLE_NAME="music_events"
+task create_schema
+
+# Watch rows from CSV loaded into Iceberg table
+```
+
+**Expected Result**: New Iceberg table `events.music_events` created with base columns (event_id, artist_name, main_stage, start_time, vip_price)
+
+#### 2. Just Do Ingestion (Same Schema)
+
+```bash
+# Copy a CSV file with the same schema structure
+# Files: harmony_grove_lineup.csv OR beat_valley_lineup_2025.csv OR music_mountain_schedule.csv
+
+# Wait for the pipeline to process the file
+# No schema changes detected - data is directly ingested
+
+# No additional task needed - data automatically loads into existing table
+```
+
+**Expected Result**: New rows appended to existing `events.music_events` table without schema changes
+
+#### 3. Evolve Schema (New Columns Detected)
+
+```bash
+# Copy a CSV file with additional columns
+# File: soundwave_events_enhanced.csv OR coastal_beats_performances.csv
+# This will trigger schema evolution detection
+
+# Wait for the pipeline to process the file and generate ALTER TABLE SQL
+
+# Evolve the table schema with new columns
+task evolve_schema
+
+# Watch new columns added and rows loaded into Iceberg table
+```
+
+**Expected Result**: Schema evolved with new columns (e.g., genre, sponsor, duration) and data loaded with new fields
+
+> **NOTE**: Each milestone in the pipeline will send notifications to your configured Slack channel, including:
+>
+> - File detected and processing started
+> - Schema analysis completed (create/evolve/ingest)
+> - SQL DDL generated and staged
+> - File moved to ingestion bucket
+> - Table created/evolved successfully
+> - Data ingestion completed
 
 ## 🎯 Usage Examples
 
