@@ -1,0 +1,150 @@
+# AI Assistant Rules for Snowflake OpenFlow Demo Project
+
+## Documentation and Working Files
+
+### Generated Files Location
+
+- **ALWAYS** place AI-generated summaries, analysis documents, and temporary working files in the `work/` folder
+- **NEVER** create documentation files (*.md) in the project root or other directories unless explicitly requested
+- Examples of files that belong in `work/`:
+  - Summary documents (e.g., `PROMPT_FIX_SUMMARY.md`)
+  - Analysis files
+  - Draft SQL files for testing/comparison
+  - Debugging notes
+  - AI-generated documentation
+  - Temporary scripts or helpers
+
+### Work Folder Purpose
+
+The `work/` folder is designated for transient files that:
+
+- Are generated during development/debugging
+- Document AI analysis and decisions
+- Provide context for changes
+- Should NOT be committed to version control
+- Help track progress and learnings
+
+## Snowflake Documentation
+
+### Official Documentation Source
+
+- **PRIMARY REFERENCE**: Always consult official Snowflake documentation at <https://docs.snowflake.com>
+- **INDEX**: Treat docs.snowflake.com as the authoritative source for all Snowflake features
+- **VERIFY**: Cross-check all SQL syntax, commands, and feature usage against official docs
+
+### Key Documentation Areas
+
+#### Snowflake OpenFlow
+
+- OpenFlow Overview: <https://docs.snowflake.com/en/user-guide/data-integration/openflow/about>
+- OpenFlow Setup: <https://docs.snowflake.com/en/user-guide/data-integration/openflow/setup>
+- OpenFlow Processors: <https://docs.snowflake.com/en/user-guide/data-integration/openflow/processors>
+
+#### Snowflake OpenCatalog (Apache Polaris)
+
+- OpenCatalog Getting Started: <https://docs.snowflake.com/en/user-guide/opencatalog/tutorials/open-catalog-gs>
+- Catalog Integrations: <https://docs.snowflake.com/en/sql-reference/sql/create-catalog-integration>
+- Catalog Linked Database: <https://docs.snowflake.com/en/user-guide/tables-iceberg-catalog-linked-database>
+
+#### Apache Iceberg Tables
+
+- Iceberg Tables Overview: <https://docs.snowflake.com/en/user-guide/tables-iceberg>
+- CREATE ICEBERG TABLE: <https://docs.snowflake.com/en/sql-reference/sql/create-iceberg-table>
+- ALTER ICEBERG TABLE: <https://docs.snowflake.com/en/sql-reference/sql/alter-iceberg-table>
+- Iceberg Table DDL: <https://docs.snowflake.com/en/sql-reference/sql/create-table-iceberg>
+
+#### Cortex AI
+
+- Cortex AI Overview: <https://docs.snowflake.com/en/guides-overview-ai-features>
+- Cortex LLM Functions: <https://docs.snowflake.com/en/user-guide/snowflake-cortex/llm-functions>
+- AI_COMPLETE: <https://docs.snowflake.com/en/sql-reference/functions/ai_complete>
+
+#### SQL Reference
+
+- SQL Command Reference: <https://docs.snowflake.com/en/sql-reference-commands>
+- CREATE SCHEMA: <https://docs.snowflake.com/en/sql-reference/sql/create-schema>
+- ALTER TABLE: <https://docs.snowflake.com/en/sql-reference/sql/alter-table>
+- Data Types: <https://docs.snowflake.com/en/sql-reference/data-types>
+
+### Syntax Verification Rules
+
+1. **Before suggesting SQL**: Check official Snowflake docs for correct syntax
+2. **Data Types**: Use Snowflake-specific types (BIGINT, STRING, DOUBLE, not INT, VARCHAR, FLOAT)
+3. **Keywords**: Verify proper Snowflake SQL keywords and clauses
+4. **Features**: Confirm feature availability and correct usage patterns
+5. **Examples**: Reference official documentation examples when applicable
+
+### External REST Catalog Specifics
+
+- **Identifier Quoting**: Always use double quotes for external catalog identifiers per <https://docs.snowflake.com/en/user-guide/tables-iceberg-catalog-linked-database>
+- **Case Sensitivity**: External catalogs are case-sensitive (documented behavior)
+- **Namespace Format**: Use format `"namespace"."table"` for external catalogs
+
+## Project-Specific Context
+
+### Schema Evolution Strategy
+
+- Use semantic field mapping (see `prompts/system_message.md`)
+- Schema evolution adds ONLY truly new columns (no semantic equivalents)
+- Ingestion layer (Avro adapter) handles semantic field mapping via aliases
+- Reference the semantic mapping table in prompts for field equivalence
+
+### File Organization
+
+```
+project-root/
+├── prompts/              # LLM prompts for schema analysis (DO NOT modify without discussion)
+├── sql/                  # Production SQL templates
+├── flow-state/          # Generated SQL from pipeline (gitignored)
+├── work/                # AI-generated docs, analysis, drafts (should be gitignored)
+├── scripts/             # Groovy scripts for NiFi processors
+├── sample-data/         # Test CSV files
+└── flows/               # NiFi flow definitions
+```
+
+### Code Quality Standards
+
+- Follow existing code style and patterns
+- Use proper error handling (`IF NOT EXISTS` clauses)
+- Include comprehensive comments in SQL
+- Use Jinja2 templating for environment variables: `{{ variable_name }}`
+- Uppercase SQL keywords (CREATE, ALTER, TABLE, etc.)
+- Document all changes in work/ folder summaries
+
+## Command Verification
+
+### Before Running Commands
+
+- Verify command exists and syntax is correct
+- Check if permissions are needed (network, git_write, etc.)
+- Consider impact on existing data/configuration
+- Document command purpose and expected outcome
+
+### Task Runner
+
+- Use `task` command for project operations (see `Taskfile.yml`)
+- Available tasks: `task --list`
+- Environment-specific tasks use `USE_SNOWFLAKE_ROLE` variable
+
+## Git Workflow
+
+- **NEVER** commit files from `work/` folder
+- **NEVER** commit generated SQL from `flow-state/` folder
+- **ALWAYS** review changes before committing
+- **ALWAYS** use descriptive commit messages
+
+## When in Doubt
+
+1. Check official Snowflake documentation first
+2. Review existing project patterns and conventions
+3. Create analysis document in `work/` folder
+4. Ask for clarification before making significant changes
+5. Test changes in isolated environment when possible
+
+## AI Assistant Behavior
+
+- Place all analysis, summaries, and working documents in `work/` folder
+- Reference official docs.snowflake.com for all Snowflake features
+- Follow project conventions and existing patterns
+- Document reasoning and decisions in work folder
+- Ask before modifying core prompt files or production SQL

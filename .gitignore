@@ -26,3 +26,8 @@ utils/target/
 .vscode
 *.env
 !.env.template
+
+# AI-generated working files and analysis
+work/
+!work/.gitkeep
+!work/README.md
