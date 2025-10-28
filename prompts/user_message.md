@@ -94,11 +94,12 @@ Use this table for semantic field equivalence detection:
 #### For Schema Evolution (`${schema.evolution.required}` = "yes")
 
 1. Parse `${existing.schema}` to understand current table structure and use `${table.name}` and `${table.namespace}` for target table identification
-2. Perform semantic field matching between existing and new headers
-3. Identify new fields requiring addition to schema
-4. Generate complete Avro schema containing ALL fields (existing + new/changed fields) with all new fields marked as nullable
-5. Create Snowflake SQL DDL for `ALTER ICEBERG TABLE` operations
-6. Include detailed field mapping analysis in `schema_analysis`
+2. **CRITICAL**: Perform semantic field matching between CSV headers and existing table columns using the semantic mapping table
+3. **CRITICAL**: Identify which CSV fields are semantic equivalents of existing columns (DO NOT add these as new columns)
+4. **CRITICAL**: Identify which CSV fields have NO semantic equivalent in existing schema (ADD ONLY these as new columns)
+5. Generate complete Avro schema containing ALL fields (existing + truly new fields) with all new fields marked as nullable
+6. Create Snowflake SQL DDL for `ALTER ICEBERG TABLE` operations that add ONLY the truly new fields (not semantic equivalents)
+7. Include detailed field mapping analysis in `schema_analysis` showing which fields were matched vs. which were added
 
 #### For Standard Processing (`${schema.evolution.required}` = "no")
 
@@ -276,18 +277,51 @@ WHERE table_name = '{{ table_name }}'
 10. Include schema comparison logic when existing schema context is provided
 11. Generate appropriate Snowflake Iceberg operations using proper data types based on detected schema differences
 12. Include semantic field matching logic for evolution detection
-14. **CRITICAL**: When generating ALTER TABLE logic, only add new fields to existing table - do not recreate or modify existing fields
-15. **MANDATORY**: Always include `CREATE SCHEMA IF NOT EXISTS` before table creation
-18. **MANDATORY**: Include simple schema registry updates to mark tables as ready for ingestion (only set IS_READY = TRUE)
+13. **CRITICAL**: When schema evolution is required, use semantic matching to identify equivalent fields between CSV and existing table
+14. **CRITICAL**: DO NOT add new columns for CSV fields that are semantic equivalents of existing table columns
+15. **CRITICAL**: Only add columns for CSV fields that have NO semantic match in the existing schema
+16. **CRITICAL**: The ingestion layer (Avro schema with aliases) handles mapping semantic equivalents, NOT the schema evolution
+17. **CRITICAL**: Example Evolution Scenario:
+    - Existing table columns: event_id, artist_name, main_stage, start_time, vip_price
+    - CSV columns: event_id, artist_name, stage, start_time, ticket_price, genre, sponsor
+    - Semantic analysis using mapping table:
+      - "stage" ↔ "main_stage" (semantic equivalent per mapping table - DO NOT ADD)
+      - "ticket_price" ↔ "vip_price" (semantic equivalent per mapping table - DO NOT ADD)
+      - "genre" (no equivalent in existing schema - ADD THIS)
+      - "sponsor" (no equivalent in existing schema - ADD THIS)
+    - Generated SQL: ALTER ICEBERG TABLE ADD COLUMN "genre" STRING, COLUMN "sponsor" STRING
+    - Avro adapter will map "stage" → "main_stage" and "ticket_price" → "vip_price" during ingestion
+18. **CRITICAL**: When generating ALTER TABLE logic, only add truly new fields to existing table - do not recreate or modify existing fields
+19. **MANDATORY**: Always include `CREATE SCHEMA IF NOT EXISTS` before table creation
+20. **MANDATORY**: Include simple schema registry updates to mark tables as ready for ingestion (only set IS_READY = TRUE)
 
 #### Schema Analysis Generation
 
 1. Generate comprehensive `schema_analysis` with evolution details
 2. Include field mapping analysis with exact and semantic matches
-3. Identify new fields requiring addition to existing schema
-4. Detect type changes that require schema evolution
-5. Provide evolution strategy recommendations
-6. Include compatibility notes for backward compatibility assurance
+3. **CRITICAL**: In semantic_matches, show CSV fields that map to existing table columns (these will NOT be added as new columns)
+4. **CRITICAL**: In new_fields, show ONLY CSV fields that have NO semantic equivalent in existing schema (these WILL be added as new columns)
+5. Identify new fields requiring addition to existing schema (only truly new fields without semantic equivalents)
+6. Detect type changes that require schema evolution
+7. Provide evolution strategy recommendations
+8. Include compatibility notes for backward compatibility assurance
+9. **CRITICAL**: Example schema_analysis for evolution:
+
+   ```json
+   {
+     "evolution_required": true,
+     "field_mappings": {
+       "exact_matches": ["event_id", "artist_name", "start_time"],
+       "semantic_matches": {
+         "stage": "main_stage",
+         "ticket_price": "vip_price"
+       },
+       "new_fields": ["genre", "sponsor"]
+     },
+     "evolution_strategy": "ADD_FIELDS",
+     "compatibility_notes": ["Only genre and sponsor will be added as new columns", "stage maps to existing main_stage", "ticket_price maps to existing vip_price"]
+   }
+   ```
 
 ### Critical Instructions
 
@@ -350,6 +384,8 @@ Use these NiFi flow variables exactly as provided:
 - **FORBIDDEN**: Unquoted identifiers for external REST catalogs - ALL schema, table, and column names MUST be double-quoted
 - **FORBIDDEN**: Setting multiple columns in schema registry updates - only set `IS_READY = TRUE`
 - **FORBIDDEN**: Adding INSERT statements for processing logs or other metadata tables
+- **FORBIDDEN**: Adding new columns for CSV fields that are semantic equivalents of existing columns during schema evolution
+- **FORBIDDEN**: Ignoring the semantic mapping table when determining which fields to add during evolution
 
 #### Perfect Response Example
 

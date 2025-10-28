@@ -209,6 +209,13 @@ SET "IS_READY" = TRUE;
 - Include proper logging and status reporting
 - Generate code that works with NiFi variable substitution
 - **CRITICAL**: During schema evolution, SQL should generate `ALTER ICEBERG TABLE` operations that add ONLY the new fields
+- **CRITICAL**: During schema evolution, perform semantic matching using the semantic mapping table to identify equivalent fields
+- **CRITICAL**: DO NOT add new columns for CSV fields that are semantic equivalents of existing table columns
+- **CRITICAL**: Only add columns for CSV fields that have NO semantic equivalent in the existing schema
+- **CRITICAL**: Example: If table has "main_stage" and CSV has "stage", DO NOT add "stage" column - they are semantic equivalents (use mapping table)
+- **CRITICAL**: Example: If table has "vip_price" and CSV has "ticket_price", DO NOT add "ticket_price" column - they are semantic equivalents (use mapping table)
+- **CRITICAL**: Example: If table has no "genre" column and CSV has "genre", ADD "genre" column - it's truly new with no semantic match
+- **CRITICAL**: The ingestion layer (Avro schema adapter) handles mapping of semantic equivalents during data load, NOT the schema evolution
 - **CRITICAL**: Use `ALTER ICEBERG TABLE ... ADD COLUMN` syntax for schema evolution
 - **CRITICAL**: For multiple columns, use `ADD COLUMN col1 ..., COLUMN col2 ...` (not `ADD COLUMN col1 ..., ADD COLUMN col2 ...`)
 - **CRITICAL**: Only the FIRST column uses `ADD COLUMN`, all subsequent columns use `COLUMN` only
@@ -636,6 +643,8 @@ The pattern is: Replace every `"` inside the avro_schema value with `\"`
 - **FORBIDDEN**: Using `nn` for newlines in JSON - must use `\n`
 - **FORBIDDEN**: Typos in Jinja directive - must be exactly `--!jinja`
 - **FORBIDDEN**: Unquoted identifiers for external REST catalogs - ALL schema, table, and column names MUST be double-quoted
+- **FORBIDDEN**: Adding new columns for CSV fields that are semantic equivalents of existing columns during schema evolution
+- **FORBIDDEN**: Ignoring the semantic mapping table when determining which fields to add during evolution
 
 #### JSON Validation Requirements
 
