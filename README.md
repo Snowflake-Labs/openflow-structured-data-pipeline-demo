@@ -497,7 +497,8 @@ snow sql --query "CREATE ICEBERG TABLE IF NOT EXISTS test_table (id INT) IN CATA
 
 ## 📄 License
 
-This project is licensed under the Apache License - see the LICENSE file for details.
+Copyright (c) Snowflake Inc. All rights reserved.
+Licensed under the Apache 2.0 license.
 
 ---
 
