@@ -335,8 +335,10 @@ task create_schema
 #### 2. Just Do Ingestion (Same Schema)
 
 ```bash
-# Copy a CSV file with the same schema structure
-# Files: harmony_grove_lineup.csv OR beat_valley_lineup_2025.csv OR music_mountain_schedule.csv
+# Copy a CSV file with semantically matching schema (5 base fields)
+# File: beat_valley_lineup_2025.csv
+# Schema: show_id,dj_performer,venue_section,time_block,admission_cost
+# Maps to: event_id,artist_name,main_stage,start_time,vip_price
 
 # Wait for the pipeline to process the file
 # No schema changes detected - data is directly ingested
@@ -344,14 +346,17 @@ task create_schema
 # No additional task needed - data automatically loads into existing table
 ```
 
-**Expected Result**: New rows appended to existing `events.music_events` table without schema changes
+**Expected Result**: New rows appended to existing `events.music_events` table without schema changes. Field names are semantically mapped (e.g., `dj_performer` → `artist_name`, `venue_section` → `main_stage`)
 
 #### 3. Evolve Schema (New Columns Detected)
 
 ```bash
-# Copy a CSV file with additional columns
-# File: soundwave_events_enhanced.csv OR coastal_beats_performances.csv
-# This will trigger schema evolution detection
+# Copy a CSV file with additional columns beyond the base 5 fields
+# Choose one file based on desired new columns:
+#   - harmony_grove_lineup.csv (adds: capacity)
+#   - music_mountain_schedule.csv (adds: max_attendance, day)
+#   - soundwave_events_enhanced.csv (adds: genre, sponsor)
+#   - coastal_beats_performances.csv (adds: weather_backup, city)
 
 # Wait for the pipeline to process the file and generate ALTER TABLE SQL
 
@@ -361,7 +366,7 @@ task evolve_schema
 # Watch new columns added and rows loaded into Iceberg table
 ```
 
-**Expected Result**: Schema evolved with new columns (e.g., genre, sponsor, duration) and data loaded with new fields
+**Expected Result**: Schema evolved with new columns (e.g., `genre`, `sponsor`, `capacity`) and data loaded with new fields populated
 
 > **NOTE**: Each milestone in the pipeline will send notifications to your configured Slack channel, including:
 >

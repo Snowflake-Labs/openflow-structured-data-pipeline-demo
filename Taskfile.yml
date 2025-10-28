@@ -32,6 +32,7 @@ tasks:
 
   download_sources:
     desc: "Download generated schema sources"
+    silent: true
     cmds:
       - mkdir -p {{.USER_WORKING_DIR}}/flow-state
       - |
@@ -43,7 +44,7 @@ tasks:
 
   create_schema:
     desc: "Create or update the Iceberg table with the generated SQL code"
-    silent: false
+    silent: true
     deps:
       - download_sources
     cmds:
@@ -58,7 +59,7 @@ tasks:
 
   evolve_schema:
     desc: "Create or update the Iceberg table with the generated SQL code"
-    silent: false
+    silent: true
     deps:
       - download_sources
     cmds:
