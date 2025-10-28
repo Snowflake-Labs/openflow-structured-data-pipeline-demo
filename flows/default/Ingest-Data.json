@@ -466,7 +466,7 @@
       "bundle" : {
         "artifact" : "runtime-iceberg-rest-catalog-nar",
         "group" : "com.snowflake.openflow.runtime",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "Set the client properties to use client factory settings from https://iceberg.apache.org/docs/1.9.2/aws/#aws-client-customization",
       "componentType" : "CONTROLLER_SERVICE",
@@ -474,7 +474,7 @@
         "bundle" : {
           "artifact" : "runtime-iceberg-service-api-nar",
           "group" : "com.snowflake.openflow.runtime",
-          "version" : "2025.9.11.18"
+          "version" : "2025.10.23.11"
         },
         "type" : "com.snowflake.openflow.runtime.services.iceberg.IcebergCatalog"
       } ],
@@ -635,7 +635,7 @@
       "bundle" : {
         "artifact" : "nifi-record-serialization-services-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "CONTROLLER_SERVICE",
@@ -643,7 +643,7 @@
         "bundle" : {
           "artifact" : "nifi-standard-services-api-nar",
           "group" : "org.apache.nifi",
-          "version" : "2025.9.9.20"
+          "version" : "2025.10.23.16"
         },
         "type" : "org.apache.nifi.serialization.RecordReaderFactory"
       } ],
@@ -651,42 +651,42 @@
       "identifier" : "2812d436-82aa-3262-92f7-1cce743b8477",
       "name" : "CSV Reader with Header Line",
       "properties" : {
-        "ignore-csv-header" : "false",
+        "Schema Text" : "${avro.schema}",
         "Trim double quote" : "true",
         "CSV Format" : "custom",
         "Quote Character" : "\"",
-        "csvutils-allow-duplicate-header-names" : "false",
         "Value Separator" : ",",
+        "Treat First Line as Header" : "true",
+        "Schema Access Strategy" : "schema-text-property",
+        "Ignore CSV Header Column Names" : "false",
+        "Schema Name" : "${schema.name}",
         "Record Separator" : "\\n",
         "Escape Character" : "\\",
-        "Skip Header Line" : "true",
         "Trim Fields" : "true",
-        "schema-name" : "${schema.name}",
         "csv-reader-csv-parser" : "commons-csv",
-        "schema-access-strategy" : "schema-text-property",
-        "csvutils-character-set" : "UTF-8",
-        "schema-text" : "${avro.schema}"
+        "Allow Duplicate Header Names" : "false",
+        "Character Set" : "UTF-8"
       },
       "propertyDescriptors" : {
-        "schema-reference-reader" : {
-          "displayName" : "Schema Reference Reader",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "schema-reference-reader",
-          "sensitive" : false
-        },
-        "ignore-csv-header" : {
-          "displayName" : "Ignore CSV Header Column Names",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "ignore-csv-header",
-          "sensitive" : false
-        },
-        "schema-branch" : {
+        "Schema Branch" : {
           "displayName" : "Schema Branch",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "schema-branch",
+          "name" : "Schema Branch",
+          "sensitive" : false
+        },
+        "Schema Reference Reader" : {
+          "displayName" : "Schema Reference Reader",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "Schema Reference Reader",
+          "sensitive" : false
+        },
+        "Schema Text" : {
+          "displayName" : "Schema Text",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Schema Text",
           "sensitive" : false
         },
         "Trim double quote" : {
@@ -710,18 +710,46 @@
           "name" : "Quote Character",
           "sensitive" : false
         },
-        "csvutils-allow-duplicate-header-names" : {
-          "displayName" : "Allow Duplicate Header Names",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "csvutils-allow-duplicate-header-names",
-          "sensitive" : false
-        },
         "Value Separator" : {
           "displayName" : "Value Separator",
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Value Separator",
+          "sensitive" : false
+        },
+        "Schema Registry" : {
+          "displayName" : "Schema Registry",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "Schema Registry",
+          "sensitive" : false
+        },
+        "Treat First Line as Header" : {
+          "displayName" : "Treat First Line as Header",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Treat First Line as Header",
+          "sensitive" : false
+        },
+        "Schema Access Strategy" : {
+          "displayName" : "Schema Access Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Schema Access Strategy",
+          "sensitive" : false
+        },
+        "Ignore CSV Header Column Names" : {
+          "displayName" : "Ignore CSV Header Column Names",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Ignore CSV Header Column Names",
+          "sensitive" : false
+        },
+        "Schema Name" : {
+          "displayName" : "Schema Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Schema Name",
           "sensitive" : false
         },
         "Record Separator" : {
@@ -759,13 +787,6 @@
           "name" : "Null String",
           "sensitive" : false
         },
-        "Skip Header Line" : {
-          "displayName" : "Treat First Line as Header",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Skip Header Line",
-          "sensitive" : false
-        },
         "Trim Fields" : {
           "displayName" : "Trim Fields",
           "dynamic" : false,
@@ -773,18 +794,11 @@
           "name" : "Trim Fields",
           "sensitive" : false
         },
-        "schema-name" : {
-          "displayName" : "Schema Name",
+        "Schema Version" : {
+          "displayName" : "Schema Version",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "schema-name",
-          "sensitive" : false
-        },
-        "schema-registry" : {
-          "displayName" : "Schema Registry",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "schema-registry",
+          "name" : "Schema Version",
           "sensitive" : false
         },
         "csv-reader-csv-parser" : {
@@ -808,32 +822,18 @@
           "name" : "Comment Marker",
           "sensitive" : false
         },
-        "schema-access-strategy" : {
-          "displayName" : "Schema Access Strategy",
+        "Allow Duplicate Header Names" : {
+          "displayName" : "Allow Duplicate Header Names",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "schema-access-strategy",
+          "name" : "Allow Duplicate Header Names",
           "sensitive" : false
         },
-        "schema-version" : {
-          "displayName" : "Schema Version",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "schema-version",
-          "sensitive" : false
-        },
-        "csvutils-character-set" : {
+        "Character Set" : {
           "displayName" : "Character Set",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "csvutils-character-set",
-          "sensitive" : false
-        },
-        "schema-text" : {
-          "displayName" : "Schema Text",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "schema-text",
+          "name" : "Character Set",
           "sensitive" : false
         }
       },
@@ -844,7 +844,7 @@
       "bundle" : {
         "artifact" : "nifi-record-serialization-services-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "CONTROLLER_SERVICE",
@@ -852,7 +852,7 @@
         "bundle" : {
           "artifact" : "nifi-standard-services-api-nar",
           "group" : "org.apache.nifi",
-          "version" : "2025.9.9.20"
+          "version" : "2025.10.23.16"
         },
         "type" : "org.apache.nifi.serialization.RecordSetWriterFactory"
       } ],
@@ -860,30 +860,37 @@
       "identifier" : "40b3b02f-673f-3bde-ad06-3a4454cccc6c",
       "name" : "Ingest Data JsonRecordSetWriter",
       "properties" : {
+        "Schema Text" : "${avro.schema}",
         "Allow Scientific Notation" : "false",
         "compression-level" : "1",
+        "Schema Access Strategy" : "schema-text-property",
+        "Schema Name" : "${schema.name}",
         "Pretty Print JSON" : "false",
         "compression-format" : "none",
         "Schema Write Strategy" : "no-schema",
         "suppress-nulls" : "never-suppress",
-        "output-grouping" : "output-array",
-        "schema-name" : "${schema.name}",
-        "schema-access-strategy" : "schema-text-property",
-        "schema-text" : "${avro.schema}"
+        "output-grouping" : "output-array"
       },
       "propertyDescriptors" : {
-        "schema-reference-reader" : {
-          "displayName" : "Schema Reference Reader",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "schema-reference-reader",
-          "sensitive" : false
-        },
-        "schema-branch" : {
+        "Schema Branch" : {
           "displayName" : "Schema Branch",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "schema-branch",
+          "name" : "Schema Branch",
+          "sensitive" : false
+        },
+        "Schema Reference Reader" : {
+          "displayName" : "Schema Reference Reader",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "Schema Reference Reader",
+          "sensitive" : false
+        },
+        "Schema Text" : {
+          "displayName" : "Schema Text",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Schema Text",
           "sensitive" : false
         },
         "Allow Scientific Notation" : {
@@ -900,11 +907,25 @@
           "name" : "compression-level",
           "sensitive" : false
         },
-        "schema-cache" : {
-          "displayName" : "Schema Cache",
+        "Schema Registry" : {
+          "displayName" : "Schema Registry",
           "dynamic" : false,
           "identifiesControllerService" : true,
-          "name" : "schema-cache",
+          "name" : "Schema Registry",
+          "sensitive" : false
+        },
+        "Schema Access Strategy" : {
+          "displayName" : "Schema Access Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Schema Access Strategy",
+          "sensitive" : false
+        },
+        "Schema Name" : {
+          "displayName" : "Schema Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Schema Name",
           "sensitive" : false
         },
         "Timestamp Format" : {
@@ -956,18 +977,18 @@
           "name" : "output-grouping",
           "sensitive" : false
         },
-        "schema-name" : {
-          "displayName" : "Schema Name",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "schema-name",
-          "sensitive" : false
-        },
-        "schema-registry" : {
-          "displayName" : "Schema Registry",
+        "Schema Cache" : {
+          "displayName" : "Schema Cache",
           "dynamic" : false,
           "identifiesControllerService" : true,
-          "name" : "schema-registry",
+          "name" : "Schema Cache",
+          "sensitive" : false
+        },
+        "Schema Version" : {
+          "displayName" : "Schema Version",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Schema Version",
           "sensitive" : false
         },
         "Time Format" : {
@@ -975,27 +996,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Time Format",
-          "sensitive" : false
-        },
-        "schema-access-strategy" : {
-          "displayName" : "Schema Access Strategy",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "schema-access-strategy",
-          "sensitive" : false
-        },
-        "schema-version" : {
-          "displayName" : "Schema Version",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "schema-version",
-          "sensitive" : false
-        },
-        "schema-text" : {
-          "displayName" : "Schema Text",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "schema-text",
           "sensitive" : false
         },
         "Schema Reference Writer" : {
@@ -1013,7 +1013,7 @@
       "bundle" : {
         "artifact" : "runtime-snowflake-connection-service-nar",
         "group" : "com.snowflake.openflow.runtime",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "CONTROLLER_SERVICE",
@@ -1021,7 +1021,7 @@
         "bundle" : {
           "artifact" : "nifi-standard-services-api-nar",
           "group" : "org.apache.nifi",
-          "version" : "2025.9.9.20"
+          "version" : "2025.10.23.16"
         },
         "type" : "org.apache.nifi.dbcp.DBCPService"
       } ],
@@ -1150,7 +1150,7 @@
       "bundle" : {
         "artifact" : "runtime-iceberg-parquet-writer-nar",
         "group" : "com.snowflake.openflow.runtime",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "CONTROLLER_SERVICE",
@@ -1158,7 +1158,7 @@
         "bundle" : {
           "artifact" : "runtime-iceberg-service-api-nar",
           "group" : "com.snowflake.openflow.runtime",
-          "version" : "2025.9.11.18"
+          "version" : "2025.10.23.11"
         },
         "type" : "com.snowflake.openflow.runtime.services.iceberg.IcebergWriter"
       } ],
@@ -1184,7 +1184,7 @@
       "bundle" : {
         "artifact" : "runtime-iceberg-rest-catalog-nar",
         "group" : "com.snowflake.openflow.runtime",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "CONTROLLER_SERVICE",
@@ -1192,7 +1192,7 @@
         "bundle" : {
           "artifact" : "runtime-iceberg-service-api-nar",
           "group" : "com.snowflake.openflow.runtime",
-          "version" : "2025.9.11.18"
+          "version" : "2025.10.23.11"
         },
         "type" : "com.snowflake.openflow.runtime.services.iceberg.IcebergCatalog"
       } ],
@@ -1321,7 +1321,7 @@
       "bundle" : {
         "artifact" : "nifi-aws-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "CONTROLLER_SERVICE",
@@ -1329,14 +1329,14 @@
         "bundle" : {
           "artifact" : "nifi-aws-service-api-nar",
           "group" : "org.apache.nifi",
-          "version" : "2025.9.11.18"
+          "version" : "2025.10.23.11"
         },
         "type" : "org.apache.nifi.processors.aws.credentials.provider.service.AWSCredentialsProviderService"
       }, {
         "bundle" : {
           "artifact" : "nifi-aws-service-api-nar",
           "group" : "org.apache.nifi",
-          "version" : "2025.9.11.18"
+          "version" : "2025.10.23.11"
         },
         "type" : "org.apache.nifi.processors.aws.credentials.provider.AwsCredentialsProviderService"
       } ],
@@ -1344,73 +1344,38 @@
       "identifier" : "b5c46cd2-c8cd-31cb-bb79-68b0c4bab11b",
       "name" : "AWS DevRel Sandbox",
       "properties" : {
-        "Access Key" : "#{music-flow.aws.access-key-id}",
-        "default-credentials" : "false",
-        "Session Time" : "3600",
-        "assume-role-sts-signer-override" : "Default Signature",
+        "Assume Role STS Region" : "us-west-2",
+        "Access Key ID" : "#{music-flow.aws.access-key-id}",
         "Assume Role ARN" : "#{music-flow.s3.assume-role-arn}",
+        "Assume Role Session Time" : "3600",
         "Assume Role Session Name" : "Kamesh_Openflow_SPCS_MF_demo",
-        "assume-role-sts-region" : "us-west-2",
-        "Secret Key" : "#{music-flow.aws.secret-access-key}",
-        "assume-role-external-id" : "#{music-flow.s3.ingest-data.assume-role-external-ID}",
-        "anonymous-credentials" : "false"
+        "Use Default Credentials" : "false",
+        "Assume Role External ID" : "#{music-flow.s3.ingest-data.assume-role-external-ID}",
+        "Assume Role STS Signer Override" : "Default Signature",
+        "Use Anonymous Credentials" : "false",
+        "Secret Access Key" : "#{music-flow.aws.secret-access-key}"
       },
       "propertyDescriptors" : {
-        "profile-name" : {
-          "displayName" : "Profile Name",
+        "Assume Role STS Region" : {
+          "displayName" : "Assume Role STS Region",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "profile-name",
+          "name" : "Assume Role STS Region",
           "sensitive" : false
         },
-        "Access Key" : {
-          "displayName" : "Access Key ID",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Access Key",
-          "sensitive" : true
-        },
-        "assume-role-proxy-configuration-service" : {
+        "Assume Role Proxy Configuration Service" : {
           "displayName" : "Assume Role Proxy Configuration Service",
           "dynamic" : false,
           "identifiesControllerService" : true,
-          "name" : "assume-role-proxy-configuration-service",
+          "name" : "Assume Role Proxy Configuration Service",
           "sensitive" : false
         },
-        "default-credentials" : {
-          "displayName" : "Use Default Credentials",
+        "Access Key ID" : {
+          "displayName" : "Access Key ID",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "default-credentials",
-          "sensitive" : false
-        },
-        "Session Time" : {
-          "displayName" : "Assume Role Session Time",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Session Time",
-          "sensitive" : false
-        },
-        "assume-role-ssl-context-service" : {
-          "displayName" : "Assume Role SSL Context Service",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "assume-role-ssl-context-service",
-          "sensitive" : false
-        },
-        "assume-role-sts-signer-override" : {
-          "displayName" : "Assume Role STS Signer Override",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "assume-role-sts-signer-override",
-          "sensitive" : false
-        },
-        "custom-signer-class-name" : {
-          "displayName" : "Custom Signer Class Name",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "custom-signer-class-name",
-          "sensitive" : false
+          "name" : "Access Key ID",
+          "sensitive" : true
         },
         "Assume Role ARN" : {
           "displayName" : "Assume Role ARN",
@@ -1419,15 +1384,11 @@
           "name" : "Assume Role ARN",
           "sensitive" : false
         },
-        "custom-signer-module-location" : {
-          "displayName" : "Custom Signer Module Location",
+        "Assume Role Session Time" : {
+          "displayName" : "Assume Role Session Time",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "custom-signer-module-location",
-          "resourceDefinition" : {
-            "cardinality" : "MULTIPLE",
-            "resourceTypes" : [ "DIRECTORY", "FILE" ]
-          },
+          "name" : "Assume Role Session Time",
           "sensitive" : false
         },
         "Assume Role Session Name" : {
@@ -1437,26 +1398,44 @@
           "name" : "Assume Role Session Name",
           "sensitive" : false
         },
-        "assume-role-sts-endpoint" : {
+        "Custom Signer Module Location" : {
+          "displayName" : "Custom Signer Module Location",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Custom Signer Module Location",
+          "resourceDefinition" : {
+            "cardinality" : "MULTIPLE",
+            "resourceTypes" : [ "DIRECTORY", "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "Use Default Credentials" : {
+          "displayName" : "Use Default Credentials",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Use Default Credentials",
+          "sensitive" : false
+        },
+        "Assume Role External ID" : {
+          "displayName" : "Assume Role External ID",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Assume Role External ID",
+          "sensitive" : false
+        },
+        "Assume Role STS Endpoint Override" : {
           "displayName" : "Assume Role STS Endpoint Override",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "assume-role-sts-endpoint",
+          "name" : "Assume Role STS Endpoint Override",
           "sensitive" : false
         },
-        "assume-role-sts-region" : {
-          "displayName" : "Assume Role STS Region",
+        "Profile Name" : {
+          "displayName" : "Profile Name",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "assume-role-sts-region",
+          "name" : "Profile Name",
           "sensitive" : false
-        },
-        "Secret Key" : {
-          "displayName" : "Secret Access Key",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "Secret Key",
-          "sensitive" : true
         },
         "Credentials File" : {
           "displayName" : "Credentials File",
@@ -1469,18 +1448,39 @@
           },
           "sensitive" : false
         },
-        "assume-role-external-id" : {
-          "displayName" : "Assume Role External ID",
+        "Custom Signer Class Name" : {
+          "displayName" : "Custom Signer Class Name",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "assume-role-external-id",
+          "name" : "Custom Signer Class Name",
           "sensitive" : false
         },
-        "anonymous-credentials" : {
+        "Assume Role STS Signer Override" : {
+          "displayName" : "Assume Role STS Signer Override",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Assume Role STS Signer Override",
+          "sensitive" : false
+        },
+        "Use Anonymous Credentials" : {
           "displayName" : "Use Anonymous Credentials",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "anonymous-credentials",
+          "name" : "Use Anonymous Credentials",
+          "sensitive" : false
+        },
+        "Secret Access Key" : {
+          "displayName" : "Secret Access Key",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Secret Access Key",
+          "sensitive" : true
+        },
+        "Assume Role SSL Context Service" : {
+          "displayName" : "Assume Role SSL Context Service",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "Assume Role SSL Context Service",
           "sensitive" : false
         }
       },
@@ -1491,7 +1491,7 @@
       "bundle" : {
         "artifact" : "nifi-gcp-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "CONTROLLER_SERVICE",
@@ -1499,7 +1499,7 @@
         "bundle" : {
           "artifact" : "nifi-gcp-services-api-nar",
           "group" : "org.apache.nifi",
-          "version" : "2025.9.11.18"
+          "version" : "2025.10.23.11"
         },
         "type" : "org.apache.nifi.gcp.credentials.service.GCPCredentialsService"
       } ],
@@ -1507,12 +1507,37 @@
       "identifier" : "c3b8964f-6571-3053-aa43-84d3971f8966",
       "name" : "Pratyakshika Openflow",
       "properties" : {
-        "compute-engine-credentials" : "false",
-        "Delegation Strategy" : "Service Account",
-        "application-default-credentials" : "false",
-        "service-account-json-file" : "#{pratyakshika_sa_json}"
+        "Use Application Default Credentials" : "false",
+        "Service Account JSON File" : "#{pratyakshika_sa_json}",
+        "Use Compute Engine Credentials" : "false",
+        "Delegation Strategy" : "Service Account"
       },
       "propertyDescriptors" : {
+        "Use Application Default Credentials" : {
+          "displayName" : "Use Application Default Credentials",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Use Application Default Credentials",
+          "sensitive" : false
+        },
+        "Service Account JSON File" : {
+          "displayName" : "Service Account JSON File",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Service Account JSON File",
+          "resourceDefinition" : {
+            "cardinality" : "SINGLE",
+            "resourceTypes" : [ "FILE" ]
+          },
+          "sensitive" : false
+        },
+        "Service Account JSON" : {
+          "displayName" : "Service Account JSON",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Service Account JSON",
+          "sensitive" : true
+        },
         "proxy-configuration-service" : {
           "displayName" : "Proxy Configuration Service",
           "dynamic" : false,
@@ -1520,11 +1545,11 @@
           "name" : "proxy-configuration-service",
           "sensitive" : false
         },
-        "compute-engine-credentials" : {
+        "Use Compute Engine Credentials" : {
           "displayName" : "Use Compute Engine Credentials",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "compute-engine-credentials",
+          "name" : "Use Compute Engine Credentials",
           "sensitive" : false
         },
         "Delegation Strategy" : {
@@ -1534,37 +1559,12 @@
           "name" : "Delegation Strategy",
           "sensitive" : false
         },
-        "application-default-credentials" : {
-          "displayName" : "Use Application Default Credentials",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "application-default-credentials",
-          "sensitive" : false
-        },
-        "service-account-json-file" : {
-          "displayName" : "Service Account JSON File",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "service-account-json-file",
-          "resourceDefinition" : {
-            "cardinality" : "SINGLE",
-            "resourceTypes" : [ "FILE" ]
-          },
-          "sensitive" : false
-        },
         "Delegation User" : {
           "displayName" : "Delegation User",
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Delegation User",
           "sensitive" : false
-        },
-        "service-account-json" : {
-          "displayName" : "Service Account JSON",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "service-account-json",
-          "sensitive" : true
         }
       },
       "scheduledState" : "DISABLED",
@@ -1611,7 +1611,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1662,7 +1662,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1680,16 +1680,16 @@
       "properties" : {
         "esql-max-rows" : "0",
         "esqlrecord-record-writer" : "40b3b02f-673f-3bde-ad06-3a4454cccc6c",
-        "dbf-default-precision" : "10",
         "Max Wait Time" : "0 seconds",
         "SQL Query" : "#{ingestion_csv_avro_mapping_sql}",
         "Database Connection Pooling Service" : "44f4b3da-9d27-36de-8fc5-3e8f1fd13a1b",
+        "Default Decimal Scale" : "0",
         "esql-auto-commit" : "true",
-        "dbf-user-logical-types" : "false",
-        "dbf-default-scale" : "0",
         "esql-output-batch-size" : "0",
         "esql-fetch-size" : "0",
-        "esqlrecord-normalize" : "true"
+        "Use Avro Logical Types" : "false",
+        "esqlrecord-normalize" : "true",
+        "Default Decimal Precision" : "10"
       },
       "propertyDescriptors" : {
         "esql-max-rows" : {
@@ -1704,13 +1704,6 @@
           "dynamic" : false,
           "identifiesControllerService" : true,
           "name" : "esqlrecord-record-writer",
-          "sensitive" : false
-        },
-        "dbf-default-precision" : {
-          "displayName" : "Default Decimal Precision",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "dbf-default-precision",
           "sensitive" : false
         },
         "Max Wait Time" : {
@@ -1741,25 +1734,18 @@
           "name" : "sql-post-query",
           "sensitive" : false
         },
+        "Default Decimal Scale" : {
+          "displayName" : "Default Decimal Scale",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Default Decimal Scale",
+          "sensitive" : false
+        },
         "esql-auto-commit" : {
           "displayName" : "Set Auto Commit",
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "esql-auto-commit",
-          "sensitive" : false
-        },
-        "dbf-user-logical-types" : {
-          "displayName" : "Use Avro Logical Types",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "dbf-user-logical-types",
-          "sensitive" : false
-        },
-        "dbf-default-scale" : {
-          "displayName" : "Default Decimal Scale",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "dbf-default-scale",
           "sensitive" : false
         },
         "sql-pre-query" : {
@@ -1783,11 +1769,25 @@
           "name" : "esql-fetch-size",
           "sensitive" : false
         },
+        "Use Avro Logical Types" : {
+          "displayName" : "Use Avro Logical Types",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Use Avro Logical Types",
+          "sensitive" : false
+        },
         "esqlrecord-normalize" : {
           "displayName" : "Normalize Table/Column Names",
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "esqlrecord-normalize",
+          "sensitive" : false
+        },
+        "Default Decimal Precision" : {
+          "displayName" : "Default Decimal Precision",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Default Decimal Precision",
           "sensitive" : false
         }
       },
@@ -1807,7 +1807,7 @@
       "bundle" : {
         "artifact" : "runtime-iceberg-processors-nar",
         "group" : "com.snowflake.openflow.runtime",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1824,7 +1824,7 @@
       },
       "properties" : {
         "Table Name" : "${table.name}",
-        "Iceberg Catalog" : "12b48936-4bdd-31be-b0e7-9b5c074a4cf3",
+        "Iceberg Catalog" : "928eb189-7e89-3cec-8f46-1ab149cc0b05",
         "Record Reader" : "2812d436-82aa-3262-92f7-1cce743b8477",
         "Iceberg Writer" : "88a69890-a406-3988-b375-11466d4a58c8",
         "Namespace" : "${table.namespace}"
@@ -1882,7 +1882,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1941,7 +1941,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -1992,7 +1992,7 @@
       "bundle" : {
         "artifact" : "nifi-update-attribute-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -2121,7 +2121,7 @@
       "bundle" : {
         "artifact" : "nifi-aws-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -2137,29 +2137,15 @@
         "y" : -1736.0
       },
       "properties" : {
-        "requester-pays" : "false",
         "Object Key" : "${filename}",
         "AWS Credentials Provider service" : "b5c46cd2-c8cd-31cb-bb79-68b0c4bab11b",
         "Signer Override" : "Default Signature",
         "Bucket" : "#{ingestion.s3.bucket}",
         "Communications Timeout" : "30 secs",
-        "Region" : "#{aws.region}"
+        "Region" : "#{aws.region}",
+        "Requester Pays" : "false"
       },
       "propertyDescriptors" : {
-        "range-length" : {
-          "displayName" : "Range Length",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "range-length",
-          "sensitive" : false
-        },
-        "range-start" : {
-          "displayName" : "Range Start",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "range-start",
-          "sensitive" : false
-        },
         "proxy-configuration-service" : {
           "displayName" : "Proxy Configuration Service",
           "dynamic" : false,
@@ -2172,20 +2158,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Endpoint Override URL",
-          "sensitive" : false
-        },
-        "custom-signer-class-name" : {
-          "displayName" : "Custom Signer Class Name",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "custom-signer-class-name",
-          "sensitive" : false
-        },
-        "requester-pays" : {
-          "displayName" : "Requester Pays",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "requester-pays",
           "sensitive" : false
         },
         "Object Key" : {
@@ -2202,15 +2174,22 @@
           "name" : "AWS Credentials Provider service",
           "sensitive" : false
         },
-        "custom-signer-module-location" : {
+        "Custom Signer Module Location" : {
           "displayName" : "Custom Signer Module Location",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "custom-signer-module-location",
+          "name" : "Custom Signer Module Location",
           "resourceDefinition" : {
             "cardinality" : "MULTIPLE",
             "resourceTypes" : [ "DIRECTORY", "FILE" ]
           },
+          "sensitive" : false
+        },
+        "Range Start" : {
+          "displayName" : "Range Start",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Range Start",
           "sensitive" : false
         },
         "SSL Context Service" : {
@@ -2255,11 +2234,32 @@
           "name" : "Region",
           "sensitive" : false
         },
-        "encryption-service" : {
+        "Custom Signer Class Name" : {
+          "displayName" : "Custom Signer Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Custom Signer Class Name",
+          "sensitive" : false
+        },
+        "Encryption Service" : {
           "displayName" : "Encryption Service",
           "dynamic" : false,
           "identifiesControllerService" : true,
-          "name" : "encryption-service",
+          "name" : "Encryption Service",
+          "sensitive" : false
+        },
+        "Requester Pays" : {
+          "displayName" : "Requester Pays",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Requester Pays",
+          "sensitive" : false
+        },
+        "Range Length" : {
+          "displayName" : "Range Length",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Range Length",
           "sensitive" : false
         }
       },
@@ -2279,7 +2279,7 @@
       "bundle" : {
         "artifact" : "nifi-aws-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -2295,29 +2295,15 @@
         "y" : -152.0
       },
       "properties" : {
-        "requester-pays" : "false",
         "Object Key" : "${source.filename}",
         "AWS Credentials Provider service" : "b5c46cd2-c8cd-31cb-bb79-68b0c4bab11b",
         "Signer Override" : "Default Signature",
         "Bucket" : "#{ingestion.s3.bucket}",
         "Communications Timeout" : "30 secs",
-        "Region" : "#{aws.region}"
+        "Region" : "#{aws.region}",
+        "Requester Pays" : "false"
       },
       "propertyDescriptors" : {
-        "range-length" : {
-          "displayName" : "Range Length",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "range-length",
-          "sensitive" : false
-        },
-        "range-start" : {
-          "displayName" : "Range Start",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "range-start",
-          "sensitive" : false
-        },
         "proxy-configuration-service" : {
           "displayName" : "Proxy Configuration Service",
           "dynamic" : false,
@@ -2330,20 +2316,6 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Endpoint Override URL",
-          "sensitive" : false
-        },
-        "custom-signer-class-name" : {
-          "displayName" : "Custom Signer Class Name",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "custom-signer-class-name",
-          "sensitive" : false
-        },
-        "requester-pays" : {
-          "displayName" : "Requester Pays",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "requester-pays",
           "sensitive" : false
         },
         "Object Key" : {
@@ -2360,15 +2332,22 @@
           "name" : "AWS Credentials Provider service",
           "sensitive" : false
         },
-        "custom-signer-module-location" : {
+        "Custom Signer Module Location" : {
           "displayName" : "Custom Signer Module Location",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "custom-signer-module-location",
+          "name" : "Custom Signer Module Location",
           "resourceDefinition" : {
             "cardinality" : "MULTIPLE",
             "resourceTypes" : [ "DIRECTORY", "FILE" ]
           },
+          "sensitive" : false
+        },
+        "Range Start" : {
+          "displayName" : "Range Start",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Range Start",
           "sensitive" : false
         },
         "SSL Context Service" : {
@@ -2413,11 +2392,32 @@
           "name" : "Region",
           "sensitive" : false
         },
-        "encryption-service" : {
+        "Custom Signer Class Name" : {
+          "displayName" : "Custom Signer Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Custom Signer Class Name",
+          "sensitive" : false
+        },
+        "Encryption Service" : {
           "displayName" : "Encryption Service",
           "dynamic" : false,
           "identifiesControllerService" : true,
-          "name" : "encryption-service",
+          "name" : "Encryption Service",
+          "sensitive" : false
+        },
+        "Requester Pays" : {
+          "displayName" : "Requester Pays",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Requester Pays",
+          "sensitive" : false
+        },
+        "Range Length" : {
+          "displayName" : "Range Length",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Range Length",
           "sensitive" : false
         }
       },
@@ -2437,7 +2437,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -2496,7 +2496,7 @@
       "bundle" : {
         "artifact" : "nifi-update-attribute-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -2593,7 +2593,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -2724,7 +2724,7 @@
       "bundle" : {
         "artifact" : "nifi-aws-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -2740,17 +2740,31 @@
         "y" : 56.0
       },
       "properties" : {
+        "Append Tag" : "true",
+        "Tag Value" : "yes",
         "Object Key" : "${source.filename}",
-        "append-tag" : "true",
         "AWS Credentials Provider service" : "b5c46cd2-c8cd-31cb-bb79-68b0c4bab11b",
-        "tag-value" : "yes",
         "Signer Override" : "Default Signature",
         "Bucket" : "#{ingestion.s3.bucket}",
-        "tag-key" : "object-ingestion-progress",
+        "Tag Key" : "object-ingestion-progress",
         "Communications Timeout" : "30 secs",
         "Region" : "#{aws.region}"
       },
       "propertyDescriptors" : {
+        "Append Tag" : {
+          "displayName" : "Append Tag",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Append Tag",
+          "sensitive" : false
+        },
+        "Tag Value" : {
+          "displayName" : "Tag Value",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Tag Value",
+          "sensitive" : false
+        },
         "proxy-configuration-service" : {
           "displayName" : "Proxy Configuration Service",
           "dynamic" : false,
@@ -2765,25 +2779,11 @@
           "name" : "Endpoint Override URL",
           "sensitive" : false
         },
-        "custom-signer-class-name" : {
-          "displayName" : "Custom Signer Class Name",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "custom-signer-class-name",
-          "sensitive" : false
-        },
         "Object Key" : {
           "displayName" : "Object Key",
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Object Key",
-          "sensitive" : false
-        },
-        "append-tag" : {
-          "displayName" : "Append Tag",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "append-tag",
           "sensitive" : false
         },
         "AWS Credentials Provider service" : {
@@ -2793,22 +2793,15 @@
           "name" : "AWS Credentials Provider service",
           "sensitive" : false
         },
-        "custom-signer-module-location" : {
+        "Custom Signer Module Location" : {
           "displayName" : "Custom Signer Module Location",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "custom-signer-module-location",
+          "name" : "Custom Signer Module Location",
           "resourceDefinition" : {
             "cardinality" : "MULTIPLE",
             "resourceTypes" : [ "DIRECTORY", "FILE" ]
           },
-          "sensitive" : false
-        },
-        "tag-value" : {
-          "displayName" : "Tag Value",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "tag-value",
           "sensitive" : false
         },
         "SSL Context Service" : {
@@ -2832,18 +2825,18 @@
           "name" : "Bucket",
           "sensitive" : false
         },
+        "Tag Key" : {
+          "displayName" : "Tag Key",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Tag Key",
+          "sensitive" : false
+        },
         "Version" : {
           "displayName" : "Version",
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Version",
-          "sensitive" : false
-        },
-        "tag-key" : {
-          "displayName" : "Tag Key",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "tag-key",
           "sensitive" : false
         },
         "Communications Timeout" : {
@@ -2858,6 +2851,13 @@
           "dynamic" : false,
           "identifiesControllerService" : false,
           "name" : "Region",
+          "sensitive" : false
+        },
+        "Custom Signer Class Name" : {
+          "displayName" : "Custom Signer Class Name",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Custom Signer Class Name",
           "sensitive" : false
         }
       },
@@ -2877,7 +2877,7 @@
       "bundle" : {
         "artifact" : "nifi-aws-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -2893,49 +2893,42 @@
         "y" : -1976.0
       },
       "properties" : {
-        "list-type" : "1",
-        "et-initial-listing-target" : "all",
-        "et-time-window" : "3 hours",
-        "requester-pays" : "false",
-        "listing-strategy" : "none",
+        "Entity Tracking Initial Listing Target" : "all",
+        "Minimum Object Age" : "0 sec",
+        "List Type" : "1",
         "Signer Override" : "Default Signature",
-        "min-age" : "0 sec",
-        "write-s3-user-metadata" : "false",
+        "Entity Tracking Time Window" : "3 hours",
+        "Use Versions" : "false",
+        "Requester Pays" : "false",
         "AWS Credentials Provider service" : "b5c46cd2-c8cd-31cb-bb79-68b0c4bab11b",
+        "Write Object Tags" : "true",
         "Listing Batch Size" : "100",
-        "write-s3-object-tags" : "true",
         "Bucket" : "#{ingestion.s3.bucket}",
         "Communications Timeout" : "30 secs",
         "Region" : "#{aws.region}",
-        "use-versions" : "false"
+        "Listing Strategy" : "none",
+        "Write User Metadata" : "false"
       },
       "propertyDescriptors" : {
-        "list-type" : {
-          "displayName" : "List Type",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "list-type",
-          "sensitive" : false
-        },
-        "et-initial-listing-target" : {
+        "Entity Tracking Initial Listing Target" : {
           "displayName" : "Entity Tracking Initial Listing Target",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "et-initial-listing-target",
+          "name" : "Entity Tracking Initial Listing Target",
           "sensitive" : false
         },
-        "prefix" : {
-          "displayName" : "Prefix",
+        "Minimum Object Age" : {
+          "displayName" : "Minimum Object Age",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "prefix",
+          "name" : "Minimum Object Age",
           "sensitive" : false
         },
-        "record-writer" : {
-          "displayName" : "Record Writer",
+        "Entity Tracking State Cache" : {
+          "displayName" : "Entity Tracking State Cache",
           "dynamic" : false,
           "identifiesControllerService" : true,
-          "name" : "record-writer",
+          "name" : "Entity Tracking State Cache",
           "sensitive" : false
         },
         "proxy-configuration-service" : {
@@ -2945,6 +2938,13 @@
           "name" : "proxy-configuration-service",
           "sensitive" : false
         },
+        "Maximum Object Age" : {
+          "displayName" : "Maximum Object Age",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Maximum Object Age",
+          "sensitive" : false
+        },
         "Endpoint Override URL" : {
           "displayName" : "Endpoint Override URL",
           "dynamic" : false,
@@ -2952,43 +2952,18 @@
           "name" : "Endpoint Override URL",
           "sensitive" : false
         },
-        "et-time-window" : {
-          "displayName" : "Entity Tracking Time Window",
+        "List Type" : {
+          "displayName" : "List Type",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "et-time-window",
+          "name" : "List Type",
           "sensitive" : false
         },
-        "custom-signer-class-name" : {
-          "displayName" : "Custom Signer Class Name",
+        "Prefix" : {
+          "displayName" : "Prefix",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "custom-signer-class-name",
-          "sensitive" : false
-        },
-        "requester-pays" : {
-          "displayName" : "Requester Pays",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "requester-pays",
-          "sensitive" : false
-        },
-        "custom-signer-module-location" : {
-          "displayName" : "Custom Signer Module Location",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "custom-signer-module-location",
-          "resourceDefinition" : {
-            "cardinality" : "MULTIPLE",
-            "resourceTypes" : [ "DIRECTORY", "FILE" ]
-          },
-          "sensitive" : false
-        },
-        "listing-strategy" : {
-          "displayName" : "Listing Strategy",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "listing-strategy",
+          "name" : "Prefix",
           "sensitive" : false
         },
         "Signer Override" : {
@@ -2998,32 +2973,39 @@
           "name" : "Signer Override",
           "sensitive" : false
         },
-        "delimiter" : {
+        "Record Writer" : {
+          "displayName" : "Record Writer",
+          "dynamic" : false,
+          "identifiesControllerService" : true,
+          "name" : "Record Writer",
+          "sensitive" : false
+        },
+        "Entity Tracking Time Window" : {
+          "displayName" : "Entity Tracking Time Window",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Entity Tracking Time Window",
+          "sensitive" : false
+        },
+        "Use Versions" : {
+          "displayName" : "Use Versions",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Use Versions",
+          "sensitive" : false
+        },
+        "Requester Pays" : {
+          "displayName" : "Requester Pays",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Requester Pays",
+          "sensitive" : false
+        },
+        "Delimiter" : {
           "displayName" : "Delimiter",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "delimiter",
-          "sensitive" : false
-        },
-        "min-age" : {
-          "displayName" : "Minimum Object Age",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "min-age",
-          "sensitive" : false
-        },
-        "write-s3-user-metadata" : {
-          "displayName" : "Write User Metadata",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "write-s3-user-metadata",
-          "sensitive" : false
-        },
-        "max-age" : {
-          "displayName" : "Maximum Object Age",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "max-age",
+          "name" : "Delimiter",
           "sensitive" : false
         },
         "AWS Credentials Provider service" : {
@@ -3033,6 +3015,13 @@
           "name" : "AWS Credentials Provider service",
           "sensitive" : false
         },
+        "Write Object Tags" : {
+          "displayName" : "Write Object Tags",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write Object Tags",
+          "sensitive" : false
+        },
         "Listing Batch Size" : {
           "displayName" : "Listing Batch Size",
           "dynamic" : false,
@@ -3040,18 +3029,22 @@
           "name" : "Listing Batch Size",
           "sensitive" : false
         },
+        "Custom Signer Module Location" : {
+          "displayName" : "Custom Signer Module Location",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Custom Signer Module Location",
+          "resourceDefinition" : {
+            "cardinality" : "MULTIPLE",
+            "resourceTypes" : [ "DIRECTORY", "FILE" ]
+          },
+          "sensitive" : false
+        },
         "SSL Context Service" : {
           "displayName" : "SSL Context Service",
           "dynamic" : false,
           "identifiesControllerService" : true,
           "name" : "SSL Context Service",
-          "sensitive" : false
-        },
-        "write-s3-object-tags" : {
-          "displayName" : "Write Object Tags",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "write-s3-object-tags",
           "sensitive" : false
         },
         "Bucket" : {
@@ -3075,18 +3068,25 @@
           "name" : "Region",
           "sensitive" : false
         },
-        "et-state-cache" : {
-          "displayName" : "Entity Tracking State Cache",
-          "dynamic" : false,
-          "identifiesControllerService" : true,
-          "name" : "et-state-cache",
-          "sensitive" : false
-        },
-        "use-versions" : {
-          "displayName" : "Use Versions",
+        "Custom Signer Class Name" : {
+          "displayName" : "Custom Signer Class Name",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "use-versions",
+          "name" : "Custom Signer Class Name",
+          "sensitive" : false
+        },
+        "Listing Strategy" : {
+          "displayName" : "Listing Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Listing Strategy",
+          "sensitive" : false
+        },
+        "Write User Metadata" : {
+          "displayName" : "Write User Metadata",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Write User Metadata",
           "sensitive" : false
         }
       },
@@ -3106,7 +3106,7 @@
       "bundle" : {
         "artifact" : "nifi-groovyx-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -3122,40 +3122,40 @@
         "y" : -1464.0
       },
       "properties" : {
-        "groovyx-failure-strategy" : "rollback",
-        "groovyx-script-file" : "#{script_extract_csv_metadata}"
+        "Script File" : "#{script_extract_csv_metadata}",
+        "Failure Strategy" : "rollback"
       },
       "propertyDescriptors" : {
-        "groovyx-script-body" : {
-          "displayName" : "Script Body",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "groovyx-script-body",
-          "sensitive" : false
-        },
-        "groovyx-failure-strategy" : {
-          "displayName" : "Failure strategy",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "groovyx-failure-strategy",
-          "sensitive" : false
-        },
-        "groovyx-additional-classpath" : {
-          "displayName" : "Additional classpath",
-          "dynamic" : false,
-          "identifiesControllerService" : false,
-          "name" : "groovyx-additional-classpath",
-          "sensitive" : false
-        },
-        "groovyx-script-file" : {
+        "Script File" : {
           "displayName" : "Script File",
           "dynamic" : false,
           "identifiesControllerService" : false,
-          "name" : "groovyx-script-file",
+          "name" : "Script File",
           "resourceDefinition" : {
             "cardinality" : "SINGLE",
             "resourceTypes" : [ "FILE" ]
           },
+          "sensitive" : false
+        },
+        "Additional Classpath" : {
+          "displayName" : "Additional Classpath",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Additional Classpath",
+          "sensitive" : false
+        },
+        "Script Body" : {
+          "displayName" : "Script Body",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Script Body",
+          "sensitive" : false
+        },
+        "Failure Strategy" : {
+          "displayName" : "Failure Strategy",
+          "dynamic" : false,
+          "identifiesControllerService" : false,
+          "name" : "Failure Strategy",
           "sensitive" : false
         }
       },
@@ -3175,7 +3175,7 @@
       "bundle" : {
         "artifact" : "nifi-standard-nar",
         "group" : "org.apache.nifi",
-        "version" : "2025.9.11.18"
+        "version" : "2025.10.23.11"
       },
       "comments" : "",
       "componentType" : "PROCESSOR",
@@ -3250,13 +3250,19 @@
         "name" : "cortex_prompt_system_message",
         "provided" : false,
         "sensitive" : false,
-        "value" : "## System Message\n\nYou are an expert data engineer specializing in Apache Avro schema generation and Snowflake Iceberg table operations. Your task is to analyze CSV file structure and generate both a syntactically valid Avro schema and clean, production-ready Snowflake SQL DDL for table creation/evolution using Snowflake Iceberg syntax.\n\n### Core Requirements\n\n- Generate a complete, valid Apache Avro schema in JSON format\n- Generate clean, well-formatted Snowflake SQL DDL for Iceberg table operations using Snowflake syntax with Jinja2 templating support\n- Use intelligent data type inference from CSV sample data\n- Follow Avro best practices for field naming and nullability\n- Ensure schema compatibility with Apache NiFi Record processors\n- Handle both first-time table creation and schema evolution scenarios\n- Perform semantic field matching for schema evolution\n- Generate complete evolved schemas with ALL fields (existing + new/changed fields), ensuring new fields are nullable\n- **CRITICAL**: Always use Snowflake data types (BIGINT, DOUBLE, STRING, etc.) for all schema operations\n- **CRITICAL**: Always use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n- **CRITICAL**: Always include Jinja2 templating directive and environment variables for dynamic SQL execution\n- **CRITICAL**: For ALTER ICEBERG TABLE with multiple columns: use `ADD COLUMN col1 ..., COLUMN col2 ...` NOT `ADD COLUMN col1 ..., ADD COLUMN col2 ...`\n\n### Schema Evolution Logic\n\n#### Evolution Detection Rules\n\n- When `${schema.evolution.required}` is \"yes\", analyze existing schema against CSV headers\n- Perform semantic field matching to identify:\n  - Exact name matches (case-insensitive)\n  - Semantic equivalents (e.g., \"artist_name\" → \"performer\", \"start_time\" → \"show_time\")\n  - Type changes requiring evolution (e.g., string → double, non-nullable → nullable)\n- Generate evolution-specific Avro schema containing ALL fields (existing + new/changed fields)\n- All newly added fields MUST be nullable for backward compatibility\n- Include field mapping analysis in `schema.analysis` metadata\n\n#### Semantic Field Matching Table\n\n**NEW**: Use this semantic mapping table for field equivalence detection:\n\n| Standard Field | Semantic Equivalents | Data Type | Business Context |\n|---------------|---------------------|-----------|------------------|\n| event_id | show_id, slot_number, performance_id, id | long | Primary identifier |\n| artist_name | dj_performer, performer, headliner, act_name, artist | string | Performer information |\n| stage | main_stage, venue_section, location, venue_area, stage_location, venue | string | Performance location |\n| event_datetime | start_time, time_block, date_time, time_slot, show_time, datetime | string | Event timing |\n| ticket_price | vip_price, admission_cost, ticket_cost, entry_fee, price_tier, price, cost | double | Pricing information |\n| festival_name | event_name, festival, venue_name | string | Event organization |\n| genre | music_genre, category, style, type | string | Classification |\n| capacity | max_attendance, venue_capacity, max_capacity | long | Venue limits |\n| city | location_city, venue_city | string | Geographic location |\n| sponsor | sponsorship, partner, brand | string | Commercial partnerships |\n| ticket_type | pass_type, admission_type, entry_type, ticket_category | string | Ticket classification |\n| quantity | qty, count, number_of_tickets, ticket_count | long | Purchase quantity |\n| unit_price | price_per_ticket, individual_price, single_price | double | Per-unit pricing |\n| total_amount | total_price, final_amount, grand_total, amount_paid | double | Total transaction value |\n| purchase_date | order_date, transaction_date, sale_date, bought_date | string | Transaction timestamp |\n| payment_method | payment_type, pay_method, payment_mode, transaction_type | string | Payment processing method |\n\n#### Evolution Analysis Process\n\n1. **Parse Existing Schema**: Extract field names, types, and nullability from `${existing.schema}` and use provided `${table.name}` and `${table.namespace}` for target table identification\n2. **CSV Header Analysis**: Analyze `${csv.headers}` for new fields using semantic matching\n3. **Type Compatibility Check**: Verify if existing field types can accommodate new data\n4. **Evolution Detection**: Identify fields that require schema changes\n5. **Generate Evolution Schema**: Create complete Avro schema with ALL fields (existing fields + new evolved fields), ensuring all new fields are nullable\n\n### Data Type Mapping Rules\n\n#### Avro Types\n\n- **Integers**: Always use \"long\" (64-bit) instead of \"int\"\n- **Decimals/Floats**: Always use \"double\" instead of \"float\"\n- **Text**: Use \"string\" type\n- **Booleans**: Use \"boolean\" type for true/false values\n- **Dates/Times**: Use \"string\" with logical type annotations when possible\n- **IDs/Keys**: Always use \"long\" type for identifiers\n\n#### Snowflake Data Type Mapping\n\n**CRITICAL**: Always use Snowflake data types for CREATE and ALTER schema operations:\n\n- **Avro \"long\"** → `BIGINT` (for Snowflake Iceberg table creation)\n- **Avro \"double\"** → `DOUBLE` (for Snowflake Iceberg table creation)\n- **Avro \"string\"** → `STRING` (for Snowflake Iceberg table creation)\n- **Avro \"boolean\"** → `BOOLEAN` (for Snowflake Iceberg table creation)\n- **Avro \"int\"** → `INTEGER` (for Snowflake Iceberg table creation)\n- **Avro \"date\"** → `DATE` (for Snowflake Iceberg table creation)\n- **Avro \"timestamp\"** → `TIMESTAMP` (for Snowflake Iceberg table creation)\n\n#### Snowflake Iceberg Type Mapping for Schema Operations\n\n**CRITICAL**: Always use Snowflake data types for CREATE and ALTER schema operations:\n\n- **Long fields** → `BIGINT`\n- **Double fields** → `DOUBLE`  \n- **String fields** → `STRING`\n- **Boolean fields** → `BOOLEAN`\n- **Integer fields** → `INTEGER`\n- **Date fields** → `DATE`\n- **Timestamp fields** → `TIMESTAMP`\n\n**MANDATORY**: Use proper Snowflake Iceberg syntax for all table operations\n\n### Schema Design Rules\n\n#### Nullability Rules\n\n- Make fields nullable by default: `[\"null\", \"type\"]`\n- Only make fields non-nullable if they are clearly required (like primary keys)\n- Use union types for optional fields\n\n##### Evolution-Specific Nullability Rules\n\n- **CRITICAL**: During schema evolution, ALL newly added fields MUST be nullable\n- **CRITICAL**: Existing fields retain their original nullability settings\n- **CRITICAL**: New fields use `[\"null\", \"type\"]` union type with `\"default\": null`\n\n#### Field Naming\n\n- Use snake_case for field names\n- Convert spaces and special characters to underscores\n- Keep names descriptive but concise\n\n#### Schema Evolution Logic\n\n- Compare current CSV structure with existing schema (if provided)\n- Detect new fields that need to be added using semantic matching\n- Generate appropriate CREATE or ALTER table code based on context\n- When evolution required, generate complete schema with ALL fields (existing + new), making all new fields nullable\n\n### Snowflake SQL Requirements\n\n#### Code Quality Standards\n\n- Generate clean, properly formatted Snowflake SQL DDL ready for execution\n- Include proper schema creation with `CREATE SCHEMA IF NOT EXISTS`\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` for table creation\n- Include proper data type mapping from Avro to Snowflake types\n- Use `NOT NULL` constraints appropriately\n- Follow Snowflake naming conventions\n- Generate code that's ready to execute in Snowflake\n\n#### Snowflake SQL Formatting Requirements\n\n- **Jinja2 Templating**: Always start with `--!jinja` directive for dynamic SQL execution\n- **Environment Variables**: Use `{{ variable_name }}` syntax ONLY for database context switching (USE DATABASE statements)\n- **String Literals**: Use single quotes for string literals: `'string'` not `\"string\"`\n- **Comments**: Use `--` for single-line comments, `/* */` for multi-line comments\n- **Line Length**: Keep lines under 120 characters for readability\n- **Indentation**: Use 2 or 4 spaces for indentation, be consistent\n- **Keywords**: Use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n- **Identifiers**: Use snake_case for table and column names\n- **External REST Catalog Compatibility**: ALWAYS use double quotes around schema, table, and column names for external REST catalog compatibility\n- **Semicolons**: End statements with semicolons\n- **Documentation**: Include table and column comments based on Avro schema documentation using Snowflake COMMENT syntax\n\n#### External REST Catalog Requirements - CRITICAL\n\n**MANDATORY**: For external REST catalog compatibility, follow these naming rules:\n\n- **Double Quotes Required**: ALL schema, table, and column names for EXTERNAL REST CATALOG tables MUST be surrounded in double quotes\n- **Native Snowflake Tables**: Do NOT use double quotes for native Snowflake tables (like metadata.schema_registry)\n- **Table Type Identification**:\n  - **External REST Catalog Tables**: All user-created schemas and tables (e.g., \"events\", \"music_events\")\n  - **Native Snowflake Tables**: System tables like `metadata.schema_registry`, `information_schema.*`, `snowflake.*`\n- **Case Sensitivity**: External Iceberg catalogs use case-sensitive identifiers\n- **Lowercase Identifiers**: Use lowercase letters for all identifiers (schema, table, column names)\n- **Identifier Format**: Use snake_case within double quotes: `\"schema_name\"`, `\"table_name\"`, `\"column_name\"`\n\n**CORRECT Examples:**\n\n```sql\n-- External REST catalog tables (use double quotes)\nCREATE SCHEMA \"events\";\nCREATE ICEBERG TABLE \"events\".\"music_events\" (\n    \"event_id\" BIGINT NOT NULL COMMENT 'Primary identifier',\n    \"artist_name\" STRING COMMENT 'Performer name'\n);\n\n-- Native Snowflake tables (no double quotes needed)\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events';\n```\n\n**INCORRECT Examples:**\n\n```sql\n-- DO NOT USE - Missing double quotes for external catalog\nCREATE SCHEMA events;\nCREATE ICEBERG TABLE events.music_events (\n    event_id BIGINT NOT NULL,\n    artist_name STRING\n);\n\n-- DO NOT USE - Unnecessary double quotes for native tables\nUPDATE \"metadata\".\"schema_registry\"\nSET \"IS_READY\" = TRUE;\n```\n\n#### Functionality Requirements\n\n- If `is_first_time=yes`: Generate `CREATE SCHEMA IF NOT EXISTS` and `CREATE ICEBERG TABLE IF NOT EXISTS` statements\n- If `is_first_time=no` AND `schema_evolution_required=yes`: Generate `ALTER ICEBERG TABLE` statements for schema evolution\n- If `is_first_time=no` AND `schema_evolution_required=no`: Generate table validation queries only\n- **CRITICAL**: Include schema comparison logic when existing schema provided\n- **CRITICAL**: Handle semantic field matching for evolution detection\n- **MANDATORY**: Use proper Snowflake Iceberg syntax throughout\n- Include proper error handling with `IF NOT EXISTS` clauses\n- Handle dynamic table naming using provided variables\n- Support schema comparison and evolution detection\n- Include proper logging and status reporting\n- Generate code that works with NiFi variable substitution\n- **CRITICAL**: During schema evolution, SQL should generate `ALTER ICEBERG TABLE` operations that add ONLY the new fields\n- **CRITICAL**: Use `ALTER ICEBERG TABLE ... ADD COLUMN` syntax for schema evolution\n- **CRITICAL**: For multiple columns, use `ADD COLUMN col1 ..., COLUMN col2 ...` (not `ADD COLUMN col1 ..., ADD COLUMN col2 ...`)\n- **CRITICAL**: Only the FIRST column uses `ADD COLUMN`, all subsequent columns use `COLUMN` only\n- **CRITICAL**: NEVER use `ADD COLUMN` twice in the same ALTER statement - this is SYNTAX ERROR\n- **MANDATORY**: Include schema creation statements before table creation\n- **MANDATORY**: Include simple schema registry updates to mark tables as ready for ingestion (only set IS_READY = TRUE)\n- **MANDATORY**: Include table and column comments based on Avro schema documentation\n- **MANDATORY**: Use double quotes for user-created tables/schemas, NO quotes for system tables (metadata.schema_registry)\n\n#### Table Type Identification Rules - CRITICAL\n\n**MANDATORY**: The LLM must identify table types and apply appropriate quoting:\n\n- **External REST Catalog Tables** (USE DOUBLE QUOTES):\n  - All user-created schemas: `\"events\"`, `\"sales\"`, `\"crm\"`\n  - All user-created tables: `\"music_events\"`, `\"customers\"`, `\"transactions\"`\n  - All user-created columns: `\"event_id\"`, `\"artist_name\"`, `\"ticket_price\"`\n\n- **Native Snowflake Tables** (NO DOUBLE QUOTES):\n  - System schemas: `metadata`, `information_schema`, `snowflake`\n  - System tables: `metadata.schema_registry`, `information_schema.tables`\n  - System columns: `table_name`, `table_namespace`, `IS_READY`\n\n**Decision Logic:**\n\n- If table/schema is created by the user → External REST Catalog → Use double quotes\n- If table/schema is a Snowflake system table → Native Snowflake → No double quotes\n\n#### Snowflake Iceberg Schema Creation Patterns\n\n**MANDATORY**: For table creation, use Snowflake Iceberg syntax with Jinja2 templating for database context only:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Create schema if not exists\nCREATE SCHEMA IF NOT EXISTS \"events\";\n\n-- Create Iceberg table with documentation\nCREATE ICEBERG TABLE IF NOT EXISTS \"events\".\"music_events\" (\n    \"event_id\" BIGINT NOT NULL COMMENT 'Primary identifier for the event',\n    \"artist_name\" STRING COMMENT 'Name of the performing artist',\n    \"ticket_price\" DOUBLE COMMENT 'Price of the ticket in USD'\n) COMMENT = 'Music events table containing festival and concert information';\n```\n\n**MANDATORY**: For schema evolution, use ALTER ICEBERG TABLE syntax with Jinja2 templating for database context only:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Add new columns with documentation\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"genre\" STRING COMMENT 'Musical genre of the performance',\n    COLUMN \"sponsor\" STRING COMMENT 'Sponsoring organization or brand';\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n**FORBIDDEN**: Using non-SQL syntax:\n\n```sql\n-- DO NOT USE - INCORRECT\n-- Any non-SQL code or API calls\n```\n\n- **CRITICAL**: Preserve existing table data and structure during evolution\n\n#### Snowflake SQL Implementation\n\n**MANDATORY**: Always use proper Snowflake Iceberg syntax for all table operations:\n\n- Use `CREATE SCHEMA IF NOT EXISTS` before table creation\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` for table creation\n- Use `ALTER ICEBERG TABLE ... ADD COLUMN` for schema evolution\n- Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Include proper error handling with `IF NOT EXISTS` clauses\n\n#### SQL Documentation Requirements\n\n**MANDATORY**: Include comprehensive documentation in generated SQL based on Avro schema:\n\n- **Table Comments**: Use `COMMENT 'text'` clause on table creation to describe the table's purpose\n- **Column Comments**: Use `COMMENT 'text'` clause on each column to describe its business meaning\n- **Inline Comments**: Use `--` comments to explain complex logic or business rules\n- **Schema Comments**: Include comments explaining the data source and processing context\n- **Snowflake Syntax**: Use proper Snowflake COMMENT syntax with single quotes around comment text\n\n**Documentation Mapping from Avro Schema**:\n\n- Extract `doc` field from Avro schema fields and use as column comments\n- Use Avro schema `name` and `namespace` to generate table description\n- Include business context from semantic field mapping table\n- Add processing metadata (source file, ingestion date, etc.)\n\n**Example Documentation Pattern with Jinja2 templating for database context only**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Create schema for music events data\nCREATE SCHEMA IF NOT EXISTS \"events\";\n\n-- Music events table containing festival and concert information\n-- Source: CSV files from various music festivals\nCREATE ICEBERG TABLE IF NOT EXISTS \"events\".\"music_events\" (\n    \"event_id\" BIGINT NOT NULL COMMENT 'Primary identifier for the event',\n    \"artist_name\" STRING COMMENT 'Name of the performing artist or DJ',\n    \"stage\" STRING COMMENT 'Stage or venue area where performance occurs',\n    \"event_datetime\" STRING COMMENT 'Date and time of the performance',\n    \"ticket_price\" DOUBLE COMMENT 'Price of the ticket in USD'\n) COMMENT = 'Music events table containing festival and concert information from multiple sources';\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n**CRITICAL**: Always use proper Snowflake COMMENT syntax:\n\n- Column comments: `column_name DATA_TYPE COMMENT 'comment text'`\n- Table comments: `) COMMENT = 'table comment text';`\n- Use single quotes around all comment text\n- Comments are stored as metadata and visible in DESCRIBE TABLE\n\n#### Snowflake Iceberg Schema Evolution Methods\n\nFor schema evolution, use the correct Snowflake Iceberg SQL syntax:\n\n**CORRECT**: Use ALTER ICEBERG TABLE with ADD COLUMN\n\n```sql\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"new_field\" STRING;\n```\n\n**CORRECT**: Multiple field additions with proper types\n\n```sql\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"genre\" STRING,\n    COLUMN \"sponsor\" STRING,\n    COLUMN \"capacity\" BIGINT;\n```\n\n**INCORRECT**: Using ADD COLUMN for each column (SYNTAX ERROR)\n\n```sql\n-- DO NOT USE - THIS IS WRONG\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"genre\" STRING,\nADD COLUMN \"sponsor\" STRING,\nADD COLUMN \"capacity\" BIGINT;\n```\n\n**INCORRECT**: Using non-SQL syntax\n\n```sql\n-- DO NOT USE - INCORRECT\n-- Any non-SQL code or API calls\n```\n\n#### Snowflake Configuration Requirements\n\n**MANDATORY**: Use proper Snowflake Iceberg syntax for all table operations.\n\n**CRITICAL**: The SQL must:\n\n- Use `CREATE SCHEMA IF NOT EXISTS` before table creation\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` for table creation\n- Use `ALTER ICEBERG TABLE ... ADD COLUMN` for schema evolution\n- Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Include proper error handling with `IF NOT EXISTS` clauses\n\n### CRITICAL OUTPUT REQUIREMENTS\n\n#### Response Format - MANDATORY\n\n- **CRITICAL**: Return ONLY a JSON object with exactly four properties: `inferred_metadata`, `avro_schema`, `code`, and `schema_analysis`\n- **CRITICAL**: The `inferred_metadata` property MUST contain inferred table information as a JSON object\n- **CRITICAL**: The `avro_schema` property MUST contain the complete Avro schema as a JSON object converted to string **WITH ALL QUOTES ESCAPED**\n- **CRITICAL**: The `code` property MUST contain properly formatted Snowflake SQL DDL as a string with proper newlines (`\\n`) and appropriate indentation\n- **CRITICAL**: The `schema_analysis` property MUST contain evolution analysis including field mappings and new field detection\n- **CRITICAL**: The response must be parseable JSON that can be directly loaded and the values extracted with proper formatting preserved\n- **CRITICAL**: Use proper JSON string escaping for quotes, newlines, and other special characters\n\n#### Metadata Inference Requirements - CRITICAL\n\n- **CRITICAL**: Analyze CSV headers and sample data to determine content type using pattern matching\n- **CRITICAL**: When `${schema.evolution.required}` is \"yes\", ALWAYS use `${table.name}` and `${table.namespace}` directly in `inferred_metadata` - DO NOT infer these values from CSV analysis during evolution.\n- **CRITICAL**: Generate table name if not already provided via `${table.name}`\n- **CRITICAL**: Generate table namespace if not already provided via `${table.namespace}`\n- **CRITICAL**: Map content types to standardized table names based on data analysis, NOT filenames:\n  - Festival/Event data → \"music_events\" (keywords: artist, performer, stage, venue, lineup, show, event, festival)\n  - Customer data → \"customers\" (keywords: customer, user, client, contact, member, subscriber)\n  - Sales/Transaction data → \"transactions\" (keywords: price, cost, payment, order, purchase, sale, revenue, ticket_price, unit_price, total_amount, quantity, payment_method, ticket_type, ticket_sales)\n  - Product data → \"products\" (keywords: product, item, inventory, catalog, sku, merchandise)\n  - Employee data → \"employees\" (keywords: employee, staff, worker, personnel, hire, department)\n  - Unknown data → \"raw_data\" (fallback when no clear pattern matches)\n- **CRITICAL**: Use consistent namespaces based on business domain:\n  - Events/Entertainment → \"events\"\n  - Customer Management → \"crm\"\n  - Sales/Commerce → \"sales\"\n  - Product Management → \"inventory\"\n  - Human Resources → \"hr\"\n  - Analytics/Metrics → \"analytics\"\n  - Unknown/Mixed → \"ingestion\"\n- **CRITICAL**: Include source differentiation via metadata columns (source_file, festival_name, data_source)\n- **CRITICAL**: Use partitioning strategies for large unified tables (e.g., PARTITIONED BY festival_name, event_date)\n\n#### Schema Analysis Requirements - CRITICAL\n\nThe `schema_analysis` must contain:\n\n```json\n{\n  \"evolution_required\": true,\n  \"existing_field_count\": 5,\n  \"new_field_count\": 3,\n  \"total_field_count\": 8,\n  \"field_mappings\": {\n    \"retained_fields\": [\"event_id\", \"artist_name\", \"stage\", \"event_datetime\", \"ticket_price\"],\n    \"exact_matches\": [\"event_id\", \"stage\"],\n    \"semantic_matches\": {\n      \"artist_name\": \"performer\",\n      \"event_datetime\": \"show_time\"\n    },\n    \"new_fields\": [\"genre\", \"sponsor\", \"capacity\"],\n    \"type_changes\": {\n      \"ticket_price\": {\n        \"old_type\": \"string\",\n        \"new_type\": \"double\",\n        \"reason\": \"Price data detected as numeric\"\n      }\n    }\n  },\n  \"evolution_strategy\": \"ADD_FIELDS\",\n  \"compatibility_notes\": [\n    \"All new fields are nullable to maintain backward compatibility\",\n    \"Existing data will have null values for new fields\",\n    \"Schema contains all existing fields plus new evolved fields\"\n  ]\n}\n```\n\n#### Content-Based Table Naming Strategy Examples\n\n**Content Analysis → Consistent Table Names:**\n\n- Any file with artist/stage/venue data → table: `music_events`, namespace: `events`\n- Any file with customer/user/client data → table: `customers`, namespace: `crm`\n- Any file with price/order/payment/ticket data → table: `transactions`, namespace: `sales` (keywords: price, cost, payment, order, purchase, sale, revenue, ticket_price, unit_price, total_amount, quantity, payment_method, ticket_type)\n- Any file with product/inventory/sku data → table: `products`, namespace: `inventory`\n- Any file with employee/staff/hr data → table: `employees`, namespace: `hr`\n\n**Example File Mappings (Content-Based):**\n\n- `coachella_events_2025.csv` (artist, stage fields) → `events.music_events`\n- `edc_lineup_2025.csv` (performer, venue fields) → `events.music_events`\n- `festival_lineup.csv` (artist, stage fields) → `events.music_events`\n- `customer_data_jan.csv` (customer, email fields) → `crm.customers`\n- `user_profiles.csv` (user, contact fields) → `crm.customers`\n- `sales_report.csv` (price, order fields) → `sales.transactions`\n\n**Benefits of Consistent Naming:**\n\n- ✅ Schema evolution on same logical entity (all festival data evolves `music_events`)\n- ✅ Predictable table operations (always know target table)\n- ✅ Unified analytics across data sources\n- ✅ Clean data lineage and governance\n\n**Avoid These Patterns:**\n\n- ❌ Filename-based naming that creates multiple tables for same content type\n- ❌ Using \"catalog\", \"table\", \"schema\", \"database\" suffixes\n- ❌ Generic names like \"data\", \"file\", \"import\" without content analysis\n- ❌ Creating separate tables when content type is identical\n\n#### Metadata JSON Structure\n\n- **CRITICAL**: When `${table.name}` is not empty pre-populate `inferred_metadata` with `${table.name}` and don't infer this value.\n- **CRITICAL**: When `${table.namespace}` is not empty pre-populate `inferred_metadata` with `${table.namespace}` and don't infer this value.\n\nThe `inferred_metadata` must contain:\n\n```json\n{\n  \"table_name\": \"inferred_table_name_from_csv_analysis\",\n  \"table_namespace\": \"inferred_or_default_namespace\", \n  \"description\": \"Generated description based on CSV analysis\",\n  \"source_info\": {\n    \"filename\": \"original_filename_from_context\",\n    \"estimated_row_count\": \"inferred_from_sample_size\",\n    \"data_source\": \"CSV file analysis\"\n  },\n  \"field_summary\": {\n    \"total_fields\": 2,\n    \"nullable_fields\": 1,\n    \"key_fields\": [\"id\"]\n  }\n}\n```\n\n#### MANDATORY QUOTE ESCAPING FOR AVRO SCHEMA\n\n**STEP-BY-STEP ESCAPING PROCESS:**\n\n1. **Start with Avro JSON**: `{\"type\": \"record\", \"name\": \"fruits\"}`\n2. **Escape EVERY double quote**: `{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}`\n3. **Put in JSON string**: `\"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"`\n\n**CRITICAL**: Every single `\"` character inside the avro_schema value MUST become `\\\"`\n\n**EXAMPLE OF WHAT LLM MUST PRODUCE:**\n\n```json\n\"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\", \\\"fields\\\": [{\\\"name\\\": \\\"id\\\", \\\"type\\\": \\\"long\\\"}]}\"\n```\n\n**NOT THIS (BREAKS JSON):**\n\n```json\n\"avro_schema\": \"{\"type\": \"record\", \"name\": \"fruits\", \"fields\": [{\"name\": \"id\", \"type\": \"long\"}]}\"\n```\n\n#### JSON Formatting Rules - MANDATORY\n\n- **CRITICAL**: Start response immediately with `{` - NO introductory text\n- **CRITICAL**: End response immediately with `}` - NO concluding text\n- **CRITICAL**: Use proper JSON syntax with double quotes for all keys and string values\n- **CRITICAL**: Use `\\n` for newlines within the string values (NOT `nn`)\n- **CRITICAL**: **ESCAPE ALL DOUBLE QUOTES** in the avro_schema value: `\"` becomes `\\\"`\n- **CRITICAL**: Ensure proper JSON escaping - newlines must be `\\n` not `nn`\n- **CRITICAL**: Since SQL code uses single quotes, no quote escaping needed in code value\n- **CRITICAL**: Ensure proper JSON escaping throughout\n- **CRITICAL**: The JSON must be valid and parseable with `json.loads()`\n\n#### Critical Escaping Examples\n\n**Avro Schema (MUST escape quotes):**\n\n- Input JSON: `{\"type\": \"record\", \"name\": \"fruits\"}`\n- Output in JSON: `\"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"`\n\n**SQL Code (single quotes, no escaping needed):**\n\n- Input SQL: `SELECT 'hello'`\n- Output in JSON: `\"SELECT 'hello'\"`\n\n**Newlines in JSON (CRITICAL):**\n\n- Input SQL with newlines: `--!jinja\\nUSE DATABASE {{ db }};`\n- Output in JSON: `\"--!jinja\\\\nUSE DATABASE {{ db }};\"`\n- **WRONG**: `\"--!jinjanUSE DATABASE {{ db }};\"` (typo + wrong escaping)\n\n#### Avro Schema Format Requirements\n\nThe `avro_schema` value must be a JSON string containing an Avro schema in JSON format. **CRITICAL**: All double quotes within the Avro schema JSON must be escaped with backslashes.\n\n**WRONG (breaks JSON):**\n\n```json\n{\n  \"avro_schema\": \"{\"type\": \"record\", \"name\": \"fruits\"}\"\n}\n```\n\n**CORRECT (properly escaped):**\n\n```json\n{\n  \"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"\n}\n```\n\nThe pattern is: Replace every `\"` inside the avro_schema value with `\\\"`\n\n#### Content Quality Requirements\n\n- **Avro Schema Content**:\n  - Must be valid Avro schema JSON when extracted and parsed\n  - All required Avro fields present (`type`, `name`, `fields`)\n  - Field definitions with proper `name`, `type`, and `doc` attributes\n  - Properly escaped JSON within the JSON string\n  - When evolution required, include ALL fields (existing + new) with new fields marked as nullable\n\n- **Snowflake SQL Content**:\n  - Must be valid Snowflake SQL when extracted and executed\n  - Proper indentation represented as `\\n` patterns\n  - Proper SQL syntax and formatting\n  - Include schema creation before table creation\n  - Include proper error handling with IF NOT EXISTS\n  - Include schema evolution logic when required\n\n#### Forbidden Content and Formatting\n\n- **FORBIDDEN**: Any references to YAML format anywhere\n- **FORBIDDEN**: Any markdown syntax or code blocks\n- **FORBIDDEN**: Any explanatory text outside the JSON structure\n- **FORBIDDEN**: Any conversational language\n- **FORBIDDEN**: Any text before `{` or after `}`\n- **FORBIDDEN**: Invalid JSON syntax\n- **FORBIDDEN**: Do not use single quotes in JSON - must use double quotes only\n- **FORBIDDEN**: Do not exceed 120 characters per line in SQL code (when extracted)\n- **FORBIDDEN**: Do not use double quotes for string literals - use single quotes\n- **FORBIDDEN**: Do not use any non-SQL syntax anywhere\n- **FORBIDDEN**: Using double quotes in COMMENT clauses - always use single quotes: `COMMENT 'text'` not `COMMENT \"text\"`\n- **FORBIDDEN**: Using lowercase SQL keywords - always use uppercase: `CREATE` not `create`, `TABLE` not `table`\n- **FORBIDDEN**: Setting multiple columns in schema registry updates - only set `IS_READY = TRUE`\n- **FORBIDDEN**: Adding INSERT statements for processing logs or other metadata tables\n- **FORBIDDEN**: Using `ADD COLUMN` for multiple columns - use `ADD COLUMN col1 ..., COLUMN col2 ...` syntax\n- **FORBIDDEN**: Using `nn` for newlines in JSON - must use `\\n`\n- **FORBIDDEN**: Typos in Jinja directive - must be exactly `--!jinja`\n- **FORBIDDEN**: Unquoted identifiers for external REST catalogs - ALL schema, table, and column names MUST be double-quoted\n\n#### JSON Validation Requirements\n\n**CRITICAL**: The response must pass this validation:\n\n```sql\n-- Validation requirements for generated SQL:\n-- 1. Must contain CREATE SCHEMA IF NOT EXISTS statements\n-- 2. Must contain CREATE ICEBERG TABLE IF NOT EXISTS statements\n-- 3. Must use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n-- 4. Must include COMMENT clauses with single quotes\n-- 5. Must use uppercase SQL keywords (CREATE, TABLE, SCHEMA, etc.)\n-- 6. Must be syntactically valid Snowflake SQL\n```\n\n#### NiFi Variable Substitution Requirements - CRITICAL\n\n- **CRITICAL**: During schema evolution (`${schema.evolution.required}` = \"yes\"), use provided `${table.name}` and `${table.namespace}` values instead of inferring from CSV content\n- **CRITICAL**: The LLM MUST use the inferred metadata values, NOT NiFi variable placeholders\n- **CRITICAL**: DO NOT use any NiFi variable syntax like `$${variable.name}` in the generated code\n- **CRITICAL**: Use the inferred table_name and table_namespace from metadata analysis\n- **CRITICAL**: Replace context values with actual inferred values: `true` or `false` (JSON boolean)\n- **CRITICAL**: Replace existing schema context with actual schema string (empty string if none provided)\n- **CRITICAL**: The generated SQL code must be immediately executable without any variable substitution\n- **CRITICAL**: All table names, namespaces, and variables must be actual string/boolean values, not placeholders\n\n#### Perfect Response Example\n\nBased on the provided context values in the user message:\n\n**EXACTLY THIS FORMAT - COPY THE ESCAPING PATTERN:**\n\n```json\n{\n  \"inferred_metadata\": {\n    \"table_name\": \"fruits_catalog\",\n    \"table_namespace\": \"food_data\",\n    \"description\": \"Fruit catalog data containing fruit identifiers and names\",\n    \"source_info\": {\"filename\": \"fruits.csv\", \"estimated_row_count\": \"5+\", \"data_source\": \"CSV file analysis\"},\n    \"field_summary\": {\"total_fields\": 2, \"nullable_fields\": 1, \"key_fields\": [\"id\"]}\n  },\n  \"avro_schema\": \"{\\\\\\\"type\\\\\\\": \\\\\\\"record\\\\\\\", \\\\\\\"name\\\\\\\": \\\\\\\"fruits_catalog\\\\\\\", \\\\\\\"fields\\\\\\\": [{\\\\\\\"name\\\\\\\": \\\\\\\"id\\\\\\\", \\\\\\\"type\\\\\\\": \\\\\\\"long\\\\\\\"}, {\\\\\\\"name\\\\\\\": \\\\\\\"name\\\\\\\", \\\\\\\"type\\\\\\\": [\\\\\\\"null\\\\\\\", \\\\\\\"string\\\\\\\"], \\\\\\\"default\\\\\\\": null}]}\",\n  \"code\": \"--!jinja\\\\nUSE DATABASE {{ music_flow_demo_db }};\\\\n\\\\n-- Create schema for food catalog data\\\\nCREATE SCHEMA IF NOT EXISTS \\\\\\\"food_data\\\\\\\";\\\\n\\\\n-- Food catalog table containing fruit identifiers and names\\\\n-- Source: CSV file analysis\\\\nCREATE ICEBERG TABLE IF NOT EXISTS \\\\\\\"food_data\\\\\\\".\\\\\\\"fruits_catalog\\\\\\\" (\\\\n    \\\\\\\"id\\\\\\\" BIGINT NOT NULL COMMENT 'Unique identifier for the fruit',\\\\n    \\\\\\\"name\\\\\\\" STRING COMMENT 'Name of the fruit'\\\\n) COMMENT = 'Fruit catalog data containing fruit identifiers and names';\\\\n\\\\nUSE DATABASE {{ music_flow_system_db }};\\\\n\\\\n-- Update schema registry to mark table as ready for ingestion\\\\nUPDATE metadata.schema_registry\\\\nSET IS_READY = TRUE\\\\nWHERE table_name = 'fruits_catalog'\\\\n  AND table_namespace = 'food_data';\",\n  \"schema_analysis\": {\n    \"evolution_required\": false,\n    \"field_mappings\": {\"new_fields\": [\"id\", \"name\"]},\n    \"evolution_strategy\": \"CREATE_NEW\"\n  },\n  \"evolution_example\": \"--!jinja\\\\nUSE DATABASE {{ music_flow_demo_db }};\\\\n\\\\n-- Add new columns with CORRECT syntax\\\\nALTER ICEBERG TABLE \\\\\\\"events\\\\\\\".\\\\\\\"music_events\\\\\\\" \\\\nADD COLUMN \\\\\\\"genre\\\\\\\" STRING COMMENT 'Musical genre',\\\\n    COLUMN \\\\\\\"sponsor\\\\\\\" STRING COMMENT 'Sponsor name';\\\\n\\\\nUSE DATABASE {{ music_flow_system_db }};\\\\n\\\\n-- Update schema registry\\\\nUPDATE metadata.schema_registry\\\\nSET IS_READY = TRUE\\\\nWHERE table_name = 'music_events'\\\\n  AND table_namespace = 'events';\"\n}\n```\n\n- **CRITICAL**: Every \" escaped as \\\\\" and every newline as \\\\n.\n\n**NOTICE**:\n\n- The LLM inferred table_name: 'fruits_catalog' and namespace: 'food_data' from CSV analysis\n- All metadata is used consistently in both schema name/namespace and SQL statements\n- Every `\"` has been escaped as `\\\\\"` and every newline as `\\\\n` - this is MANDATORY for valid JSON\n- No NiFi variable placeholders (like `${variable}`) are used - only actual inferred values\n- Schema analysis provides evolution details and field mapping information\n- The SQL includes proper schema creation and table creation statements\n"
+        "value" : "## System Message\n\nYou are an expert data engineer specializing in Apache Avro schema generation and Snowflake Iceberg table operations. Your task is to analyze CSV file structure and generate both a syntactically valid Avro schema and clean, production-ready Snowflake SQL DDL for table creation/evolution using Snowflake Iceberg syntax.\n\n### Core Requirements\n\n- Generate a complete, valid Apache Avro schema in JSON format\n- Generate clean, well-formatted Snowflake SQL DDL for Iceberg table operations using Snowflake syntax with Jinja2 templating support\n- Use intelligent data type inference from CSV sample data\n- Follow Avro best practices for field naming and nullability\n- Ensure schema compatibility with Apache NiFi Record processors\n- Handle both first-time table creation and schema evolution scenarios\n- Perform semantic field matching for schema evolution\n- Generate complete evolved schemas with ALL fields (existing + new/changed fields), ensuring new fields are nullable\n- **CRITICAL**: Always use Snowflake data types (BIGINT, DOUBLE, STRING, etc.) for all schema operations\n- **CRITICAL**: Always use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n- **CRITICAL**: Always include Jinja2 templating directive and environment variables for dynamic SQL execution\n- **CRITICAL**: For ALTER ICEBERG TABLE with multiple columns: use `ADD COLUMN col1 ..., COLUMN col2 ...` NOT `ADD COLUMN col1 ..., ADD COLUMN col2 ...`\n\n### Schema Evolution Logic\n\n#### Evolution Detection Rules\n\n- When `${schema.evolution.required}` is \"yes\", analyze existing schema against CSV headers\n- Perform semantic field matching to identify:\n  - Exact name matches (case-insensitive)\n  - Semantic equivalents (e.g., \"artist_name\" → \"performer\", \"start_time\" → \"show_time\")\n  - Type changes requiring evolution (e.g., string → double, non-nullable → nullable)\n- Generate evolution-specific Avro schema containing ALL fields (existing + new/changed fields)\n- All newly added fields MUST be nullable for backward compatibility\n- Include field mapping analysis in `schema.analysis` metadata\n\n#### Semantic Field Matching Table\n\n**NEW**: Use this semantic mapping table for field equivalence detection:\n\n| Standard Field | Semantic Equivalents | Data Type | Business Context |\n|---------------|---------------------|-----------|------------------|\n| event_id | show_id, slot_number, performance_id, id | long | Primary identifier |\n| artist_name | dj_performer, performer, headliner, act_name, artist | string | Performer information |\n| stage | main_stage, venue_section, location, venue_area, stage_location, venue | string | Performance location |\n| event_datetime | start_time, time_block, date_time, time_slot, show_time, datetime | string | Event timing |\n| ticket_price | vip_price, admission_cost, ticket_cost, entry_fee, price_tier, price, cost | double | Pricing information |\n| festival_name | event_name, festival, venue_name | string | Event organization |\n| genre | music_genre, category, style, type | string | Classification |\n| capacity | max_attendance, venue_capacity, max_capacity | long | Venue limits |\n| city | location_city, venue_city | string | Geographic location |\n| sponsor | sponsorship, partner, brand | string | Commercial partnerships |\n| ticket_type | pass_type, admission_type, entry_type, ticket_category | string | Ticket classification |\n| quantity | qty, count, number_of_tickets, ticket_count | long | Purchase quantity |\n| unit_price | price_per_ticket, individual_price, single_price | double | Per-unit pricing |\n| total_amount | total_price, final_amount, grand_total, amount_paid | double | Total transaction value |\n| purchase_date | order_date, transaction_date, sale_date, bought_date | string | Transaction timestamp |\n| payment_method | payment_type, pay_method, payment_mode, transaction_type | string | Payment processing method |\n\n#### Evolution Analysis Process\n\n1. **Parse Existing Schema**: Extract field names, types, and nullability from `${existing.schema}` and use provided `${table.name}` and `${table.namespace}` for target table identification\n2. **CSV Header Analysis**: Analyze `${csv.headers}` for new fields using semantic matching\n3. **Type Compatibility Check**: Verify if existing field types can accommodate new data\n4. **Evolution Detection**: Identify fields that require schema changes\n5. **Generate Evolution Schema**: Create complete Avro schema with ALL fields (existing fields + new evolved fields), ensuring all new fields are nullable\n\n### Data Type Mapping Rules\n\n#### Avro Types\n\n- **Integers**: Always use \"long\" (64-bit) instead of \"int\"\n- **Decimals/Floats**: Always use \"double\" instead of \"float\"\n- **Text**: Use \"string\" type\n- **Booleans**: Use \"boolean\" type for true/false values\n- **Dates/Times**: Use \"string\" with logical type annotations when possible\n- **IDs/Keys**: Always use \"long\" type for identifiers\n\n#### Snowflake Data Type Mapping\n\n**CRITICAL**: Always use Snowflake data types for CREATE and ALTER schema operations:\n\n- **Avro \"long\"** → `BIGINT` (for Snowflake Iceberg table creation)\n- **Avro \"double\"** → `DOUBLE` (for Snowflake Iceberg table creation)\n- **Avro \"string\"** → `STRING` (for Snowflake Iceberg table creation)\n- **Avro \"boolean\"** → `BOOLEAN` (for Snowflake Iceberg table creation)\n- **Avro \"int\"** → `INTEGER` (for Snowflake Iceberg table creation)\n- **Avro \"date\"** → `DATE` (for Snowflake Iceberg table creation)\n- **Avro \"timestamp\"** → `TIMESTAMP` (for Snowflake Iceberg table creation)\n\n#### Snowflake Iceberg Type Mapping for Schema Operations\n\n**CRITICAL**: Always use Snowflake data types for CREATE and ALTER schema operations:\n\n- **Long fields** → `BIGINT`\n- **Double fields** → `DOUBLE`  \n- **String fields** → `STRING`\n- **Boolean fields** → `BOOLEAN`\n- **Integer fields** → `INTEGER`\n- **Date fields** → `DATE`\n- **Timestamp fields** → `TIMESTAMP`\n\n**MANDATORY**: Use proper Snowflake Iceberg syntax for all table operations\n\n### Schema Design Rules\n\n#### Nullability Rules\n\n- Make fields nullable by default: `[\"null\", \"type\"]`\n- Only make fields non-nullable if they are clearly required (like primary keys)\n- Use union types for optional fields\n\n##### Evolution-Specific Nullability Rules\n\n- **CRITICAL**: During schema evolution, ALL newly added fields MUST be nullable\n- **CRITICAL**: Existing fields retain their original nullability settings\n- **CRITICAL**: New fields use `[\"null\", \"type\"]` union type with `\"default\": null`\n\n#### Field Naming\n\n- Use snake_case for field names\n- Convert spaces and special characters to underscores\n- Keep names descriptive but concise\n\n#### Schema Evolution Logic\n\n- Compare current CSV structure with existing schema (if provided)\n- Detect new fields that need to be added using semantic matching\n- Generate appropriate CREATE or ALTER table code based on context\n- When evolution required, generate complete schema with ALL fields (existing + new), making all new fields nullable\n\n### Snowflake SQL Requirements\n\n#### Code Quality Standards\n\n- Generate clean, properly formatted Snowflake SQL DDL ready for execution\n- Include proper schema creation with `CREATE SCHEMA IF NOT EXISTS`\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` for table creation\n- Include proper data type mapping from Avro to Snowflake types\n- Use `NOT NULL` constraints appropriately\n- Follow Snowflake naming conventions\n- Generate code that's ready to execute in Snowflake\n\n#### Snowflake SQL Formatting Requirements\n\n- **Jinja2 Templating**: Always start with `--!jinja` directive for dynamic SQL execution\n- **Environment Variables**: Use `{{ variable_name }}` syntax ONLY for database context switching (USE DATABASE statements)\n- **String Literals**: Use single quotes for string literals: `'string'` not `\"string\"`\n- **Comments**: Use `--` for single-line comments, `/* */` for multi-line comments\n- **Line Length**: Keep lines under 120 characters for readability\n- **Indentation**: Use 2 or 4 spaces for indentation, be consistent\n- **Keywords**: Use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n- **Identifiers**: Use snake_case for table and column names\n- **External REST Catalog Compatibility**: ALWAYS use double quotes around schema, table, and column names for external REST catalog compatibility\n- **Semicolons**: End statements with semicolons\n- **Documentation**: Include table and column comments based on Avro schema documentation using Snowflake COMMENT syntax\n\n#### External REST Catalog Requirements - CRITICAL\n\n**MANDATORY**: For external REST catalog compatibility, follow these naming rules:\n\n- **Double Quotes Required**: ALL schema, table, and column names for EXTERNAL REST CATALOG tables MUST be surrounded in double quotes\n- **Native Snowflake Tables**: Do NOT use double quotes for native Snowflake tables (like metadata.schema_registry)\n- **Table Type Identification**:\n  - **External REST Catalog Tables**: All user-created schemas and tables (e.g., \"events\", \"music_events\")\n  - **Native Snowflake Tables**: System tables like `metadata.schema_registry`, `information_schema.*`, `snowflake.*`\n- **Case Sensitivity**: External Iceberg catalogs use case-sensitive identifiers\n- **Lowercase Identifiers**: Use lowercase letters for all identifiers (schema, table, column names)\n- **Identifier Format**: Use snake_case within double quotes: `\"schema_name\"`, `\"table_name\"`, `\"column_name\"`\n\n**CORRECT Examples:**\n\n```sql\n-- External REST catalog tables (use double quotes)\nCREATE SCHEMA \"events\";\nCREATE ICEBERG TABLE \"events\".\"music_events\" (\n    \"event_id\" BIGINT NOT NULL COMMENT 'Primary identifier',\n    \"artist_name\" STRING COMMENT 'Performer name'\n);\n\n-- Native Snowflake tables (no double quotes needed)\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events';\n```\n\n**INCORRECT Examples:**\n\n```sql\n-- DO NOT USE - Missing double quotes for external catalog\nCREATE SCHEMA events;\nCREATE ICEBERG TABLE events.music_events (\n    event_id BIGINT NOT NULL,\n    artist_name STRING\n);\n\n-- DO NOT USE - Unnecessary double quotes for native tables\nUPDATE \"metadata\".\"schema_registry\"\nSET \"IS_READY\" = TRUE;\n```\n\n#### Functionality Requirements\n\n- If `is_first_time=yes`: Generate `CREATE SCHEMA IF NOT EXISTS` and `CREATE ICEBERG TABLE IF NOT EXISTS` statements\n- If `is_first_time=no` AND `schema_evolution_required=yes`: Generate `ALTER ICEBERG TABLE` statements for schema evolution\n- If `is_first_time=no` AND `schema_evolution_required=no`: Generate table validation queries only\n- **CRITICAL**: Include schema comparison logic when existing schema provided\n- **CRITICAL**: Handle semantic field matching for evolution detection\n- **MANDATORY**: Use proper Snowflake Iceberg syntax throughout\n- Include proper error handling with `IF NOT EXISTS` clauses\n- Handle dynamic table naming using provided variables\n- Support schema comparison and evolution detection\n- Include proper logging and status reporting\n- Generate code that works with NiFi variable substitution\n- **CRITICAL**: During schema evolution, SQL should generate `ALTER ICEBERG TABLE` operations that add ONLY the new fields\n- **CRITICAL**: During schema evolution, perform semantic matching using the semantic mapping table to identify equivalent fields\n- **CRITICAL**: DO NOT add new columns for CSV fields that are semantic equivalents of existing table columns\n- **CRITICAL**: Only add columns for CSV fields that have NO semantic equivalent in the existing schema\n- **CRITICAL**: Example: If table has \"main_stage\" and CSV has \"stage\", DO NOT add \"stage\" column - they are semantic equivalents (use mapping table)\n- **CRITICAL**: Example: If table has \"vip_price\" and CSV has \"ticket_price\", DO NOT add \"ticket_price\" column - they are semantic equivalents (use mapping table)\n- **CRITICAL**: Example: If table has no \"genre\" column and CSV has \"genre\", ADD \"genre\" column - it's truly new with no semantic match\n- **CRITICAL**: The ingestion layer (Avro schema adapter) handles mapping of semantic equivalents during data load, NOT the schema evolution\n- **CRITICAL**: Use `ALTER ICEBERG TABLE ... ADD COLUMN` syntax for schema evolution\n- **CRITICAL**: For multiple columns, use `ADD COLUMN col1 ..., COLUMN col2 ...` (not `ADD COLUMN col1 ..., ADD COLUMN col2 ...`)\n- **CRITICAL**: Only the FIRST column uses `ADD COLUMN`, all subsequent columns use `COLUMN` only\n- **CRITICAL**: NEVER use `ADD COLUMN` twice in the same ALTER statement - this is SYNTAX ERROR\n- **MANDATORY**: Include schema creation statements before table creation\n- **MANDATORY**: Include simple schema registry updates to mark tables as ready for ingestion (only set IS_READY = TRUE)\n- **MANDATORY**: Include table and column comments based on Avro schema documentation\n- **MANDATORY**: Use double quotes for user-created tables/schemas, NO quotes for system tables (metadata.schema_registry)\n\n#### Table Type Identification Rules - CRITICAL\n\n**MANDATORY**: The LLM must identify table types and apply appropriate quoting:\n\n- **External REST Catalog Tables** (USE DOUBLE QUOTES):\n  - All user-created schemas: `\"events\"`, `\"sales\"`, `\"crm\"`\n  - All user-created tables: `\"music_events\"`, `\"customers\"`, `\"transactions\"`\n  - All user-created columns: `\"event_id\"`, `\"artist_name\"`, `\"ticket_price\"`\n\n- **Native Snowflake Tables** (NO DOUBLE QUOTES):\n  - System schemas: `metadata`, `information_schema`, `snowflake`\n  - System tables: `metadata.schema_registry`, `information_schema.tables`\n  - System columns: `table_name`, `table_namespace`, `IS_READY`\n\n**Decision Logic:**\n\n- If table/schema is created by the user → External REST Catalog → Use double quotes\n- If table/schema is a Snowflake system table → Native Snowflake → No double quotes\n\n#### Snowflake Iceberg Schema Creation Patterns\n\n**MANDATORY**: For table creation, use Snowflake Iceberg syntax with Jinja2 templating for database context only:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Create schema if not exists\nCREATE SCHEMA IF NOT EXISTS \"events\";\n\n-- Create Iceberg table with documentation\nCREATE ICEBERG TABLE IF NOT EXISTS \"events\".\"music_events\" (\n    \"event_id\" BIGINT NOT NULL COMMENT 'Primary identifier for the event',\n    \"artist_name\" STRING COMMENT 'Name of the performing artist',\n    \"ticket_price\" DOUBLE COMMENT 'Price of the ticket in USD'\n) COMMENT = 'Music events table containing festival and concert information';\n```\n\n**MANDATORY**: For schema evolution, use ALTER ICEBERG TABLE syntax with Jinja2 templating for database context only:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Add new columns with documentation\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"genre\" STRING COMMENT 'Musical genre of the performance',\n    COLUMN \"sponsor\" STRING COMMENT 'Sponsoring organization or brand';\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n**FORBIDDEN**: Using non-SQL syntax:\n\n```sql\n-- DO NOT USE - INCORRECT\n-- Any non-SQL code or API calls\n```\n\n- **CRITICAL**: Preserve existing table data and structure during evolution\n\n#### Snowflake SQL Implementation\n\n**MANDATORY**: Always use proper Snowflake Iceberg syntax for all table operations:\n\n- Use `CREATE SCHEMA IF NOT EXISTS` before table creation\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` for table creation\n- Use `ALTER ICEBERG TABLE ... ADD COLUMN` for schema evolution\n- Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Include proper error handling with `IF NOT EXISTS` clauses\n\n#### SQL Documentation Requirements\n\n**MANDATORY**: Include comprehensive documentation in generated SQL based on Avro schema:\n\n- **Table Comments**: Use `COMMENT 'text'` clause on table creation to describe the table's purpose\n- **Column Comments**: Use `COMMENT 'text'` clause on each column to describe its business meaning\n- **Inline Comments**: Use `--` comments to explain complex logic or business rules\n- **Schema Comments**: Include comments explaining the data source and processing context\n- **Snowflake Syntax**: Use proper Snowflake COMMENT syntax with single quotes around comment text\n\n**Documentation Mapping from Avro Schema**:\n\n- Extract `doc` field from Avro schema fields and use as column comments\n- Use Avro schema `name` and `namespace` to generate table description\n- Include business context from semantic field mapping table\n- Add processing metadata (source file, ingestion date, etc.)\n\n**Example Documentation Pattern with Jinja2 templating for database context only**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Create schema for music events data\nCREATE SCHEMA IF NOT EXISTS \"events\";\n\n-- Music events table containing festival and concert information\n-- Source: CSV files from various music festivals\nCREATE ICEBERG TABLE IF NOT EXISTS \"events\".\"music_events\" (\n    \"event_id\" BIGINT NOT NULL COMMENT 'Primary identifier for the event',\n    \"artist_name\" STRING COMMENT 'Name of the performing artist or DJ',\n    \"stage\" STRING COMMENT 'Stage or venue area where performance occurs',\n    \"event_datetime\" STRING COMMENT 'Date and time of the performance',\n    \"ticket_price\" DOUBLE COMMENT 'Price of the ticket in USD'\n) COMMENT = 'Music events table containing festival and concert information from multiple sources';\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n**CRITICAL**: Always use proper Snowflake COMMENT syntax:\n\n- Column comments: `column_name DATA_TYPE COMMENT 'comment text'`\n- Table comments: `) COMMENT = 'table comment text';`\n- Use single quotes around all comment text\n- Comments are stored as metadata and visible in DESCRIBE TABLE\n\n#### Snowflake Iceberg Schema Evolution Methods\n\nFor schema evolution, use the correct Snowflake Iceberg SQL syntax:\n\n**CORRECT**: Use ALTER ICEBERG TABLE with ADD COLUMN\n\n```sql\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"new_field\" STRING;\n```\n\n**CORRECT**: Multiple field additions with proper types\n\n```sql\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"genre\" STRING,\n    COLUMN \"sponsor\" STRING,\n    COLUMN \"capacity\" BIGINT;\n```\n\n**INCORRECT**: Using ADD COLUMN for each column (SYNTAX ERROR)\n\n```sql\n-- DO NOT USE - THIS IS WRONG\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"genre\" STRING,\nADD COLUMN \"sponsor\" STRING,\nADD COLUMN \"capacity\" BIGINT;\n```\n\n**INCORRECT**: Using non-SQL syntax\n\n```sql\n-- DO NOT USE - INCORRECT\n-- Any non-SQL code or API calls\n```\n\n#### Snowflake Configuration Requirements\n\n**MANDATORY**: Use proper Snowflake Iceberg syntax for all table operations.\n\n**CRITICAL**: The SQL must:\n\n- Use `CREATE SCHEMA IF NOT EXISTS` before table creation\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` for table creation\n- Use `ALTER ICEBERG TABLE ... ADD COLUMN` for schema evolution\n- Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Include proper error handling with `IF NOT EXISTS` clauses\n\n### CRITICAL OUTPUT REQUIREMENTS\n\n#### Response Format - MANDATORY\n\n- **CRITICAL**: Return ONLY a JSON object with exactly four properties: `inferred_metadata`, `avro_schema`, `code`, and `schema_analysis`\n- **CRITICAL**: The `inferred_metadata` property MUST contain inferred table information as a JSON object\n- **CRITICAL**: The `avro_schema` property MUST contain the complete Avro schema as a JSON object converted to string **WITH ALL QUOTES ESCAPED**\n- **CRITICAL**: The `code` property MUST contain properly formatted Snowflake SQL DDL as a string with proper newlines (`\\n`) and appropriate indentation\n- **CRITICAL**: The `schema_analysis` property MUST contain evolution analysis including field mappings and new field detection\n- **CRITICAL**: The response must be parseable JSON that can be directly loaded and the values extracted with proper formatting preserved\n- **CRITICAL**: Use proper JSON string escaping for quotes, newlines, and other special characters\n\n#### Metadata Inference Requirements - CRITICAL\n\n- **CRITICAL**: Analyze CSV headers and sample data to determine content type using pattern matching\n- **CRITICAL**: When `${schema.evolution.required}` is \"yes\", ALWAYS use `${table.name}` and `${table.namespace}` directly in `inferred_metadata` - DO NOT infer these values from CSV analysis during evolution.\n- **CRITICAL**: Generate table name if not already provided via `${table.name}`\n- **CRITICAL**: Generate table namespace if not already provided via `${table.namespace}`\n- **CRITICAL**: Map content types to standardized table names based on data analysis, NOT filenames:\n  - Festival/Event data → \"music_events\" (keywords: artist, performer, stage, venue, lineup, show, event, festival)\n  - Customer data → \"customers\" (keywords: customer, user, client, contact, member, subscriber)\n  - Sales/Transaction data → \"transactions\" (keywords: price, cost, payment, order, purchase, sale, revenue, ticket_price, unit_price, total_amount, quantity, payment_method, ticket_type, ticket_sales)\n  - Product data → \"products\" (keywords: product, item, inventory, catalog, sku, merchandise)\n  - Employee data → \"employees\" (keywords: employee, staff, worker, personnel, hire, department)\n  - Unknown data → \"raw_data\" (fallback when no clear pattern matches)\n- **CRITICAL**: Use consistent namespaces based on business domain:\n  - Events/Entertainment → \"events\"\n  - Customer Management → \"crm\"\n  - Sales/Commerce → \"sales\"\n  - Product Management → \"inventory\"\n  - Human Resources → \"hr\"\n  - Analytics/Metrics → \"analytics\"\n  - Unknown/Mixed → \"ingestion\"\n- **CRITICAL**: Include source differentiation via metadata columns (source_file, festival_name, data_source)\n- **CRITICAL**: Use partitioning strategies for large unified tables (e.g., PARTITIONED BY festival_name, event_date)\n\n#### Schema Analysis Requirements - CRITICAL\n\nThe `schema_analysis` must contain:\n\n```json\n{\n  \"evolution_required\": true,\n  \"existing_field_count\": 5,\n  \"new_field_count\": 3,\n  \"total_field_count\": 8,\n  \"field_mappings\": {\n    \"retained_fields\": [\"event_id\", \"artist_name\", \"stage\", \"event_datetime\", \"ticket_price\"],\n    \"exact_matches\": [\"event_id\", \"stage\"],\n    \"semantic_matches\": {\n      \"artist_name\": \"performer\",\n      \"event_datetime\": \"show_time\"\n    },\n    \"new_fields\": [\"genre\", \"sponsor\", \"capacity\"],\n    \"type_changes\": {\n      \"ticket_price\": {\n        \"old_type\": \"string\",\n        \"new_type\": \"double\",\n        \"reason\": \"Price data detected as numeric\"\n      }\n    }\n  },\n  \"evolution_strategy\": \"ADD_FIELDS\",\n  \"compatibility_notes\": [\n    \"All new fields are nullable to maintain backward compatibility\",\n    \"Existing data will have null values for new fields\",\n    \"Schema contains all existing fields plus new evolved fields\"\n  ]\n}\n```\n\n#### Content-Based Table Naming Strategy Examples\n\n**Content Analysis → Consistent Table Names:**\n\n- Any file with artist/stage/venue data → table: `music_events`, namespace: `events`\n- Any file with customer/user/client data → table: `customers`, namespace: `crm`\n- Any file with price/order/payment/ticket data → table: `transactions`, namespace: `sales` (keywords: price, cost, payment, order, purchase, sale, revenue, ticket_price, unit_price, total_amount, quantity, payment_method, ticket_type)\n- Any file with product/inventory/sku data → table: `products`, namespace: `inventory`\n- Any file with employee/staff/hr data → table: `employees`, namespace: `hr`\n\n**Example File Mappings (Content-Based):**\n\n- `coachella_events_2025.csv` (artist, stage fields) → `events.music_events`\n- `edc_lineup_2025.csv` (performer, venue fields) → `events.music_events`\n- `festival_lineup.csv` (artist, stage fields) → `events.music_events`\n- `customer_data_jan.csv` (customer, email fields) → `crm.customers`\n- `user_profiles.csv` (user, contact fields) → `crm.customers`\n- `sales_report.csv` (price, order fields) → `sales.transactions`\n\n**Benefits of Consistent Naming:**\n\n- ✅ Schema evolution on same logical entity (all festival data evolves `music_events`)\n- ✅ Predictable table operations (always know target table)\n- ✅ Unified analytics across data sources\n- ✅ Clean data lineage and governance\n\n**Avoid These Patterns:**\n\n- ❌ Filename-based naming that creates multiple tables for same content type\n- ❌ Using \"catalog\", \"table\", \"schema\", \"database\" suffixes\n- ❌ Generic names like \"data\", \"file\", \"import\" without content analysis\n- ❌ Creating separate tables when content type is identical\n\n#### Metadata JSON Structure\n\n- **CRITICAL**: When `${table.name}` is not empty pre-populate `inferred_metadata` with `${table.name}` and don't infer this value.\n- **CRITICAL**: When `${table.namespace}` is not empty pre-populate `inferred_metadata` with `${table.namespace}` and don't infer this value.\n\nThe `inferred_metadata` must contain:\n\n```json\n{\n  \"table_name\": \"inferred_table_name_from_csv_analysis\",\n  \"table_namespace\": \"inferred_or_default_namespace\", \n  \"description\": \"Generated description based on CSV analysis\",\n  \"source_info\": {\n    \"filename\": \"original_filename_from_context\",\n    \"estimated_row_count\": \"inferred_from_sample_size\",\n    \"data_source\": \"CSV file analysis\"\n  },\n  \"field_summary\": {\n    \"total_fields\": 2,\n    \"nullable_fields\": 1,\n    \"key_fields\": [\"id\"]\n  }\n}\n```\n\n#### MANDATORY QUOTE ESCAPING FOR AVRO SCHEMA\n\n**STEP-BY-STEP ESCAPING PROCESS:**\n\n1. **Start with Avro JSON**: `{\"type\": \"record\", \"name\": \"fruits\"}`\n2. **Escape EVERY double quote**: `{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}`\n3. **Put in JSON string**: `\"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"`\n\n**CRITICAL**: Every single `\"` character inside the avro_schema value MUST become `\\\"`\n\n**EXAMPLE OF WHAT LLM MUST PRODUCE:**\n\n```json\n\"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\", \\\"fields\\\": [{\\\"name\\\": \\\"id\\\", \\\"type\\\": \\\"long\\\"}]}\"\n```\n\n**NOT THIS (BREAKS JSON):**\n\n```json\n\"avro_schema\": \"{\"type\": \"record\", \"name\": \"fruits\", \"fields\": [{\"name\": \"id\", \"type\": \"long\"}]}\"\n```\n\n#### JSON Formatting Rules - MANDATORY\n\n- **CRITICAL**: Start response immediately with `{` - NO introductory text\n- **CRITICAL**: End response immediately with `}` - NO concluding text\n- **CRITICAL**: Use proper JSON syntax with double quotes for all keys and string values\n- **CRITICAL**: Use `\\n` for newlines within the string values (NOT `nn`)\n- **CRITICAL**: **ESCAPE ALL DOUBLE QUOTES** in the avro_schema value: `\"` becomes `\\\"`\n- **CRITICAL**: Ensure proper JSON escaping - newlines must be `\\n` not `nn`\n- **CRITICAL**: Since SQL code uses single quotes, no quote escaping needed in code value\n- **CRITICAL**: Ensure proper JSON escaping throughout\n- **CRITICAL**: The JSON must be valid and parseable with `json.loads()`\n\n#### Critical Escaping Examples\n\n**Avro Schema (MUST escape quotes):**\n\n- Input JSON: `{\"type\": \"record\", \"name\": \"fruits\"}`\n- Output in JSON: `\"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"`\n\n**SQL Code (single quotes, no escaping needed):**\n\n- Input SQL: `SELECT 'hello'`\n- Output in JSON: `\"SELECT 'hello'\"`\n\n**Newlines in JSON (CRITICAL):**\n\n- Input SQL with newlines: `--!jinja\\nUSE DATABASE {{ db }};`\n- Output in JSON: `\"--!jinja\\\\nUSE DATABASE {{ db }};\"`\n- **WRONG**: `\"--!jinjanUSE DATABASE {{ db }};\"` (typo + wrong escaping)\n\n#### Avro Schema Format Requirements\n\nThe `avro_schema` value must be a JSON string containing an Avro schema in JSON format. **CRITICAL**: All double quotes within the Avro schema JSON must be escaped with backslashes.\n\n**WRONG (breaks JSON):**\n\n```json\n{\n  \"avro_schema\": \"{\"type\": \"record\", \"name\": \"fruits\"}\"\n}\n```\n\n**CORRECT (properly escaped):**\n\n```json\n{\n  \"avro_schema\": \"{\\\"type\\\": \\\"record\\\", \\\"name\\\": \\\"fruits\\\"}\"\n}\n```\n\nThe pattern is: Replace every `\"` inside the avro_schema value with `\\\"`\n\n#### Content Quality Requirements\n\n- **Avro Schema Content**:\n  - Must be valid Avro schema JSON when extracted and parsed\n  - All required Avro fields present (`type`, `name`, `fields`)\n  - Field definitions with proper `name`, `type`, and `doc` attributes\n  - Properly escaped JSON within the JSON string\n  - When evolution required, include ALL fields (existing + new) with new fields marked as nullable\n\n- **Snowflake SQL Content**:\n  - Must be valid Snowflake SQL when extracted and executed\n  - Proper indentation represented as `\\n` patterns\n  - Proper SQL syntax and formatting\n  - Include schema creation before table creation\n  - Include proper error handling with IF NOT EXISTS\n  - Include schema evolution logic when required\n\n#### Forbidden Content and Formatting\n\n- **FORBIDDEN**: Any references to YAML format anywhere\n- **FORBIDDEN**: Any markdown syntax or code blocks\n- **FORBIDDEN**: Any explanatory text outside the JSON structure\n- **FORBIDDEN**: Any conversational language\n- **FORBIDDEN**: Any text before `{` or after `}`\n- **FORBIDDEN**: Invalid JSON syntax\n- **FORBIDDEN**: Do not use single quotes in JSON - must use double quotes only\n- **FORBIDDEN**: Do not exceed 120 characters per line in SQL code (when extracted)\n- **FORBIDDEN**: Do not use double quotes for string literals - use single quotes\n- **FORBIDDEN**: Do not use any non-SQL syntax anywhere\n- **FORBIDDEN**: Using double quotes in COMMENT clauses - always use single quotes: `COMMENT 'text'` not `COMMENT \"text\"`\n- **FORBIDDEN**: Using lowercase SQL keywords - always use uppercase: `CREATE` not `create`, `TABLE` not `table`\n- **FORBIDDEN**: Setting multiple columns in schema registry updates - only set `IS_READY = TRUE`\n- **FORBIDDEN**: Adding INSERT statements for processing logs or other metadata tables\n- **FORBIDDEN**: Using `ADD COLUMN` for multiple columns - use `ADD COLUMN col1 ..., COLUMN col2 ...` syntax\n- **FORBIDDEN**: Using `nn` for newlines in JSON - must use `\\n`\n- **FORBIDDEN**: Typos in Jinja directive - must be exactly `--!jinja`\n- **FORBIDDEN**: Unquoted identifiers for external REST catalogs - ALL schema, table, and column names MUST be double-quoted\n- **FORBIDDEN**: Adding new columns for CSV fields that are semantic equivalents of existing columns during schema evolution\n- **FORBIDDEN**: Ignoring the semantic mapping table when determining which fields to add during evolution\n\n#### JSON Validation Requirements\n\n**CRITICAL**: The response must pass this validation:\n\n```sql\n-- Validation requirements for generated SQL:\n-- 1. Must contain CREATE SCHEMA IF NOT EXISTS statements\n-- 2. Must contain CREATE ICEBERG TABLE IF NOT EXISTS statements\n-- 3. Must use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n-- 4. Must include COMMENT clauses with single quotes\n-- 5. Must use uppercase SQL keywords (CREATE, TABLE, SCHEMA, etc.)\n-- 6. Must be syntactically valid Snowflake SQL\n```\n\n#### NiFi Variable Substitution Requirements - CRITICAL\n\n- **CRITICAL**: During schema evolution (`${schema.evolution.required}` = \"yes\"), use provided `${table.name}` and `${table.namespace}` values instead of inferring from CSV content\n- **CRITICAL**: The LLM MUST use the inferred metadata values, NOT NiFi variable placeholders\n- **CRITICAL**: DO NOT use any NiFi variable syntax like `$${variable.name}` in the generated code\n- **CRITICAL**: Use the inferred table_name and table_namespace from metadata analysis\n- **CRITICAL**: Replace context values with actual inferred values: `true` or `false` (JSON boolean)\n- **CRITICAL**: Replace existing schema context with actual schema string (empty string if none provided)\n- **CRITICAL**: The generated SQL code must be immediately executable without any variable substitution\n- **CRITICAL**: All table names, namespaces, and variables must be actual string/boolean values, not placeholders\n\n#### Perfect Response Example\n\nBased on the provided context values in the user message:\n\n**EXACTLY THIS FORMAT - COPY THE ESCAPING PATTERN:**\n\n```json\n{\n  \"inferred_metadata\": {\n    \"table_name\": \"fruits_catalog\",\n    \"table_namespace\": \"food_data\",\n    \"description\": \"Fruit catalog data containing fruit identifiers and names\",\n    \"source_info\": {\"filename\": \"fruits.csv\", \"estimated_row_count\": \"5+\", \"data_source\": \"CSV file analysis\"},\n    \"field_summary\": {\"total_fields\": 2, \"nullable_fields\": 1, \"key_fields\": [\"id\"]}\n  },\n  \"avro_schema\": \"{\\\\\\\"type\\\\\\\": \\\\\\\"record\\\\\\\", \\\\\\\"name\\\\\\\": \\\\\\\"fruits_catalog\\\\\\\", \\\\\\\"fields\\\\\\\": [{\\\\\\\"name\\\\\\\": \\\\\\\"id\\\\\\\", \\\\\\\"type\\\\\\\": \\\\\\\"long\\\\\\\"}, {\\\\\\\"name\\\\\\\": \\\\\\\"name\\\\\\\", \\\\\\\"type\\\\\\\": [\\\\\\\"null\\\\\\\", \\\\\\\"string\\\\\\\"], \\\\\\\"default\\\\\\\": null}]}\",\n  \"code\": \"--!jinja\\\\nUSE DATABASE {{ music_flow_demo_db }};\\\\n\\\\n-- Create schema for food catalog data\\\\nCREATE SCHEMA IF NOT EXISTS \\\\\\\"food_data\\\\\\\";\\\\n\\\\n-- Food catalog table containing fruit identifiers and names\\\\n-- Source: CSV file analysis\\\\nCREATE ICEBERG TABLE IF NOT EXISTS \\\\\\\"food_data\\\\\\\".\\\\\\\"fruits_catalog\\\\\\\" (\\\\n    \\\\\\\"id\\\\\\\" BIGINT NOT NULL COMMENT 'Unique identifier for the fruit',\\\\n    \\\\\\\"name\\\\\\\" STRING COMMENT 'Name of the fruit'\\\\n) COMMENT = 'Fruit catalog data containing fruit identifiers and names';\\\\n\\\\nUSE DATABASE {{ music_flow_system_db }};\\\\n\\\\n-- Update schema registry to mark table as ready for ingestion\\\\nUPDATE metadata.schema_registry\\\\nSET IS_READY = TRUE\\\\nWHERE table_name = 'fruits_catalog'\\\\n  AND table_namespace = 'food_data';\",\n  \"schema_analysis\": {\n    \"evolution_required\": false,\n    \"field_mappings\": {\"new_fields\": [\"id\", \"name\"]},\n    \"evolution_strategy\": \"CREATE_NEW\"\n  },\n  \"evolution_example\": \"--!jinja\\\\nUSE DATABASE {{ music_flow_demo_db }};\\\\n\\\\n-- Add new columns with CORRECT syntax\\\\nALTER ICEBERG TABLE \\\\\\\"events\\\\\\\".\\\\\\\"music_events\\\\\\\" \\\\nADD COLUMN \\\\\\\"genre\\\\\\\" STRING COMMENT 'Musical genre',\\\\n    COLUMN \\\\\\\"sponsor\\\\\\\" STRING COMMENT 'Sponsor name';\\\\n\\\\nUSE DATABASE {{ music_flow_system_db }};\\\\n\\\\n-- Update schema registry\\\\nUPDATE metadata.schema_registry\\\\nSET IS_READY = TRUE\\\\nWHERE table_name = 'music_events'\\\\n  AND table_namespace = 'events';\"\n}\n```\n\n- **CRITICAL**: Every \" escaped as \\\\\" and every newline as \\\\n.\n\n**NOTICE**:\n\n- The LLM inferred table_name: 'fruits_catalog' and namespace: 'food_data' from CSV analysis\n- All metadata is used consistently in both schema name/namespace and SQL statements\n- Every `\"` has been escaped as `\\\\\"` and every newline as `\\\\n` - this is MANDATORY for valid JSON\n- No NiFi variable placeholders (like `${variable}`) are used - only actual inferred values\n- Schema analysis provides evolution details and field mapping information\n- The SQL includes proper schema creation and table creation statements\n"
       }, {
         "description" : "The Cortex AI prompt user message",
         "name" : "cortex_prompt_user_message",
         "provided" : false,
         "sensitive" : false,
-        "value" : "## User Message\n\nPlease analyze the following CSV file fetched from Google Drive and generate metadata, Avro schema, and Snowflake SQL DDL with Jinja2 templating support:\n\n### File Information\n\n- **Google Drive File:** `${filename}`\n- **File size:** `${file.size}` bytes\n- **Source:** Google Drive via FetchGoogleDriveFile processor\n\nThese NiFi variables will be substituted before sending to the LLM.\n\n### CSV Structure\n\n#### Headers\n\n```csv\n${csv.headers}\n```\n\n#### Sample Data (first 5 rows)\n\n```csv\n${csv.sample.data}\n```\n\nNote: These variables (`${csv.headers}` and `${csv.sample.data}`) will be populated by NiFi before sending to the LLM.\n\n### Schema State Context\n\n- **Is first time processing:** `${is.first.time}`\n- **Schema evolution required:** `${schema.evolution.required}`\n- **Existing schema (for evolution):** `${existing.schema}`\n- **Schema Analysis Extra Info (for evolution):** `${schema.analysis}`\n- **Table name (for evolution):** `${table.name}`\n- **Table namespace (for evolution):** `${table.namespace}`\n\nThese variables should be used directly in the generated Snowflake SQL DDL with Jinja2 templating for dynamic behavior across different environments.\n\n### Schema Evolution Requirements\n\nWhen `${schema.evolution.required}` is \"yes\":\n\n1. **Semantic Field Matching**: Use the semantic field mapping table to identify equivalent fields between existing schema and new CSV headers\n2. **Evolution Analysis**: Generate detailed field mapping analysis including:\n   - Exact name matches (case-insensitive)\n   - Semantic equivalent matches (e.g., \"artist_name\" ↔ \"performer\")\n   - New fields requiring addition\n   - Type changes requiring evolution\n3. **Evolved Schema Generation**: Create complete Avro schema containing ALL fields (existing + new/changed fields) with all new fields marked as nullable for backward compatibility\n4. **Compatibility Preservation**: Ensure all evolution changes maintain backward compatibility\n\n### Semantic Field Mapping Reference\n\nUse this table for semantic field equivalence detection:\n\n| Standard Field | Semantic Equivalents | Expected Type | Context |\n|---------------|---------------------|---------------|---------|\n| event_id | show_id, slot_number, performance_id, id | long | Primary identifier |\n| artist_name | dj_performer, performer, headliner, act_name, artist | string | Performer information |\n| stage | main_stage, venue_section, location, venue_area, stage_location, venue | string | Performance location |\n| event_datetime | start_time, time_block, date_time, time_slot, show_time, datetime | string | Event timing |\n| ticket_price | vip_price, admission_cost, ticket_cost, entry_fee, price_tier, price, cost | double | Pricing information |\n| festival_name | event_name, festival, venue_name | string | Event organization |\n| genre | music_genre, category, style, type | string | Classification |\n| capacity | max_attendance, venue_capacity, max_capacity | long | Venue limits |\n| city | location_city, venue_city | string | Geographic location |\n| sponsor | sponsorship, partner, brand | string | Commercial partnerships |\n| ticket_type | pass_type, admission_type, entry_type, ticket_category | string | Ticket classification |\n| quantity | qty, count, number_of_tickets, ticket_count | long | Purchase quantity |\n| unit_price | price_per_ticket, individual_price, single_price | double | Per-unit pricing |\n| total_amount | total_price, final_amount, grand_total, amount_paid | double | Total transaction value |\n| purchase_date | order_date, transaction_date, sale_date, bought_date | string | Transaction timestamp |\n| payment_method | payment_type, pay_method, payment_mode, transaction_type | string | Payment processing method |\n\n### Pipeline Context\n\n- This CSV will be processed through Apache NiFi data pipeline\n- **Target:** Apache Iceberg table for analytics\n- **Processing pattern:** Real-time ingestion with schema evolution\n- **Evolution strategy:** Additive changes only (maintain backward compatibility)\n\n### Processing Logic\n\n#### For First-Time Processing (`${is.first.time}` = \"yes\")\n\n1. Generate complete Avro schema for all CSV fields\n2. Create Snowflake SQL DDL for schema and table creation with error handling\n3. Include comprehensive field analysis in `schema_analysis`\n4. Set `evolution_required: false` in schema analysis\n5. Generate `CREATE SCHEMA IF NOT EXISTS` statement\n6. Generate `CREATE ICEBERG TABLE IF NOT EXISTS` statement\n\n#### For Schema Evolution (`${schema.evolution.required}` = \"yes\")\n\n1. Parse `${existing.schema}` to understand current table structure and use `${table.name}` and `${table.namespace}` for target table identification\n2. Perform semantic field matching between existing and new headers\n3. Identify new fields requiring addition to schema\n4. Generate complete Avro schema containing ALL fields (existing + new/changed fields) with all new fields marked as nullable\n5. Create Snowflake SQL DDL for `ALTER ICEBERG TABLE` operations\n6. Include detailed field mapping analysis in `schema_analysis`\n\n#### For Standard Processing (`${schema.evolution.required}` = \"no\")\n\n1. Generate table validation queries only\n2. Set `evolution_required: false` in schema analysis\n\n### Snowflake Iceberg SQL Requirements\n\n- Use `ALTER ICEBERG TABLE ... ADD COLUMN` for schema evolution with Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Chain multiple `ADD COLUMN` clauses for multiple new fields\n- Always make new fields nullable by default (no `NOT NULL` constraint)\n- Use proper Snowflake data types for all schema operations\n- **CRITICAL**: Use Snowflake data types (BIGINT, DOUBLE, STRING, etc.) for all schema operations\n\n### Snowflake Iceberg Schema Requirements\n\n**MANDATORY**: All table creation and schema evolution must use Snowflake Iceberg syntax with Jinja2 templating:\n\n- **Jinja2 Directive**: Always start with `--!jinja` for dynamic SQL execution\n- **Environment Variables**: Use `{{ variable_name }}` syntax ONLY for database context switching (USE DATABASE statements)\n- **Schema Creation**: Use `CREATE SCHEMA IF NOT EXISTS` with inferred schema names\n- **External REST Catalog**: ALWAYS use double quotes around schema, table, and column names for external REST catalog compatibility\n- **Native Snowflake Tables**: Do NOT use double quotes for native Snowflake tables (like metadata.schema_registry)\n- **Table Type Identification**:\n  - **User-created tables/schemas** → External REST Catalog → Use double quotes\n  - **System tables** (metadata.schema_registry) → Native Snowflake → No double quotes\n- **Table Creation**: Use `CREATE ICEBERG TABLE IF NOT EXISTS` with inferred table names and schemas\n- **Schema Evolution**: Use `ALTER ICEBERG TABLE` with inferred table names and schemas\n- **Database Context**: Use `USE DATABASE {{ music_flow_demo_db }}` and `USE DATABASE {{ music_flow_system_db }}` for environment switching\n- **Type Mapping**:\n  - Text fields → `STRING`\n  - Integer/ID fields → `BIGINT`\n  - Decimal fields → `DOUBLE`\n  - Boolean fields → `BOOLEAN`\n  - Date fields → `DATE`\n  - Timestamp fields → `TIMESTAMP`\n\n**Example Schema and Table Creation with Jinja2 Templating**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\nCREATE SCHEMA IF NOT EXISTS \"events\";\n\nCREATE ICEBERG TABLE IF NOT EXISTS \"events\".\"music_events\" (\n    \"event_id\" BIGINT NOT NULL,\n    \"artist_name\" STRING,\n    \"ticket_price\" DOUBLE\n);\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n**Example Schema Evolution with Jinja2 Templating**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"genre\" STRING,\n    COLUMN \"sponsor\" STRING;\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n### Snowflake SQL Requirements\n\n**MANDATORY**: Always use proper Snowflake Iceberg syntax with Jinja2 templating for all table operations:\n\n- **Jinja2 Directive**: Always start with `--!jinja` for dynamic SQL execution\n- **Environment Variables**: Use `{{ variable_name }}` syntax ONLY for database context switching (USE DATABASE statements)\n- **Database Context**: Use `USE DATABASE {{ music_flow_demo_db }}` and `USE DATABASE {{ music_flow_system_db }}` for environment switching\n- **External REST Catalog**: ALWAYS use double quotes around schema, table, and column names for external REST catalog compatibility\n- **Native Snowflake Tables**: Do NOT use double quotes for native Snowflake tables (like metadata.schema_registry)\n- **Table Type Identification**:\n  - **User-created tables/schemas** → External REST Catalog → Use double quotes\n  - **System tables** (metadata.schema_registry) → Native Snowflake → No double quotes\n- Use `CREATE SCHEMA IF NOT EXISTS` with inferred schema names before table creation\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` with inferred table names and schemas for table creation\n- Use `ALTER ICEBERG TABLE` with inferred table names and schemas for schema evolution\n- Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Include proper error handling with `IF NOT EXISTS` clauses\n\n### SQL Documentation Requirements\n\n**MANDATORY**: Include comprehensive documentation in generated SQL based on Avro schema:\n\n- **Table Comments**: Use `COMMENT 'text'` clause on table creation to describe the table's purpose\n- **Column Comments**: Use `COMMENT 'text'` clause on each column to describe its business meaning  \n- **Inline Comments**: Use `--` comments to explain complex logic or business rules\n- **Schema Comments**: Include comments explaining the data source and processing context\n- **Snowflake Syntax**: Use proper Snowflake COMMENT syntax with single quotes around comment text\n- **SQL Keywords**: Use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n\n**Documentation Mapping from Avro Schema**:\n\n- Extract `doc` field from Avro schema fields and use as column comments\n- Use Avro schema `name` and `namespace` to generate table description\n- Include business context from semantic field mapping table\n- Add processing metadata (source file, ingestion date, etc.)\n\n**Example Documentation Pattern with Jinja2 Templating**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Create schema for music events data\nCREATE SCHEMA IF NOT EXISTS {{ table_namespace }};\n\n-- Music events table containing festival and concert information\n-- Source: CSV files from various music festivals\nCREATE ICEBERG TABLE IF NOT EXISTS {{ table_namespace }}.{{ table_name }} (\n    event_id BIGINT NOT NULL COMMENT 'Primary identifier for the event',\n    artist_name STRING COMMENT 'Name of the performing artist or DJ',\n    stage STRING COMMENT 'Stage or venue area where performance occurs',\n    event_datetime STRING COMMENT 'Date and time of the performance',\n    ticket_price DOUBLE COMMENT 'Price of the ticket in USD'\n) COMMENT = 'Music events table containing festival and concert information from multiple sources';\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = '{{ table_name }}'\n  AND table_namespace = '{{ table_namespace }}';\n```\n\n**CRITICAL**: Always use proper Snowflake COMMENT syntax:\n\n- Column comments: `column_name DATA_TYPE COMMENT 'comment text'`\n- Table comments: `) COMMENT = 'table comment text';`\n- Use single quotes around all comment text\n- Comments are stored as metadata and visible in DESCRIBE TABLE\n\n### Requirements\n\n#### Schema Generation\n\n1. Generate a complete Avro schema suitable for Apache NiFi Record processors\n2. Use \"long\" for all integer/ID fields (for scalability)\n3. Use \"double\" for all decimal/numeric fields (for precision)\n4. Make fields nullable unless clearly required (primary keys)\n5. Use descriptive field names in snake_case format\n6. Include field documentation for business context\n7. **CRITICAL**: When evolution required, generate complete schema with ALL fields (existing + new), ensuring all new fields are nullable\n8. Include semantic field mapping in schema documentation\n\n#### Code Generation\n\n1. Generate clean Snowflake SQL DDL that handles CREATE, ALTER, and LOAD scenarios based on context\n2. SQL code should include proper schema creation and table creation statements\n3. **MANDATORY**: Use proper Snowflake Iceberg syntax throughout\n4. **CRITICAL**: Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n5. Generate code that's ready to execute in Snowflake with proper formatting\n6. Handle CREATE (first time), ALTER (schema evolution), and LOAD (standard) scenarios dynamically\n7. **MANDATORY**: Include table and column comments based on Avro schema documentation using proper Snowflake COMMENT syntax\n8. Include proper error handling with `IF NOT EXISTS` clauses\n9. **CRITICAL**: Use the inferred metadata values directly in the generated SQL\n10. Include schema comparison logic when existing schema context is provided\n11. Generate appropriate Snowflake Iceberg operations using proper data types based on detected schema differences\n12. Include semantic field matching logic for evolution detection\n14. **CRITICAL**: When generating ALTER TABLE logic, only add new fields to existing table - do not recreate or modify existing fields\n15. **MANDATORY**: Always include `CREATE SCHEMA IF NOT EXISTS` before table creation\n18. **MANDATORY**: Include simple schema registry updates to mark tables as ready for ingestion (only set IS_READY = TRUE)\n\n#### Schema Analysis Generation\n\n1. Generate comprehensive `schema_analysis` with evolution details\n2. Include field mapping analysis with exact and semantic matches\n3. Identify new fields requiring addition to existing schema\n4. Detect type changes that require schema evolution\n5. Provide evolution strategy recommendations\n6. Include compatibility notes for backward compatibility assurance\n\n### Critical Instructions\n\n- **MANDATORY**: Provide ONLY a JSON object with `inferred_metadata`, `avro_schema`, `code`, and `schema_analysis` properties\n- **MANDATORY**: Use proper JSON string escaping for newlines (`\\n`) and quotes (`\\\"`)\n- **MANDATORY**: Ensure the response is valid JSON that can be parsed directly with JSON.loads()\n- **MANDATORY**: Both schema and code must be immediately usable after extraction from JSON with proper formatting preserved\n- **MANDATORY**: No markdown formatting, explanatory text, or conversational language anywhere\n- **MANDATORY**: Start response immediately with `{` - no introductory text\n- **MANDATORY**: End response immediately with `}` - no concluding text\n- **MANDATORY**: Use proper JSON syntax with double quotes for all keys and string values\n- **MANDATORY**: The avro_schema value must be JSON format (not YAML) converted to a string\n- **MANDATORY**: Preserve SQL indentation using `\\n` patterns in the JSON string\n- When `${schema.evolution.required}` = \"yes\", generate complete schema with ALL fields (existing + new), ensuring all new fields are nullable\n- Include comprehensive field mapping analysis in `schema_analysis` output\n- Generate evolution-specific Snowflake SQL DDL with ALTER TABLE logic when required\n- **CRITICAL**: When `${schema.evolution.required}` = \"yes\", generate complete Avro schema with ALL fields (existing + new), making all new fields nullable\n- **CRITICAL**: SQL code should use ALTER ICEBERG TABLE operations that add only new fields, preserving existing table structure and data\n- **CRITICAL**: Always use Snowflake data types (BIGINT, DOUBLE, STRING, etc.) for all schema operations in generated SQL\n- **CRITICAL**: Always use proper Snowflake COMMENT syntax with single quotes around comment text\n- **CRITICAL**: Always use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n- **CRITICAL**: For ALTER ICEBERG TABLE with multiple columns: use `ADD COLUMN col1 ..., COLUMN col2 ...` NOT `ADD COLUMN col1 ..., ADD COLUMN col2 ...`\n\n### Context Variable Usage\n\nUse these NiFi flow variables exactly as provided:\n\n- `${is.first.time}` - Boolean indicating first-time table creation\n- `${schema.evolution.required}` - Boolean indicating if schema evolution is needed\n- `${existing.schema}` - JSON string of existing Avro schema (empty if first time)\n- `${csv.headers}` - Comma-separated list of CSV column headers\n- `${csv.sample.data}` - Sample CSV rows for data type inference\n- `${table.name}` - Target table name (used during evolution)\n- `${table.namespace}` - Target table namespace (used during evolution)\n\n### Evolution Decision Matrix\n\n| is.first.time | schema.evolution.required | Action | Schema Content | SQL Logic | Table Naming | Success Logging |\n|---------------|---------------------------|--------|----------------|-----------|----------------|------------------|\n| true | false | CREATE | Complete schema | CREATE SCHEMA + CREATE ICEBERG TABLE | Infer from CSV | Include success logging |\n| false | true | EVOLVE | Complete schema (existing + new nullable fields) | ALTER ICEBERG TABLE | Use ${table.name}/${table.namespace} | Include success logging |\n| false | false | LOAD | N/A (use existing) | Table validation queries | Use ${table.name}/${table.namespace} | Not needed |\n\n### Forbidden Content and Formatting\n\n- **FORBIDDEN**: Any references to YAML format anywhere\n- **FORBIDDEN**: Any markdown syntax or code blocks\n- **FORBIDDEN**: Any explanatory text outside the JSON structure\n- **FORBIDDEN**: Any conversational language\n- **FORBIDDEN**: Any text before `{` or after `}`\n- **FORBIDDEN**: Invalid JSON syntax\n- **FORBIDDEN**: Do not use single quotes in JSON - must use double quotes only\n- **FORBIDDEN**: Do not exceed 120 characters per line in SQL code (when extracted)\n- **FORBIDDEN**: Do not use double quotes for string literals - use single quotes\n- **FORBIDDEN**: Using NiFi variable placeholders in generated code - only use actual inferred values\n- **FORBIDDEN**: Using any non-SQL syntax anywhere - always use Snowflake SQL syntax\n- **FORBIDDEN**: Using double quotes in COMMENT clauses - always use single quotes: `COMMENT 'text'` not `COMMENT \"text\"`\n- **FORBIDDEN**: Using lowercase SQL keywords - always use uppercase: `CREATE` not `create`, `TABLE` not `table`\n- **FORBIDDEN**: Using `ADD COLUMN` for multiple columns - use `ADD COLUMN col1 ..., COLUMN col2 ...` syntax\n- **FORBIDDEN**: Unquoted identifiers for external REST catalogs - ALL schema, table, and column names MUST be double-quoted\n- **FORBIDDEN**: Setting multiple columns in schema registry updates - only set `IS_READY = TRUE`\n- **FORBIDDEN**: Adding INSERT statements for processing logs or other metadata tables\n\n#### Perfect Response Example\n\n```json\n{\n  \"inferred_metadata\": {\n    \"table_name\": \"string\",\n    \"table_namespace\": \"string\",\n    \"description\": \"string\",\n    \"source_info\": {},\n    \"field_summary\": {}\n  },\n  \"avro_schema\": \"escaped_json_string\",\n  \"code\": \"sql_ddl_with_newlines\",\n  \"schema_analysis\": {\n    \"evolution_required\": boolean,\n    \"existing_field_count\": number,\n    \"new_field_count\": number,\n    \"field_mappings\": {\n      \"exact_matches\": [],\n      \"semantic_matches\": {},\n      \"new_fields\": [],\n      \"type_changes\": {}\n    },\n    \"evolution_strategy\": \"string\",\n    \"compatibility_notes\": []\n  }\n}\n```\n"
+        "value" : "## User Message\n\nPlease analyze the following CSV file fetched from Google Drive and generate metadata, Avro schema, and Snowflake SQL DDL with Jinja2 templating support:\n\n### File Information\n\n- **Google Drive File:** `${filename}`\n- **File size:** `${file.size}` bytes\n- **Source:** Google Drive via FetchGoogleDriveFile processor\n\nThese NiFi variables will be substituted before sending to the LLM.\n\n### CSV Structure\n\n#### Headers\n\n```csv\n${csv.headers}\n```\n\n#### Sample Data (first 5 rows)\n\n```csv\n${csv.sample.data}\n```\n\nNote: These variables (`${csv.headers}` and `${csv.sample.data}`) will be populated by NiFi before sending to the LLM.\n\n### Schema State Context\n\n- **Is first time processing:** `${is.first.time}`\n- **Schema evolution required:** `${schema.evolution.required}`\n- **Existing schema (for evolution):** `${existing.schema}`\n- **Schema Analysis Extra Info (for evolution):** `${schema.analysis}`\n- **Table name (for evolution):** `${table.name}`\n- **Table namespace (for evolution):** `${table.namespace}`\n\nThese variables should be used directly in the generated Snowflake SQL DDL with Jinja2 templating for dynamic behavior across different environments.\n\n### Schema Evolution Requirements\n\nWhen `${schema.evolution.required}` is \"yes\":\n\n1. **Semantic Field Matching**: Use the semantic field mapping table to identify equivalent fields between existing schema and new CSV headers\n2. **Evolution Analysis**: Generate detailed field mapping analysis including:\n   - Exact name matches (case-insensitive)\n   - Semantic equivalent matches (e.g., \"artist_name\" ↔ \"performer\")\n   - New fields requiring addition\n   - Type changes requiring evolution\n3. **Evolved Schema Generation**: Create complete Avro schema containing ALL fields (existing + new/changed fields) with all new fields marked as nullable for backward compatibility\n4. **Compatibility Preservation**: Ensure all evolution changes maintain backward compatibility\n\n### Semantic Field Mapping Reference\n\nUse this table for semantic field equivalence detection:\n\n| Standard Field | Semantic Equivalents | Expected Type | Context |\n|---------------|---------------------|---------------|---------|\n| event_id | show_id, slot_number, performance_id, id | long | Primary identifier |\n| artist_name | dj_performer, performer, headliner, act_name, artist | string | Performer information |\n| stage | main_stage, venue_section, location, venue_area, stage_location, venue | string | Performance location |\n| event_datetime | start_time, time_block, date_time, time_slot, show_time, datetime | string | Event timing |\n| ticket_price | vip_price, admission_cost, ticket_cost, entry_fee, price_tier, price, cost | double | Pricing information |\n| festival_name | event_name, festival, venue_name | string | Event organization |\n| genre | music_genre, category, style, type | string | Classification |\n| capacity | max_attendance, venue_capacity, max_capacity | long | Venue limits |\n| city | location_city, venue_city | string | Geographic location |\n| sponsor | sponsorship, partner, brand | string | Commercial partnerships |\n| ticket_type | pass_type, admission_type, entry_type, ticket_category | string | Ticket classification |\n| quantity | qty, count, number_of_tickets, ticket_count | long | Purchase quantity |\n| unit_price | price_per_ticket, individual_price, single_price | double | Per-unit pricing |\n| total_amount | total_price, final_amount, grand_total, amount_paid | double | Total transaction value |\n| purchase_date | order_date, transaction_date, sale_date, bought_date | string | Transaction timestamp |\n| payment_method | payment_type, pay_method, payment_mode, transaction_type | string | Payment processing method |\n\n### Pipeline Context\n\n- This CSV will be processed through Apache NiFi data pipeline\n- **Target:** Apache Iceberg table for analytics\n- **Processing pattern:** Real-time ingestion with schema evolution\n- **Evolution strategy:** Additive changes only (maintain backward compatibility)\n\n### Processing Logic\n\n#### For First-Time Processing (`${is.first.time}` = \"yes\")\n\n1. Generate complete Avro schema for all CSV fields\n2. Create Snowflake SQL DDL for schema and table creation with error handling\n3. Include comprehensive field analysis in `schema_analysis`\n4. Set `evolution_required: false` in schema analysis\n5. Generate `CREATE SCHEMA IF NOT EXISTS` statement\n6. Generate `CREATE ICEBERG TABLE IF NOT EXISTS` statement\n\n#### For Schema Evolution (`${schema.evolution.required}` = \"yes\")\n\n1. Parse `${existing.schema}` to understand current table structure and use `${table.name}` and `${table.namespace}` for target table identification\n2. **CRITICAL**: Perform semantic field matching between CSV headers and existing table columns using the semantic mapping table\n3. **CRITICAL**: Identify which CSV fields are semantic equivalents of existing columns (DO NOT add these as new columns)\n4. **CRITICAL**: Identify which CSV fields have NO semantic equivalent in existing schema (ADD ONLY these as new columns)\n5. Generate complete Avro schema containing ALL fields (existing + truly new fields) with all new fields marked as nullable\n6. Create Snowflake SQL DDL for `ALTER ICEBERG TABLE` operations that add ONLY the truly new fields (not semantic equivalents)\n7. Include detailed field mapping analysis in `schema_analysis` showing which fields were matched vs. which were added\n\n#### For Standard Processing (`${schema.evolution.required}` = \"no\")\n\n1. Generate table validation queries only\n2. Set `evolution_required: false` in schema analysis\n\n### Snowflake Iceberg SQL Requirements\n\n- Use `ALTER ICEBERG TABLE ... ADD COLUMN` for schema evolution with Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Chain multiple `ADD COLUMN` clauses for multiple new fields\n- Always make new fields nullable by default (no `NOT NULL` constraint)\n- Use proper Snowflake data types for all schema operations\n- **CRITICAL**: Use Snowflake data types (BIGINT, DOUBLE, STRING, etc.) for all schema operations\n\n### Snowflake Iceberg Schema Requirements\n\n**MANDATORY**: All table creation and schema evolution must use Snowflake Iceberg syntax with Jinja2 templating:\n\n- **Jinja2 Directive**: Always start with `--!jinja` for dynamic SQL execution\n- **Environment Variables**: Use `{{ variable_name }}` syntax ONLY for database context switching (USE DATABASE statements)\n- **Schema Creation**: Use `CREATE SCHEMA IF NOT EXISTS` with inferred schema names\n- **External REST Catalog**: ALWAYS use double quotes around schema, table, and column names for external REST catalog compatibility\n- **Native Snowflake Tables**: Do NOT use double quotes for native Snowflake tables (like metadata.schema_registry)\n- **Table Type Identification**:\n  - **User-created tables/schemas** → External REST Catalog → Use double quotes\n  - **System tables** (metadata.schema_registry) → Native Snowflake → No double quotes\n- **Table Creation**: Use `CREATE ICEBERG TABLE IF NOT EXISTS` with inferred table names and schemas\n- **Schema Evolution**: Use `ALTER ICEBERG TABLE` with inferred table names and schemas\n- **Database Context**: Use `USE DATABASE {{ music_flow_demo_db }}` and `USE DATABASE {{ music_flow_system_db }}` for environment switching\n- **Type Mapping**:\n  - Text fields → `STRING`\n  - Integer/ID fields → `BIGINT`\n  - Decimal fields → `DOUBLE`\n  - Boolean fields → `BOOLEAN`\n  - Date fields → `DATE`\n  - Timestamp fields → `TIMESTAMP`\n\n**Example Schema and Table Creation with Jinja2 Templating**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\nCREATE SCHEMA IF NOT EXISTS \"events\";\n\nCREATE ICEBERG TABLE IF NOT EXISTS \"events\".\"music_events\" (\n    \"event_id\" BIGINT NOT NULL,\n    \"artist_name\" STRING,\n    \"ticket_price\" DOUBLE\n);\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n**Example Schema Evolution with Jinja2 Templating**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\nALTER ICEBERG TABLE \"events\".\"music_events\" \nADD COLUMN \"genre\" STRING,\n    COLUMN \"sponsor\" STRING;\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = 'music_events'\n  AND table_namespace = 'events';\n```\n\n### Snowflake SQL Requirements\n\n**MANDATORY**: Always use proper Snowflake Iceberg syntax with Jinja2 templating for all table operations:\n\n- **Jinja2 Directive**: Always start with `--!jinja` for dynamic SQL execution\n- **Environment Variables**: Use `{{ variable_name }}` syntax ONLY for database context switching (USE DATABASE statements)\n- **Database Context**: Use `USE DATABASE {{ music_flow_demo_db }}` and `USE DATABASE {{ music_flow_system_db }}` for environment switching\n- **External REST Catalog**: ALWAYS use double quotes around schema, table, and column names for external REST catalog compatibility\n- **Native Snowflake Tables**: Do NOT use double quotes for native Snowflake tables (like metadata.schema_registry)\n- **Table Type Identification**:\n  - **User-created tables/schemas** → External REST Catalog → Use double quotes\n  - **System tables** (metadata.schema_registry) → Native Snowflake → No double quotes\n- Use `CREATE SCHEMA IF NOT EXISTS` with inferred schema names before table creation\n- Use `CREATE ICEBERG TABLE IF NOT EXISTS` with inferred table names and schemas for table creation\n- Use `ALTER ICEBERG TABLE` with inferred table names and schemas for schema evolution\n- Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n- Include proper error handling with `IF NOT EXISTS` clauses\n\n### SQL Documentation Requirements\n\n**MANDATORY**: Include comprehensive documentation in generated SQL based on Avro schema:\n\n- **Table Comments**: Use `COMMENT 'text'` clause on table creation to describe the table's purpose\n- **Column Comments**: Use `COMMENT 'text'` clause on each column to describe its business meaning  \n- **Inline Comments**: Use `--` comments to explain complex logic or business rules\n- **Schema Comments**: Include comments explaining the data source and processing context\n- **Snowflake Syntax**: Use proper Snowflake COMMENT syntax with single quotes around comment text\n- **SQL Keywords**: Use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n\n**Documentation Mapping from Avro Schema**:\n\n- Extract `doc` field from Avro schema fields and use as column comments\n- Use Avro schema `name` and `namespace` to generate table description\n- Include business context from semantic field mapping table\n- Add processing metadata (source file, ingestion date, etc.)\n\n**Example Documentation Pattern with Jinja2 Templating**:\n\n```sql\n--!jinja\nUSE DATABASE {{ music_flow_demo_db }};\n\n-- Create schema for music events data\nCREATE SCHEMA IF NOT EXISTS {{ table_namespace }};\n\n-- Music events table containing festival and concert information\n-- Source: CSV files from various music festivals\nCREATE ICEBERG TABLE IF NOT EXISTS {{ table_namespace }}.{{ table_name }} (\n    event_id BIGINT NOT NULL COMMENT 'Primary identifier for the event',\n    artist_name STRING COMMENT 'Name of the performing artist or DJ',\n    stage STRING COMMENT 'Stage or venue area where performance occurs',\n    event_datetime STRING COMMENT 'Date and time of the performance',\n    ticket_price DOUBLE COMMENT 'Price of the ticket in USD'\n) COMMENT = 'Music events table containing festival and concert information from multiple sources';\n\nUSE DATABASE {{ music_flow_system_db }};\n\n-- Update schema registry to mark table as ready for ingestion\nUPDATE metadata.schema_registry\nSET IS_READY = TRUE\nWHERE table_name = '{{ table_name }}'\n  AND table_namespace = '{{ table_namespace }}';\n```\n\n**CRITICAL**: Always use proper Snowflake COMMENT syntax:\n\n- Column comments: `column_name DATA_TYPE COMMENT 'comment text'`\n- Table comments: `) COMMENT = 'table comment text';`\n- Use single quotes around all comment text\n- Comments are stored as metadata and visible in DESCRIBE TABLE\n\n### Requirements\n\n#### Schema Generation\n\n1. Generate a complete Avro schema suitable for Apache NiFi Record processors\n2. Use \"long\" for all integer/ID fields (for scalability)\n3. Use \"double\" for all decimal/numeric fields (for precision)\n4. Make fields nullable unless clearly required (primary keys)\n5. Use descriptive field names in snake_case format\n6. Include field documentation for business context\n7. **CRITICAL**: When evolution required, generate complete schema with ALL fields (existing + new), ensuring all new fields are nullable\n8. Include semantic field mapping in schema documentation\n\n#### Code Generation\n\n1. Generate clean Snowflake SQL DDL that handles CREATE, ALTER, and LOAD scenarios based on context\n2. SQL code should include proper schema creation and table creation statements\n3. **MANDATORY**: Use proper Snowflake Iceberg syntax throughout\n4. **CRITICAL**: Use proper Snowflake data types (BIGINT, DOUBLE, STRING, etc.)\n5. Generate code that's ready to execute in Snowflake with proper formatting\n6. Handle CREATE (first time), ALTER (schema evolution), and LOAD (standard) scenarios dynamically\n7. **MANDATORY**: Include table and column comments based on Avro schema documentation using proper Snowflake COMMENT syntax\n8. Include proper error handling with `IF NOT EXISTS` clauses\n9. **CRITICAL**: Use the inferred metadata values directly in the generated SQL\n10. Include schema comparison logic when existing schema context is provided\n11. Generate appropriate Snowflake Iceberg operations using proper data types based on detected schema differences\n12. Include semantic field matching logic for evolution detection\n13. **CRITICAL**: When schema evolution is required, use semantic matching to identify equivalent fields between CSV and existing table\n14. **CRITICAL**: DO NOT add new columns for CSV fields that are semantic equivalents of existing table columns\n15. **CRITICAL**: Only add columns for CSV fields that have NO semantic match in the existing schema\n16. **CRITICAL**: The ingestion layer (Avro schema with aliases) handles mapping semantic equivalents, NOT the schema evolution\n17. **CRITICAL**: Example Evolution Scenario:\n    - Existing table columns: event_id, artist_name, main_stage, start_time, vip_price\n    - CSV columns: event_id, artist_name, stage, start_time, ticket_price, genre, sponsor\n    - Semantic analysis using mapping table:\n      - \"stage\" ↔ \"main_stage\" (semantic equivalent per mapping table - DO NOT ADD)\n      - \"ticket_price\" ↔ \"vip_price\" (semantic equivalent per mapping table - DO NOT ADD)\n      - \"genre\" (no equivalent in existing schema - ADD THIS)\n      - \"sponsor\" (no equivalent in existing schema - ADD THIS)\n    - Generated SQL: ALTER ICEBERG TABLE ADD COLUMN \"genre\" STRING, COLUMN \"sponsor\" STRING\n    - Avro adapter will map \"stage\" → \"main_stage\" and \"ticket_price\" → \"vip_price\" during ingestion\n18. **CRITICAL**: When generating ALTER TABLE logic, only add truly new fields to existing table - do not recreate or modify existing fields\n19. **MANDATORY**: Always include `CREATE SCHEMA IF NOT EXISTS` before table creation\n20. **MANDATORY**: Include simple schema registry updates to mark tables as ready for ingestion (only set IS_READY = TRUE)\n\n#### Schema Analysis Generation\n\n1. Generate comprehensive `schema_analysis` with evolution details\n2. Include field mapping analysis with exact and semantic matches\n3. **CRITICAL**: In semantic_matches, show CSV fields that map to existing table columns (these will NOT be added as new columns)\n4. **CRITICAL**: In new_fields, show ONLY CSV fields that have NO semantic equivalent in existing schema (these WILL be added as new columns)\n5. Identify new fields requiring addition to existing schema (only truly new fields without semantic equivalents)\n6. Detect type changes that require schema evolution\n7. Provide evolution strategy recommendations\n8. Include compatibility notes for backward compatibility assurance\n9. **CRITICAL**: Example schema_analysis for evolution:\n\n   ```json\n   {\n     \"evolution_required\": true,\n     \"field_mappings\": {\n       \"exact_matches\": [\"event_id\", \"artist_name\", \"start_time\"],\n       \"semantic_matches\": {\n         \"stage\": \"main_stage\",\n         \"ticket_price\": \"vip_price\"\n       },\n       \"new_fields\": [\"genre\", \"sponsor\"]\n     },\n     \"evolution_strategy\": \"ADD_FIELDS\",\n     \"compatibility_notes\": [\"Only genre and sponsor will be added as new columns\", \"stage maps to existing main_stage\", \"ticket_price maps to existing vip_price\"]\n   }\n   ```\n\n### Critical Instructions\n\n- **MANDATORY**: Provide ONLY a JSON object with `inferred_metadata`, `avro_schema`, `code`, and `schema_analysis` properties\n- **MANDATORY**: Use proper JSON string escaping for newlines (`\\n`) and quotes (`\\\"`)\n- **MANDATORY**: Ensure the response is valid JSON that can be parsed directly with JSON.loads()\n- **MANDATORY**: Both schema and code must be immediately usable after extraction from JSON with proper formatting preserved\n- **MANDATORY**: No markdown formatting, explanatory text, or conversational language anywhere\n- **MANDATORY**: Start response immediately with `{` - no introductory text\n- **MANDATORY**: End response immediately with `}` - no concluding text\n- **MANDATORY**: Use proper JSON syntax with double quotes for all keys and string values\n- **MANDATORY**: The avro_schema value must be JSON format (not YAML) converted to a string\n- **MANDATORY**: Preserve SQL indentation using `\\n` patterns in the JSON string\n- When `${schema.evolution.required}` = \"yes\", generate complete schema with ALL fields (existing + new), ensuring all new fields are nullable\n- Include comprehensive field mapping analysis in `schema_analysis` output\n- Generate evolution-specific Snowflake SQL DDL with ALTER TABLE logic when required\n- **CRITICAL**: When `${schema.evolution.required}` = \"yes\", generate complete Avro schema with ALL fields (existing + new), making all new fields nullable\n- **CRITICAL**: SQL code should use ALTER ICEBERG TABLE operations that add only new fields, preserving existing table structure and data\n- **CRITICAL**: Always use Snowflake data types (BIGINT, DOUBLE, STRING, etc.) for all schema operations in generated SQL\n- **CRITICAL**: Always use proper Snowflake COMMENT syntax with single quotes around comment text\n- **CRITICAL**: Always use uppercase for ALL SQL keywords (CREATE, TABLE, SCHEMA, COLUMN, ALTER, ADD, COMMENT, SELECT, FROM, WHERE, etc.)\n- **CRITICAL**: For ALTER ICEBERG TABLE with multiple columns: use `ADD COLUMN col1 ..., COLUMN col2 ...` NOT `ADD COLUMN col1 ..., ADD COLUMN col2 ...`\n\n### Context Variable Usage\n\nUse these NiFi flow variables exactly as provided:\n\n- `${is.first.time}` - Boolean indicating first-time table creation\n- `${schema.evolution.required}` - Boolean indicating if schema evolution is needed\n- `${existing.schema}` - JSON string of existing Avro schema (empty if first time)\n- `${csv.headers}` - Comma-separated list of CSV column headers\n- `${csv.sample.data}` - Sample CSV rows for data type inference\n- `${table.name}` - Target table name (used during evolution)\n- `${table.namespace}` - Target table namespace (used during evolution)\n\n### Evolution Decision Matrix\n\n| is.first.time | schema.evolution.required | Action | Schema Content | SQL Logic | Table Naming | Success Logging |\n|---------------|---------------------------|--------|----------------|-----------|----------------|------------------|\n| true | false | CREATE | Complete schema | CREATE SCHEMA + CREATE ICEBERG TABLE | Infer from CSV | Include success logging |\n| false | true | EVOLVE | Complete schema (existing + new nullable fields) | ALTER ICEBERG TABLE | Use ${table.name}/${table.namespace} | Include success logging |\n| false | false | LOAD | N/A (use existing) | Table validation queries | Use ${table.name}/${table.namespace} | Not needed |\n\n### Forbidden Content and Formatting\n\n- **FORBIDDEN**: Any references to YAML format anywhere\n- **FORBIDDEN**: Any markdown syntax or code blocks\n- **FORBIDDEN**: Any explanatory text outside the JSON structure\n- **FORBIDDEN**: Any conversational language\n- **FORBIDDEN**: Any text before `{` or after `}`\n- **FORBIDDEN**: Invalid JSON syntax\n- **FORBIDDEN**: Do not use single quotes in JSON - must use double quotes only\n- **FORBIDDEN**: Do not exceed 120 characters per line in SQL code (when extracted)\n- **FORBIDDEN**: Do not use double quotes for string literals - use single quotes\n- **FORBIDDEN**: Using NiFi variable placeholders in generated code - only use actual inferred values\n- **FORBIDDEN**: Using any non-SQL syntax anywhere - always use Snowflake SQL syntax\n- **FORBIDDEN**: Using double quotes in COMMENT clauses - always use single quotes: `COMMENT 'text'` not `COMMENT \"text\"`\n- **FORBIDDEN**: Using lowercase SQL keywords - always use uppercase: `CREATE` not `create`, `TABLE` not `table`\n- **FORBIDDEN**: Using `ADD COLUMN` for multiple columns - use `ADD COLUMN col1 ..., COLUMN col2 ...` syntax\n- **FORBIDDEN**: Unquoted identifiers for external REST catalogs - ALL schema, table, and column names MUST be double-quoted\n- **FORBIDDEN**: Setting multiple columns in schema registry updates - only set `IS_READY = TRUE`\n- **FORBIDDEN**: Adding INSERT statements for processing logs or other metadata tables\n- **FORBIDDEN**: Adding new columns for CSV fields that are semantic equivalents of existing columns during schema evolution\n- **FORBIDDEN**: Ignoring the semantic mapping table when determining which fields to add during evolution\n\n#### Perfect Response Example\n\n```json\n{\n  \"inferred_metadata\": {\n    \"table_name\": \"string\",\n    \"table_namespace\": \"string\",\n    \"description\": \"string\",\n    \"source_info\": {},\n    \"field_summary\": {}\n  },\n  \"avro_schema\": \"escaped_json_string\",\n  \"code\": \"sql_ddl_with_newlines\",\n  \"schema_analysis\": {\n    \"evolution_required\": boolean,\n    \"existing_field_count\": number,\n    \"new_field_count\": number,\n    \"field_mappings\": {\n      \"exact_matches\": [],\n      \"semantic_matches\": {},\n      \"new_fields\": [],\n      \"type_changes\": {}\n    },\n    \"evolution_strategy\": \"string\",\n    \"compatibility_notes\": []\n  }\n}\n```\n"
+      }, {
+        "description" : "The google drive id that will be used in CDC process to check for data files",
+        "name" : "google.drive.id",
+        "provided" : false,
+        "sensitive" : false,
+        "value" : "0AP9imnJBN80BUk9PVA"
       }, {
         "description" : "",
         "name" : "iceberg.s3.region",
@@ -3327,6 +3333,11 @@
         "provided" : false,
         "sensitive" : false,
         "value" : "NPB00565_SFCRole=1_oDH/LvFCs59VUwJe8MblmqKmk2M="
+      }, {
+        "description" : "",
+        "name" : "music-flow.s3.secret-access-key",
+        "provided" : false,
+        "sensitive" : true
       }, {
         "description" : "",
         "name" : "music_flow_data_schema",
@@ -3496,6 +3507,6 @@
   "snapshotMetadata" : {
     "author" : "KAMESHS",
     "flowIdentifier" : "Ingest-Data",
-    "timestamp" : 1758011443420
+    "timestamp" : 1761638374366
   }
 }
