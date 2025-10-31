@@ -54,8 +54,7 @@ tasks:
           --database "${SNOWFLAKE_MUSIC_FLOW_DATABASE}" \
           --role "{{.SNOWFLAKE_ROLE}}" \
           --variable "music_flow_demo_db=${SNOWFLAKE_MUSIC_FLOW_DATABASE}" \
-          --variable "music_flow_system_db=${SNOWFLAKE_OPENFLOW_DEMO_DATABASE}" \
-          --debug
+          --variable "music_flow_system_db=${SNOWFLAKE_OPENFLOW_DEMO_DATABASE}"
 
   evolve_schema:
     desc: "Create or update the Iceberg table with the generated SQL code"
