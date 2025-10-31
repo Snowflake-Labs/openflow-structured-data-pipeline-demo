@@ -201,11 +201,51 @@ task download_sources
 
 The demo processes music festival data from multiple synthetic sources:
 
-- **SoundWave Festival**: `soundwave_events_2025.csv`, `soundwave_events_enhanced.csv`
-- **Harmony Grove**: `harmony_grove_lineup.csv`
+### Base Schema Files (5 Core Fields)
+
+- **SoundWave Festival**: `soundwave_events_2025.csv`
+  - Fields: `event_id`, `artist_name`, `stage`, `start_time`, `ticket_price`
+  - Use: Initial table creation with base schema
+
 - **Beat Valley**: `beat_valley_lineup_2025.csv`
+  - Fields: `show_id`, `dj_performer`, `venue_section`, `time_block`, `admission_cost`
+  - Use: Demonstrates semantic mapping (different field names, same meaning)
+
+### Schema Evolution Files (Additional Columns)
+
+- **SoundWave Festival Enhanced**: `soundwave_events_enhanced.csv`
+  - Base Fields: `event_id`, `artist_name`, `stage`, `start_time`, `ticket_price`
+  - New Fields: **`genre`** (STRING), **`sponsor`** (STRING)
+  - Use: Musical classification and sponsorship analytics
+
+- **Harmony Grove**: `harmony_grove_lineup.csv`
+  - Base Fields: `show_id`, `performer`, `location`, `date_time`, `ticket_cost`
+  - New Fields: **`capacity`** (BIGINT)
+  - Use: Venue capacity planning and crowd management
+
 - **Music Mountain**: `music_mountain_schedule.csv`
+  - Base Fields: `slot_number`, `headliner`, `venue_area`, `time_slot`, `entry_fee`
+  - New Fields: **`max_attendance`** (BIGINT), **`day`** (STRING)
+  - Use: Multi-day festival scheduling and attendance tracking
+
 - **Coastal Beats**: `coastal_beats_performances.csv`
+  - Base Fields: `performance_id`, `act_name`, `stage_location`, `show_time`, `ticket_price`
+  - New Fields: **`price_tier`** (STRING), **`weather_backup`** (STRING), **`city`** (STRING)
+  - Use: Tiered pricing models, weather contingency planning, geographic analytics
+
+### Semantic Field Mapping
+
+All files map to the unified `events.music_events` table through intelligent field matching:
+
+| Standard Field | Semantic Equivalents Across Sources | Type |
+|---------------|-------------------------------------|------|
+| `event_id` | show_id, slot_number, performance_id | BIGINT |
+| `artist_name` | dj_performer, performer, headliner, act_name, artist | STRING |
+| `main_stage` | venue_section, location, venue_area, stage_location, stage | STRING |
+| `start_time` | time_block, date_time, time_slot, show_time | STRING |
+| `vip_price` | admission_cost, ticket_cost, entry_fee, ticket_price | DOUBLE |
+
+> **Note on `price_tier`**: The `coastal_beats_performances.csv` file includes both `ticket_price` (DOUBLE - numeric price) and `price_tier` (STRING - categorical tier like "Premium", "Standard", "Budget"). The `ticket_price` field maps to `vip_price`, while `price_tier` is added as a new column during schema evolution for tiered pricing analytics.
 
 Each source has different field names and structures, demonstrating the schema evolution capabilities. All artist names, festival names, venue names, and sponsor brands are completely synthetic to avoid any trademark or copyright issues.
 
@@ -284,21 +324,57 @@ task opencatalog:cleanup
 
 #### Step 2: Schema Evolution
 
-- Detects new fields (`genre`, `sponsor`)
-- Automatically evolves Iceberg table schema
-- Adds new columns without breaking existing data
+- Detects new fields (e.g., `genre`, `sponsor`, `capacity`, `weather_backup`, `city`)
+- Automatically evolves Iceberg table schema using AI-powered analysis
+- Adds new columns without breaking existing data or requiring downtime
+- Supports multiple evolution scenarios based on business needs
 
 #### Step 3: Unified Analytics Table
+
+**Initial Table Creation** (from `soundwave_events_2025.csv`):
 
 ```sql
 CREATE ICEBERG TABLE "events"."music_events" (
     "event_id" BIGINT NOT NULL,
-    "artist_name" STRING,           -- Unified from artist_name/dj_performer
-    "main_stage" STRING,            -- Unified from main_stage/venue_section  
-    "start_time" STRING,            -- Unified from start_time/performance_time
-    "vip_price" DOUBLE,             -- Unified from vip_price/ticket_cost
-    "genre" STRING,                 -- New field from evolution
-    "sponsor" STRING                -- New field from evolution
+    "artist_name" STRING,
+    "main_stage" STRING,
+    "start_time" STRING,
+    "vip_price" DOUBLE
+);
+```
+
+**After Schema Evolution** (multiple sources processed):
+
+```sql
+ALTER ICEBERG TABLE "events"."music_events" 
+ADD COLUMN "genre" STRING COMMENT 'Musical genre of the performance',
+    COLUMN "sponsor" STRING COMMENT 'Sponsoring organization or brand',
+    COLUMN "capacity" BIGINT COMMENT 'Maximum venue capacity',
+    COLUMN "max_attendance" BIGINT COMMENT 'Maximum attendance limit',
+    COLUMN "day" STRING COMMENT 'Day of the multi-day festival',
+    COLUMN "price_tier" STRING COMMENT 'Ticket pricing tier (Premium/Standard/Budget)',
+    COLUMN "weather_backup" STRING COMMENT 'Weather backup plan or indoor venue option',
+    COLUMN "city" STRING COMMENT 'City where the performance takes place';
+```
+
+**Final Unified Table**:
+
+```sql
+-- Unified schema accommodating all festival data sources
+"events"."music_events" (
+    "event_id" BIGINT NOT NULL,      -- Unified: event_id/show_id/slot_number/performance_id
+    "artist_name" STRING,             -- Unified: artist_name/dj_performer/performer/headliner/act_name
+    "main_stage" STRING,              -- Unified: main_stage/venue_section/location/venue_area/stage_location
+    "start_time" STRING,              -- Unified: start_time/time_block/date_time/time_slot/show_time
+    "vip_price" DOUBLE,               -- Unified: vip_price/admission_cost/ticket_cost/entry_fee/ticket_price
+    "genre" STRING,                   -- New: Musical classification
+    "sponsor" STRING,                 -- New: Sponsorship tracking
+    "capacity" BIGINT,                -- New: Venue capacity planning
+    "max_attendance" BIGINT,          -- New: Attendance limits
+    "day" STRING,                     -- New: Multi-day scheduling
+    "price_tier" STRING,              -- New: Tiered pricing models
+    "weather_backup" STRING,          -- New: Weather contingency
+    "city" STRING                     -- New: Geographic analytics
 );
 ```
 
@@ -353,10 +429,26 @@ task create_schema
 ```bash
 # Copy a CSV file with additional columns beyond the base 5 fields
 # Choose one file based on desired new columns:
-#   - harmony_grove_lineup.csv (adds: capacity)
-#   - music_mountain_schedule.csv (adds: max_attendance, day)
-#   - soundwave_events_enhanced.csv (adds: genre, sponsor)
-#   - coastal_beats_performances.csv (adds: weather_backup, city)
+
+# Option A: Add genre and sponsor information
+#   File: soundwave_events_enhanced.csv
+#   New columns: genre (STRING), sponsor (STRING)
+#   Use case: Musical classification and sponsorship tracking
+
+# Option B: Add venue capacity information
+#   File: harmony_grove_lineup.csv
+#   New columns: capacity (BIGINT)
+#   Use case: Venue capacity planning and management
+
+# Option C: Add attendance tracking and scheduling
+#   File: music_mountain_schedule.csv
+#   New columns: max_attendance (BIGINT), day (STRING)
+#   Use case: Multi-day festival planning and attendance limits
+
+# Option D: Add weather contingency and location details
+#   File: coastal_beats_performances.csv
+#   New columns: price_tier (STRING), weather_backup (STRING), city (STRING)
+#   Use case: Weather planning, tiered pricing, and geographic tracking
 
 # Wait for the pipeline to process the file and generate ALTER TABLE SQL
 
@@ -366,7 +458,16 @@ task evolve_schema
 # Watch new columns added and rows loaded into Iceberg table
 ```
 
-**Expected Result**: Schema evolved with new columns (e.g., `genre`, `sponsor`, `capacity`) and data loaded with new fields populated
+**Expected Result**: Schema evolved with new columns and data loaded with new fields populated
+
+**Schema Evolution Examples**:
+
+| File | Base Fields (Semantic Mapping) | New Columns Added | Data Types | Business Value |
+|------|-------------------------------|-------------------|------------|----------------|
+| `soundwave_events_enhanced.csv` | event_id, artist_name→artist, stage→stage, start_time→start_time, ticket_price→ticket_price | **genre**, **sponsor** | STRING, STRING | Music classification, sponsorship analytics |
+| `harmony_grove_lineup.csv` | event_id→show_id, artist_name→performer, stage→location, start_time→date_time, ticket_price→ticket_cost | **capacity** | BIGINT | Venue capacity planning, crowd management |
+| `music_mountain_schedule.csv` | event_id→slot_number, artist_name→headliner, stage→venue_area, start_time→time_slot, ticket_price→entry_fee | **max_attendance**, **day** | BIGINT, STRING | Multi-day scheduling, attendance tracking |
+| `coastal_beats_performances.csv` | event_id→performance_id, artist_name→act_name, stage→stage_location, start_time→show_time, ticket_price→ticket_price | **price_tier**, **weather_backup**, **city** | STRING, STRING, STRING | Tiered pricing, weather contingency, location analytics |
 
 > **NOTE**: Each milestone in the pipeline will send notifications to your configured Slack channel, including:
 >
