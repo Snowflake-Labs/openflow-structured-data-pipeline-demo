@@ -1,0 +1,11 @@
+{
+  "flow" : {
+    "createdTimestamp" : 1762272039458,
+    "description" : "E2E Structured AI Pipeline Demo with multiple source connectors Google Drive and Sharepoint.",
+    "identifier" : "structuredaipipelinegdrivesharepoint",
+    "lastModifiedTimestamp" : 1762272039458,
+    "name" : "structured_ai_pipeline_gdrive_sharepoint",
+    "versionCount" : 0
+  },
+  "latest" : false
+}
